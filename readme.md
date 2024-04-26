@@ -67,6 +67,48 @@ The Able Investigation and Enforcements Ltd web application aims to streamline c
    - Configure monitoring and logging to track application performance.
    - Establish procedures for ongoing maintenance and support.
 
+## User Stories
+### As a user
+   > I want a clear view of all the case files and wether they are open or closed. I want to be able to access each case in as few clicks as possible, and easily create and update case files as needed.
+
+### As a user
+   > I want to be able to create and modify user accounts, and set the required access levels for that user.
+
+### As a user
+   > I want to be able to generate an invoice from a case file, and edit the invoices as required. I want to be able to easily view and change the status of an invoice.
+
+### As a customer
+   > I want to be able to make a payment for any fines or notices without having to create an account.
+
+### As a customer
+   > I want to be able to create an account to keep track of any fines or notices, along with any payments I have made or need to make.
+
+### As a customer
+   > I want to be able to easily pay for an invoice and recieve an email reciept.
+
 ## Conclusion
 The Able Investigation and Enforcements Ltd web application will provide a comprehensive solution for managing cases, generating invoices, and processing payments efficiently. By leveraging Django and other technologies, the application will streamline operations and enhance customer satisfaction.
+
+## Apps, Pages & Page Features
+### Case management (app)
+   - Cases (page): List of cases showing current status (Open/Closed)
+   - Case details (page): Create a or edit details of a case. Can add and view case communications.
+   - Case Communications (page): Record of all communications relating to the case. Can search and filter.
+   - Case history (page): An overview of the history of the case, showing any updates to the case.
+
+### Client Management (app)
+   - Client details (page): Create or edit the main details of each client along with login details for customer portal.
+
+### User Management (app)
+   - Users (page): List of users
+   - User details (page): Create or edit users and permissions.
+
+### Invoice Management (app)
+   - Invoices (page): List of invoices, with search and filter options.
+   - Invoice details (page): Create or edit an invoice.
+
+### Customer Portal (app)
+   - Profile (page): Edit details and change password.
+   - Cases (page): Current open and closed cases for customer.
+   - Payment (page): Make a payment.
 
