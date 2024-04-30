@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
+
+def client_list(request):
+    return HttpResponse("This is the list of clients!")
