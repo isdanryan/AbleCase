@@ -90,6 +90,9 @@ The Able Investigation and Enforcements Ltd web application aims to streamline c
 The Able Investigation and Enforcements Ltd web application will provide a comprehensive solution for managing cases, generating invoices, and processing payments efficiently. By leveraging Django and other technologies, the application will streamline operations and enhance customer satisfaction.
 
 ## Apps, Pages & Page Features
+### Dashboard (app)
+   - Dashboard (page): Overview of current open cases and stats
+
 ### Case management (app)
    - Cases (page): List of cases showing current status (Open/Closed)
    - Case details (page): Create a or edit details of a case. Can add and view case communications.
@@ -112,3 +115,47 @@ The Able Investigation and Enforcements Ltd web application will provide a compr
    - Cases (page): Current open and closed cases for customer.
    - Payment (page): Make a payment.
 
+## Models
+**PK** – Primary Key, **F** – Foreign Key, **Auto** – Autofield, **FC** – Field Choices, **R** - Required, **C** - Charfield, **I** - Integerfield , **E** - Emailfield, **D** - Decimalfield, **DT** - DateTimefield
+
+| Clients             | Cases              | Communications   | Invoices
+| -------------       | -------------      | -------------    | -------------
+| ID (PK, Auto, R)    | ID (PK, Auto, R)   | ID (PK, Auto, R) | ID (PK, Auto, R)
+| Display name (R, C) | Case Number (R, I) | Details (R, C)   | Case ID (F)
+| First name (C)      | Case (R, C)        | Date (R, DT)     | Client ID (F) 
+| Middle name (C)     | Type (R, FC)       | Case ID (F)      | Details (R, C)
+| Last name (C)       | Address (R, C)     |                  | Amount (R, D)
+| Mobile (I)          | Phone (I)          |                  | 
+| Phone (I)           | Client ID (F)      |                  | 
+| Email (E)           | Review Date (DT)   |                  | 
+| Type (R, FC)        | Status (LK)        |                  |
+| Building Number (C) | Assigned (C)       |                  |
+| Street (C)          |                    |                  |
+| Address 2 (C)       |                    |                  | 
+| Address 3 (C)       |                    |                  |
+| City (C)            |                    |                  |
+| Postcode (C)        |                    |                  |
+
+| Users             | Case Types       | Audit            | Client Login
+| -------------     | ---------------- | -------------    | -------------
+| ID (PK, Auto, R)  | ID (PK, Auto, R) | ID (PK, Auto, R) | ID (PK, Auto, R)
+| First name (R, C) | Type (R, C)      | Detail (R, C)    | First Name (R, C)
+| Last name (R, C)  |                  | Type (R, C)      | Last Name (R, C) 
+| Email (R, E)      |                  | Date (R, DT)     | Email (R, E)
+| Username (R, C)   |                  |                  | Phone (R, I)
+| Password (R, C)   |                  |                  | Password (R, C)
+|                   |                  |                  | Building (C)
+|                   |                  |                  | Street (C)
+|                   |                  |                  | Address 2 (C)
+|                   |                  |                  | Address 3 (C)
+|                   |                  |                  | City (C)
+|                   |                  |                  | Postcode (C)
+|                   |  		  		      |                  | Client ID (F)
+
+| Payments         | Fines                     | 
+| -------------    | ----------------          | 
+| ID (PK, Auto, R) | ID (PK, Auto, R)          |
+| Amount (R, D)    | Customer ID (R, F)        |
+| Reference (R, C) | Reference (R, C)          | 
+| Client ID (R, F) | Total Amount (R, D)       |
+| Fine ID (R, C)   | Amount Outstanding (R, D) |
