@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col col-md-3 col-xl-2 px-sm-2 px-0 bg-dark set-full-height">
+            <ul class="list-unstyled ps-0">
+                <li class="mb-1">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                        Clients
+                    </button>
+                    <div class="collapse" id="dashboard-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ms-5">
+                            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded text-white">Overview</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col py-3">
+            <h1>Hello!</h1>
+        </div>
+    </div>
+</div>

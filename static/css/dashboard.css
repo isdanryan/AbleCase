@@ -1,0 +1,35 @@
+.dropdown-toggle::after {
+    color: white !important;
+}
+
+.set-full-height {
+    position: absolute;
+    bottom: 0px;
+    top: 70px;
+}
+
+.btn-toggle::before {
+    width: 1.25em;
+    line-height: 1em;
+    content: '>';
+}
+
+.bg-green {
+    background-color: green;
+}
+
+.bg-red {
+    background-color: red;
+}
+
+.min-w-200 {
+    min-width: 200px !important;
+}
+
+.sidebar {
+    height: calc(100vh - 70px);
+}
+
+.h-70 {
+    height: 70px !important;
+}

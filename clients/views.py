@@ -3,4 +3,4 @@ from django.http import HttpResponse
 
 
 def client_list(request):
-    return HttpResponse("This is the list of clients!")
+    return render(request, "clients/client_list.html")
