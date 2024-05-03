@@ -8,20 +8,20 @@ class Clients(models.Model):
         "Personal": "Personal",
     }
     display_name = models.CharField(max_length=64, blank=False)
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
-    middle_name = models.CharField(max_length=64)
-    mobile = models.IntegerField()
-    phone = models.IntegerField()
-    email = models.EmailField(max_length=124)
+    first_name = models.CharField(max_length=64, blank=True)
+    last_name = models.CharField(max_length=64, blank=True)
+    middle_name = models.CharField(max_length=64, blank=True)
+    mobile = models.IntegerField(blank=True, null=True)
+    phone = models.IntegerField(blank=False)
+    email = models.EmailField(max_length=124, blank=True)
     type = models.CharField(max_length=10, choices=CLIENT_TYPES,
                             blank=False, default="Business")
-    building_number = models.CharField(max_length=20)
-    street = models.CharField(max_length=64)
-    address_2 = models.CharField(max_length=64)
-    address_3 = models.CharField(max_length=64)
-    city = models.CharField(max_length=64)
-    post_code = models.CharField(max_length=64)
+    building_number = models.CharField(max_length=20, blank=True)
+    street = models.CharField(max_length=64, blank=True)
+    address_2 = models.CharField(max_length=64, blank=True)
+    address_3 = models.CharField(max_length=64, blank=True)
+    city = models.CharField(max_length=64, blank=True)
+    post_code = models.CharField(max_length=64, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

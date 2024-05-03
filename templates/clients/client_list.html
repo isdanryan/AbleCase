@@ -1,1 +1,44 @@
-{% include "base/index.html" %}
+{% extends "base/base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col">
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Clients</li>
+                </ol>
+            </nav>
+            <div class="d-flex mb-3">
+                <div class="col col-10"><h2 class="fs-4 pt-1">Client list</h2></div>
+                <div class="col col-2 text-end mb-2"><button type="button" class="btn btn-success px-2 py-1"><i class="fa-solid fa-plus fa-sm me-2"></i>New</button></div>
+            </div>
+            <table class="table table-hover border">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th><i class="fa-regular fa-pen-to-square"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for client in clients %}
+                    <tr>
+                        <td>{{ client.display_name }}</td>
+                        <td>{{ client.email }}</td>
+                        <td>{{ client.phone }}</td>
+                        <td>{{ client.building_number }} {{ client.street }} </td>
+                        <td>{{ client.city }}</td>
+                        <td><a href="#">View</a></td>
+                    </tr>
+                {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+{% endblock content %}
