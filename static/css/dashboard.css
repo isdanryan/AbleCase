@@ -1,5 +1,13 @@
-.dropdown-toggle::after {
-    color: white !important;
+body {
+    background-color: #fff;
+}
+
+.dropdown-menu-width-overide {
+    min-width: 7rem !important;
+}
+
+.nav-link:hover {
+    color: rgb(255, 63, 63) !important;
 }
 
 .set-full-height {
@@ -33,3 +41,22 @@
 .h-70 {
     height: 70px !important;
 }
+
+.icon::before {
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+.icon-solid::before {
+    font: var(--fa-font-solid);
+}
+
+.icon-angle-right::before {
+    content: "\f054";
+  }
+
+
+  .sidebar-link > li:hover {
+    text-decoration: underline;
+  }
