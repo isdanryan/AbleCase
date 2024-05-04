@@ -1,0 +1,52 @@
+{% extends "base/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="row mb-4">
+        <div class="col-md-2"></div>
+        <div class="col">
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="#">Clients</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Create Client</li>
+                </ol>
+            </nav>
+            <div class="d-flex mb-3">
+                <div class="col col-10"><h2 class="fs-4 pt-1">New Client</h2></div>
+            </div>
+            <form method="POST" action=".">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-8">{{ form.display_name|as_crispy_field }}</div>
+                    <div class="col-sm-4">{{ form.type|as_crispy_field }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">{{ form.first_name|as_crispy_field }}</div>
+                    <div class="col-sm-4">{{ form.middle_name|as_crispy_field }}</div>
+                    <div class="col-sm-4">{{ form.last_name|as_crispy_field }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">{{ form.phone|as_crispy_field }}</div>
+                    <div class="col-sm-4">{{ form.mobile|as_crispy_field }}</div>
+                    <div class="col-sm-4">{{ form.email|as_crispy_field }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">{{ form.building_number|as_crispy_field }}</div>
+                    <div class="col-sm-8">{{ form.street|as_crispy_field }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">{{ form.address_2|as_crispy_field }}</div>
+                    <div class="col-sm-6">{{ form.address_3|as_crispy_field }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-8">{{ form.city|as_crispy_field }}</div>
+                    <div class="col-sm-4">{{ form.post_code|as_crispy_field }}</div>
+                </div>
+                <div class="d-flex justify-content-md-end"><button type="submit" class="btn btn-primary px-3">Save</button></div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+{% endblock content %}
