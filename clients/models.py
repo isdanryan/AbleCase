@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Clients(models.Model):
@@ -11,8 +12,8 @@ class Clients(models.Model):
     first_name = models.CharField(max_length=64, blank=True)
     last_name = models.CharField(max_length=64, blank=True)
     middle_name = models.CharField(max_length=64, blank=True)
-    mobile = models.IntegerField(blank=True, null=True)
-    phone = models.IntegerField(blank=False)
+    mobile = PhoneNumberField(blank=True, null=True)
+    phone = PhoneNumberField(blank=False)
     email = models.EmailField(max_length=124, blank=True)
     type = models.CharField(max_length=10, choices=CLIENT_TYPES,
                             blank=False, default="Business")
