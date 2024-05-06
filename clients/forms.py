@@ -20,4 +20,5 @@ class ClientForm(forms.ModelForm):
             'address_3',
             'city',
             'post_code',
+            'notes',
         )

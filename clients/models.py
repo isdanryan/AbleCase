@@ -23,6 +23,7 @@ class Clients(models.Model):
     address_3 = models.CharField(max_length=64, blank=True)
     city = models.CharField(max_length=64, blank=True)
     post_code = models.CharField(max_length=64, blank=True)
+    notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
