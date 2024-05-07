@@ -6,12 +6,8 @@ body {
     min-width: 7rem !important;
 }
 
-.nav-link:hover {
-    color: #af0101 !important;
-}
-
 .nav-link::after {
-    color: #e42929;
+    color: #ffffff;
 }
 
 .set-full-height {
@@ -24,18 +20,6 @@ body {
     width: 1.25em;
     line-height: 1em;
     content: '>';
-}
-
-.bg-green {
-    background-color: green;
-}
-
-.bg-red {
-    background-color: red;
-}
-
-.text-purple {
-    color: #e42929;
 }
 
 .min-w-200 {
@@ -68,3 +52,10 @@ body {
   .sidebar-link > li:hover {
     text-decoration: underline;
   }
+
+  .back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none;
+}

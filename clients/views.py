@@ -26,7 +26,7 @@ class ClientCreateView(generic.CreateView):
         return reverse("clients:client-list")
 
 
-class ClientDetailView(generic.DeleteView):
+class ClientDetailView(generic.DetailView):
     template_name = "clients/client_detail.html"
     queryset = Clients.objects.all()
     context_object_name = "client"
@@ -39,3 +39,15 @@ class ClientUpdateView(generic.UpdateView):
 
     def get_success_url(self):
         return reverse("clients:client-list")
+
+
+class ClientDeleteView(generic.DeleteView):
+    template_name = "clients/client_delete.html"
+    queryset = Clients.objects.all()
+    context_object_name = "client"
+
+
+def ClientDelete(request, pk):
+    client = Clients.objects.get(id=pk)
+    client.delete()
+    return redirect("/clients")
