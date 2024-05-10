@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
+from cases.models import Cases
 
 
 class Clients(models.Model):
@@ -29,3 +30,14 @@ class Clients(models.Model):
     class Meta:
         verbose_name = "Clients"
         verbose_name_plural = "Clients"
+
+    def __str__(self):
+        return self.display_name
+
+    # Re-asign client field in cases to client display name
+    # if client is deleted
+    def delete(self, *args, **kwargs):
+        for case in Cases.cases_set.all():
+            case.client = self.display_name
+            case.save()
+        super().delete(*args, **kwargs)

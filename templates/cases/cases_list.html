@@ -1,0 +1,55 @@
+{% extends "base/base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <!--Set breadcrumb trail-->
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-white mb-4 rounded shadow-sm">
+                <ol class="breadcrumb py-2 px-3">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cases</li>
+                </ol>
+            </nav>
+            <!--Main content-->
+            <div class="container-fluid bg-white px-3 py-3 mt-2 rounded shadow-sm">
+                <div class="d-flex mb-3">
+                    <div class="col col-10"><h2 class="fs-4 pt-1">Client list</h2></div>
+                    <div class="col col-2 text-end mb-2 align-baseline">
+                        <a href="#">
+                            <button type="button" class="btn btn-success"><i class="fa-solid fa-plus fa-sm me-2"></i><span class="vr"></span><span class="ms-2">New</span></button>
+                        </a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Case No.</th>
+                                <th>Case</th>
+                                <th>Type</th>
+                                <th>Assigned</th>
+                                <th>Status</th>
+                                <th class="text-center"><i class="iconify fs-5" data-icon="mdi-file-document-edit-outline"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <!--Populate table from database results-->
+                        {% for case in cases %}
+                            <tr>
+                                <td>{{ case.case_number }}</td>
+                                <td>{{ case.case_name }}</td>
+                                <td>{{ case.type }}</td>
+                                <td>{{ case_assigned }}</td>
+                                <td>{{ case.status }}</td>
+                                <td class="text-center"><a href="#">View</a></td>
+                            </tr>
+                        {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+{% endblock content %}

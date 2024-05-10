@@ -4,14 +4,6 @@ from .models import Clients
 from .forms import ClientForm
 from django.views import generic
 
-
-# def client_list(request):
-#     clients = Clients.objects.all()
-#     context = {
-#         "clients": clients
-#     }
-#     return render(request, "clients/client_list.html", context)
-
 class ClientListView(generic.ListView):
     template_name = "clients/client_list.html"
     queryset = Clients.objects.all()
