@@ -1,0 +1,106 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="row mb-4">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <!--Set breadcrumb trail-->
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-white mb-4 rounded shadow-sm">
+                <ol class="breadcrumb py-2 px-3">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'cases:case-list' %}">Cases</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Case ###</li>
+                </ol>
+            </nav>
+            <!--Main content-->
+            <div class="container-fluid bg-white px-3 py-3 mt-2 rounded shadow-sm">
+                <div class="d-flex mb-3">
+                    <div class="col col-10"><h2 class="fs-4 pt-1">Case Details</h2></div>
+                </div>
+                <!--Re-create form layout and populate with case info-->
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div id="div_id_case_number" class="mb-3">
+                            <label for="id_case_number" class="form-label requiredField">Case Number<span class="asteriskField">*</span></label>
+                            <input type="text" name="case_number" value="{{ case.case_number }}" maxlength="64" class="textinput form-control" required id="id_case_number" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div id="div_id_case_name" class="mb-3">
+                            <label for="id_case_name" class="form-label requiredField">Case Name<span class="asteriskField">*</span></label>
+                            <input type="text" name="case_name" value="{{ case.case_name }}" maxlength="64" class="textinput form-control" id="id_case_name" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div id="div_id_status" class="mb-3">
+                            <label for="id_status" class="form-label requiredField">Status<span class="asteriskField">*</span></label>
+                            <input type="text" name="status" value="{{ case.status }}" maxlength="64" class="textinput form-control" id="id_status" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="div_id_type" class="mb-3">
+                            <label for="id_type" class="form-label">Type</label>
+                            <input type="text" name="type" value="{{ case.type }}" maxlength="64" class="textinput form-control" id="id_type" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="div_id_assigned" class="mb-3">
+                            <label for="id_assigned" class="form-label">Assigned</label>
+                            <input type="text" name="assigned" value="{{ case.assigned }}" maxlength="64" class="textinput form-control" id="id_assigned" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div id="div_id_phone" class="mb-3">
+                            <label for="id_phone" class="form-label requiredField">Phone<span class="asteriskField">*</span></label>
+                            <input type="tel" name="phone" value="{{ case.phone }}" maxlength="128" class="regionalphonenumberwidget form-control" required id="id_phone" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div id="div_id_address" class="mb-3">
+                            <label for="id_address" class="form-label">Address</label>
+                            <input type="text" name="address" value="{{ case.address }}" maxlength="240" class="testinput form-control" id="id_address" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div id="div_id_client" class="mb-3">
+                            <label for="id_client" class="form-label">Client</label>
+                            <input type="text" name="client" value="{{ case.client }}" maxlength="64" class="textinput form-control" id="id_client" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="div_id_invoice_code" class="mb-3">
+                            <label for="id_invoice_code" class="form-label">Street</label>
+                            <input type="text" name="invoice_code" value="{{ case.invoice_code }}" maxlength="64" class="textinput form-control" id="id_invoice_code" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="div_id_review_date" class="mb-3">
+                            <label for="id_review_date" class="form-label">Review Date</label>
+                            <input type="text" name="review_date" value="{{ cases.review_date }}" maxlength="20" class="textinput form-control" id="id_review_date" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <div id="div_id_notes" class="mb-3">
+                            <label for="id_notes" class="form-label">Notes</label>
+                                <textarea name="notes" rows="6" class="textinput form-control" id="id_notes" disabled>{{ case.notes }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-md-end"><button class="btn btn-danger px-3 me-2" onclick="deleteCase({{ case.id }})">Delete</button><a href="{% url 'cases:case-update' case.pk %}"><button class="btn btn-primary px-3">Update</button></a></div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+{% endblock content %}

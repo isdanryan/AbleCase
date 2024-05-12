@@ -14,7 +14,7 @@ class Cases(models.Model):
     type = models.ForeignKey("CaseTypes", on_delete=models.PROTECT)
     invoice_code = models.ForeignKey("invoices.InvoiceCode",
                                      on_delete=models.SET_NULL, null=True)
-    address = models.TextField()
+    address = models.CharField(max_length=240, blank=True, null=True)
     phone = PhoneNumberField(blank=False)
     review_date = models.DateTimeField(default=timezone.now)
     assigned = models.CharField(max_length=64, blank=True)

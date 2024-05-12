@@ -9,6 +9,7 @@ class CaseForm(forms.ModelForm):
             'case_number',
             'case_name',
             'type',
+            'invoice_code',
             'address',
             'phone',
             'review_date',
