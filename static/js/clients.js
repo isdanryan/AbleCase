@@ -1,6 +1,6 @@
-function deleteClient(clientId) {
+function deleteClient(clientId, clientName) {
     Swal.fire({
-        title: "Are you sure?",
+        title: "Delete client " + clientName + "?",
         text: "You won't be able to undo this!",
         icon: "warning",
         showCancelButton: true,

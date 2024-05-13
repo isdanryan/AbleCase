@@ -13,7 +13,7 @@
                 <ol class="breadcrumb py-2 px-3">
                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                     <li class="breadcrumb-item"><a href="{% url 'clients:client-list' %}">Clients</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Create Client</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ client.display_name }}</li>
                 </ol>
             </nav>
             <!--Main content-->
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-md-end"><button class="btn btn-danger px-3 me-2" onclick="deleteClient({{ client.id }})">Delete</button><a href="{% url 'clients:client-update' client.pk %}"><button class="btn btn-primary px-3">Update</button></a></div>
+                <div class="d-flex justify-content-md-end"><button class="btn btn-danger px-3 me-2" onclick="deleteClient({{ client.id }}, '{{ client.display_name }}')">Delete</button><a href="{% url 'clients:client-update' client.pk %}"><button class="btn btn-primary px-3">Update</button></a></div>
             </div>
         </div>
         <div class="col-md-2"></div>

@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import CaseListView, CaseCreateView, CaseDetailView, CaseUpdateView, CaseDelete
+from .views import (CaseListView, CaseCreateView, CaseDetailView,
+                    CaseUpdateView, CaseDelete)
 
 app_name = "cases"
 

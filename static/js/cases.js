@@ -1,6 +1,6 @@
-function deleteCase(caseId) {
+function deleteCase(caseId, caseNo) {
     Swal.fire({
-        title: "Are you sure?",
+        title: "Delete case " + caseNo + "?",
         text: "You won't be able to undo this!",
         icon: "warning",
         showCancelButton: true,

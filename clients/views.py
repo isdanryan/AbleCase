@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse
+from django.shortcuts import redirect, reverse
 from .models import Clients
 from .forms import ClientForm
 from django.views import generic
+
 
 class ClientListView(generic.ListView):
     template_name = "clients/client_list.html"
@@ -28,6 +28,7 @@ class ClientUpdateView(generic.UpdateView):
     template_name = "clients/client_update.html"
     queryset = Clients.objects.all()
     form_class = ClientForm
+    context_object_name = "client"
 
     def get_success_url(self):
         return reverse("clients:client-list")

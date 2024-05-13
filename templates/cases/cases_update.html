@@ -12,8 +12,8 @@
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-white mb-4 rounded shadow-sm">
                 <ol class="breadcrumb py-2 px-3">
                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{% url 'clients:client-list' %}">Cases</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Update Case</li>
+                    <li class="breadcrumb-item"><a href="{% url 'cases:case-list' %}">Cases</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Case {{ case.case_number }}</li>
                 </ol>
             </nav>
             <!--Main content-->
@@ -21,7 +21,7 @@
                 <div class="d-flex mb-3">
                     <div class="col col-10"><h2 class="fs-4 pt-1">Update Case</h2></div>
                 </div>
-                <!--Create form layout from clients/forms.py using crispy_forms-->
+                <!--Create form layout from cases/forms.py using crispy_forms-->
                 <form method="POST" action=".">
                     {% csrf_token %}
                     <div class="row">
