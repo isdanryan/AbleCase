@@ -1,6 +1,6 @@
-from django.shortcuts import redirect, reverse
-from .models import Cases
-from .forms import CaseForm
+from django.shortcuts import redirect, reverse, render
+from .models import Cases, Communications
+from .forms import CaseForm, CommunicationForm
 from django.views import generic
 
 
@@ -18,10 +18,34 @@ class CaseCreateView(generic.CreateView):
         return reverse("cases:case-list")
 
 
-class CaseDetailView(generic.DetailView):
-    template_name = "cases/cases_detail.html"
-    queryset = Cases.objects.all()
-    context_object_name = "case"
+def CaseDetail(request, pk):
+    case = Cases.objects.get(id=pk)
+    communications = Communications.objects.filter(case=case).order_by('-date')
+    form = CommunicationForm(instance=case)
+    if request.method == "GET":
+        context = {
+            "case": case,
+            "communications": communications,
+            "form": form,
+        }
+    if request.method == "POST":
+        form = CommunicationForm(request.POST)
+        if form.is_valid():
+            communication = form.save(commit=False)
+            communication.case = case  # Associate entry with the case
+            communication.save()
+            # Redirect and set marker to to trigger javascript function
+            # and take user back to the communications tab
+            return redirect(request.path + "?comms=true")
+        else:
+            print(case.id)
+            print(form.errors)  # Check for errors in form validation
+        context = {
+            "case": case,
+            "communications": communications,
+            "form": form,
+        }
+    return render(request, "cases/cases_detail.html", context)
 
 
 class CaseUpdateView(generic.UpdateView):

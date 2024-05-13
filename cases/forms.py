@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cases
+from .models import Cases, Communications
 
 
 class CaseForm(forms.ModelForm):
@@ -17,4 +17,13 @@ class CaseForm(forms.ModelForm):
             'status',
             'notes',
             'client',
+        )
+
+
+class CommunicationForm(forms.ModelForm):
+    class Meta:
+        model = Communications
+        fields = (
+            'details',
+            'date',
         )

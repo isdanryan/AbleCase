@@ -1,3 +1,17 @@
+
+// Check for marker left by adding communication, if true take user back to the communications tab
+window.onload = function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var marker = urlParams.get('comms');
+    if (marker === 'true') {
+        // Get tab ID and simulate click
+        var communicationsTabButton = document.getElementById('nav-communications-tab');
+        if (communicationsTabButton) {
+            communicationsTabButton.click();
+        }
+    }
+};
+
 function deleteCase(caseId, caseNo) {
     Swal.fire({
         title: "Delete case " + caseNo + "?",
