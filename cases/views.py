@@ -32,3 +32,9 @@ class CaseUpdateView(generic.UpdateView):
 
     def get_success_url(self):
         return reverse("cases:case-list")
+
+
+def CaseDelete(request, pk):
+    case = Cases.objects.get(id=pk)
+    case.delete()
+    return redirect("/cases")

@@ -33,12 +33,6 @@ class ClientUpdateView(generic.UpdateView):
         return reverse("clients:client-list")
 
 
-class ClientDeleteView(generic.DeleteView):
-    template_name = "clients/client_delete.html"
-    queryset = Clients.objects.all()
-    context_object_name = "client"
-
-
 def ClientDelete(request, pk):
     client = Clients.objects.get(id=pk)
     client.delete()
