@@ -14,6 +14,7 @@ class ClientForm(forms.ModelForm):
             'phone',
             'email',
             'type',
+            'status',
             'building_number',
             'street',
             'address_2',

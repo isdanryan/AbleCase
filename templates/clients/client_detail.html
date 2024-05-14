@@ -23,18 +23,27 @@
                 </div>
                 <!--Re-create form layout and populate with client info-->
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-6">
                         <div id="div_id_display_name" class="mb-3">
                             <label for="id_display_name" class="form-label requiredField">Display name<span class="asteriskField">*</span></label>
                             <input type="text" name="display_name" value="{{ client.display_name }}" maxlength="64" class="textinput form-control" required id="id_display_name" disabled>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <div id="div_id_type" class="mb-3">
                             <label for="id_type" class="form-label requiredField">Type<span class="asteriskField">*</span></label>
                             <select name="type" class="select form-select" id="id_type" disabled>
                                 <option value="Buisness" {% if client.type == 'Buisness' %} selected {% endif %}>Buisness</option>
                                 <option value="Personal" {% if client.type == 'Personal' %} selected {% endif %}>Personal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div id="div_id_status" class="mb-3">
+                            <label for="id_status" class="form-label requiredField">Status<span class="asteriskField">*</span></label>
+                            <select name="status" class="select form-select" id="id_status" disabled>
+                                <option value="Active" {% if client.status == 'Active' %} selected {% endif %}>Active</option>
+                                <option value="Inactive" {% if client.status == 'Inactive' %} selected {% endif %}>Inactive</option>
                             </select>
                         </div>
                     </div>
@@ -129,7 +138,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-md-end"><button class="btn btn-danger px-3 me-2" onclick="deleteClient({{ client.id }}, '{{ client.display_name }}')">Delete</button><a href="{% url 'clients:client-update' client.pk %}"><button class="btn btn-primary px-3">Update</button></a></div>
+                <div class="d-flex justify-content-md-end"><a href="{% url 'clients:client-update' client.pk %}"><button class="btn btn-primary px-3">Update</button></a></div>
             </div>
         </div>
         <div class="col-md-2"></div>

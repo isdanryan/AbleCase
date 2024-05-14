@@ -1,7 +1,8 @@
-from django.db import models
+from django.db import models, transaction
 from django.utils import timezone
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 from phonenumber_field.modelfields import PhoneNumberField
-from invoices.models import InvoiceCode
 
 
 class Cases(models.Model):
@@ -22,7 +23,7 @@ class Cases(models.Model):
                               default="Open")
     notes = models.TextField(blank=True)
     client = models.ForeignKey("clients.Clients",
-                               on_delete=models.SET_NULL,
+                               on_delete=models.PROTECT,
                                null=True, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

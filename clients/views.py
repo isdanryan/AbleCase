@@ -33,8 +33,3 @@ class ClientUpdateView(generic.UpdateView):
     def get_success_url(self):
         return reverse("clients:client-list")
 
-
-def ClientDelete(request, pk):
-    client = Clients.objects.get(id=pk)
-    client.delete()
-    return redirect("/clients")

@@ -9,6 +9,10 @@ class Clients(models.Model):
         "Buisness": "Buisness",
         "Personal": "Personal",
     }
+    CLIENT_STATUS = {
+        "Active": "Active",
+        "Inactive": "Inactive",
+    }
     display_name = models.CharField(max_length=64, blank=False)
     first_name = models.CharField(max_length=64, blank=True)
     last_name = models.CharField(max_length=64, blank=True)
@@ -26,6 +30,8 @@ class Clients(models.Model):
     post_code = models.CharField(max_length=64, blank=True)
     notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=30, choices=CLIENT_STATUS,
+                              blank=False, null=False, default="Active")
 
     class Meta:
         verbose_name = "Clients"
@@ -33,11 +39,3 @@ class Clients(models.Model):
 
     def __str__(self):
         return self.display_name
-
-    # Re-asign client field in cases to client display name
-    # if client is deleted
-    def delete(self, *args, **kwargs):
-        for case in Cases.cases_set.all():
-            case.client = self.display_name
-            case.save()
-        super().delete(*args, **kwargs)
