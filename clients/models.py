@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
-from cases.models import Cases
 
 
 class Clients(models.Model):

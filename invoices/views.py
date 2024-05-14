@@ -1,6 +1,5 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import reverse
 from django.views import generic
-from .models import Invoices
 from .forms import InvoiceForm
 
 

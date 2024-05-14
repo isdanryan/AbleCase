@@ -1,7 +1,5 @@
-from django.db import models, transaction
+from django.db import models
 from django.utils import timezone
-from django.db.models.signals import pre_delete
-from django.dispatch import receiver
 from phonenumber_field.modelfields import PhoneNumberField
 
 
