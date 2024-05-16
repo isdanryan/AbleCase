@@ -1,0 +1,56 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="row mb-4">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <!--Set breadcrumb trail-->
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-white mb-4 rounded shadow-sm">
+                <ol class="breadcrumb py-2 px-3">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'invoices:invoice-list' %}">Invoices</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Create Invoice</li>
+                </ol>
+            </nav>
+            <!--Main content-->
+            <div class="container-fluid bg-white px-3 py-3 mt-2 rounded shadow-sm">
+                <div class="d-flex mb-3">
+                    <div class="col col-10"><h2 class="fs-4 pt-1">Select case to create invoice</h2></div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Case No.</th>
+                                <th>Case</th>
+                                <th>Type</th>
+                                <th>Assigned</th>
+                                <th>Status</th>
+                                <th class="text-center"><i class="iconify fs-5" data-icon="mdi-file-document-edit-outline"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <!--Populate table from database results-->
+                        {% for case in cases %}
+                            <tr>
+                                <td>{{ case.case_number }}</td>
+                                <td>{{ case.case_name }}</td>
+                                <td>{{ case.type }}</td>
+                                <td>{{ case.assigned }}</td>
+                                <td>{{ case.status }}</td>
+                                <td class="text-center"><a href="{% url 'invoices:invoice-create' case.pk %}">Create</a></td>
+                            </tr>
+                        {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+{% endblock content %}

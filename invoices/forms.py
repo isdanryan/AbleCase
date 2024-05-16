@@ -1,5 +1,6 @@
 from django import forms
 from .models import Invoices
+from cases.models import Cases
 
 
 class InvoiceForm(forms.ModelForm):
@@ -16,4 +17,10 @@ class InvoiceForm(forms.ModelForm):
             'vat',
             'total_due',
             'status',
+            'case_name',
+            'case_address',
+            'case_type',
+            'invoice_code',
+            'notes',
         )
+

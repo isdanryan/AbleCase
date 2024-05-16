@@ -23,15 +23,28 @@ class Invoices(models.Model):
         "Sent": "Sent",
         "Not Sent": "Not Sent",
     }
-    invoice_number = models.CharField(max_length=6, blank=False, null=False)
+    VAT = {
+        "ZERO": "ZERO",
+        "10%": "10%",
+        "15%": "15%",
+        "20%": "20%",
+    }
+    invoice_number = models.IntegerField(blank=False, null=False,
+                                         verbose_name="Invoice No")
     date = models.DateField(default=timezone.now)
     term = models.CharField(max_length=64, choices=INVOICE_TERM, blank=False,
                             null=False, default="On Reciept")
     date_due = models.DateField(default=timezone.now)
     amount = models.FloatField()
-    vat = models.FloatField()
+    vat = models.CharField(max_length=10, choices=VAT,
+                           blank=False, null=False, default="20%")
     total_due = models.FloatField()
     case = models.ForeignKey("cases.Cases", on_delete=models.CASCADE)
+    case_address = models.CharField(max_length=256, blank=True, null=True)
+    case_type = models.CharField(max_length=64, blank=True, null=True)
+    case_name = models.CharField(max_length=64, blank=True, null=True)
+    invoice_code = models.CharField(max_length=20, blank=True, null=True)
     client = models.ForeignKey("clients.Clients", on_delete=models.PROTECT)
     status = models.CharField(max_length=64, choices=INVOICE_STATUS,
                               blank=False, null=False, default="Not Sent")
+    notes = models.TextField()
