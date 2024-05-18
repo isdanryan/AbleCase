@@ -12,7 +12,7 @@ class InvoiceCode(models.Model):
 
 class Invoices(models.Model):
     INVOICE_TERM = {
-        "On Reciept": "On Reciept",
+        "On Receipt": "On Receipt",
         "7 Days": "7 days",
         "14 Days": "14 days",
         "30 Days": "30 days",
@@ -35,10 +35,12 @@ class Invoices(models.Model):
     term = models.CharField(max_length=64, choices=INVOICE_TERM, blank=False,
                             null=False, default="On Reciept")
     date_due = models.DateField(default=timezone.now)
-    amount = models.FloatField()
+    amount = models.DecimalField(max_digits=19, decimal_places=2,
+                                 default="0.00")
     vat = models.CharField(max_length=10, choices=VAT,
                            blank=False, null=False, default="20%")
-    total_due = models.FloatField()
+    total_due = models.DecimalField(max_digits=19, decimal_places=2,
+                                    default="0.00")
     case = models.ForeignKey("cases.Cases", on_delete=models.CASCADE)
     case_address = models.CharField(max_length=256, blank=True, null=True)
     case_type = models.CharField(max_length=64, blank=True, null=True)

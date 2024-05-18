@@ -44,22 +44,6 @@ def CreateInvoice(request, pk):
                   {'form': form, 'case_number': case_number})
 
 
-def create_case(request):
-    if request.method == 'POST':
-        form = CaseForm(request.POST)
-        if form.is_valid():
-            # Process the form data
-            form.save()
-            return redirect('success_url')
-    else:
-        # Assuming you have a ForeignKey relationship between Case and Client
-        client = Client.objects.get(pk=client_id)  # Retrieve the related client instance
-        initial_data = {'client': client}  # Populate the 'client' field in the form with related client instance
-        form = CaseForm(initial=initial_data)  # Pass initial data to the form
-
-
-
-
 class InvoiceListView(generic.ListView):
     template_name = "invoices/invoice_list.html"
     queryset = Invoices.objects.all()
