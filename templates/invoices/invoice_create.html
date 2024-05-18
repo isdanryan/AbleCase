@@ -13,7 +13,7 @@
                 <ol class="breadcrumb py-2 px-3">
                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                     <li class="breadcrumb-item"><a href="{% url 'invoices:invoice-list' %}">Invoices</a></li>
-                    <li class="breadcrumb-item"><a href="#">Case {{ case_number }}</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'invoices:invoice-case-select' %}">Case {{ case_number }}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Create Invoice</li>
                 </ol>
             </nav>
