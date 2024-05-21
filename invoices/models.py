@@ -50,3 +50,10 @@ class Invoices(models.Model):
     status = models.CharField(max_length=64, choices=INVOICE_STATUS,
                               blank=False, null=False, default="Not Sent")
     notes = models.TextField()
+
+    class Meta:
+        verbose_name = "Invoices"
+        verbose_name_plural = "Invoices"
+
+    def __str__(self):
+        return f"{self.invoice_number} {self.client}" 
