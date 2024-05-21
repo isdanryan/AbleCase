@@ -16,8 +16,9 @@ class InvoiceCreateView(generic.CreateView):
 def CreateInvoice(request, pk):
     if request.method == "POST":
         form = InvoiceForm(request.POST)
-        form.save()
-        return redirect('invoices/invoice_list.html')
+        if form.is_valid():
+            form.save()
+            return redirect('invoices/invoice_list.html')
     else:
         # Set the instance to the selected case,
         case = Cases.objects.get(id=pk)
