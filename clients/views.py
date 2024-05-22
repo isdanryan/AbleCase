@@ -1,16 +1,17 @@
 from django.shortcuts import redirect, reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Clients
 from .forms import ClientForm
 from django.views import generic
 
 
-class ClientListView(generic.ListView):
+class ClientListView(LoginRequiredMixin, generic.ListView):
     template_name = "clients/client_list.html"
     queryset = Clients.objects.all()
     context_object_name = "clients"
 
 
-class ClientCreateView(generic.CreateView):
+class ClientCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "clients/client_create.html"
     form_class = ClientForm
 
@@ -18,13 +19,13 @@ class ClientCreateView(generic.CreateView):
         return reverse("clients:client-list")
 
 
-class ClientDetailView(generic.DetailView):
+class ClientDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = "clients/client_detail.html"
     queryset = Clients.objects.all()
     context_object_name = "client"
 
 
-class ClientUpdateView(generic.UpdateView):
+class ClientUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "clients/client_update.html"
     queryset = Clients.objects.all()
     form_class = ClientForm

@@ -1,11 +1,13 @@
 from django.shortcuts import reverse, render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from .forms import InvoiceForm
 from .models import Invoices
 from cases.models import Cases
 
 
-class InvoiceCreateView(generic.CreateView):
+class InvoiceCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "invoices/invoice_create.html"
     form_class = InvoiceForm
 
@@ -13,6 +15,7 @@ class InvoiceCreateView(generic.CreateView):
         return reverse("cases:case-list")
 
 
+@login_required
 def CreateInvoice(request, pk):
     if request.method == "POST":
         form = InvoiceForm(request.POST)
@@ -45,13 +48,13 @@ def CreateInvoice(request, pk):
                   {'form': form, 'case_number': case_number})
 
 
-class InvoiceListView(generic.ListView):
+class InvoiceListView(LoginRequiredMixin, generic.ListView):
     template_name = "invoices/invoice_list.html"
     queryset = Invoices.objects.all()
     context_object_name = "invoices"
 
 
-class InvoiceCaseView(generic.ListView):
+class InvoiceCaseView(LoginRequiredMixin, generic.ListView):
     template_name = "invoices/invoice_select_case.html"
     queryset = Cases.objects.all()
     context_object_name = "cases"

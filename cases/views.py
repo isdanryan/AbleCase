@@ -1,16 +1,18 @@
 from django.shortcuts import redirect, reverse, render
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Cases, Communications
 from .forms import CaseForm, CommunicationForm
 from django.views import generic
 
 
-class CaseListView(generic.ListView):
+class CaseListView(LoginRequiredMixin, generic.ListView):
     template_name = "cases/cases_list.html"
     queryset = Cases.objects.all()
     context_object_name = "cases"
 
 
-class CaseCreateView(generic.CreateView):
+class CaseCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "cases/cases_create.html"
     form_class = CaseForm
 
@@ -18,6 +20,7 @@ class CaseCreateView(generic.CreateView):
         return reverse("cases:case-list")
 
 
+@login_required
 def CaseDetail(request, pk):
     case = Cases.objects.get(id=pk)
     communications = Communications.objects.filter(case=case).order_by('-date')
@@ -48,7 +51,7 @@ def CaseDetail(request, pk):
     return render(request, "cases/cases_detail.html", context)
 
 
-class CaseUpdateView(generic.UpdateView):
+class CaseUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "cases/cases_update.html"
     queryset = Cases.objects.all()
     form_class = CaseForm
@@ -58,6 +61,7 @@ class CaseUpdateView(generic.UpdateView):
         return reverse("cases:case-list")
 
 
+@login_required
 def CaseDelete(request, pk):
     case = Cases.objects.get(id=pk)
     case.delete()
