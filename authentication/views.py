@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import UserLoginForm
 
 
@@ -18,3 +18,8 @@ def UserLogin(request):
                 print("Incorrect Username or password")
 
     return render(request, 'authentication/user_login.html', {'form': form})
+
+
+def UserSignOut(request):
+    logout(request)
+    return redirect('/login')
