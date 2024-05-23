@@ -10,7 +10,7 @@
     <title>AbleCase</title>
 </head>
 <body>
-    <header class="bg-red text-white shadow-sm">
+    <header class="bg-red text-white shadow-sm {% if not user.is_authenticated %} d-none {% endif %}">
         <div class="px-3 py-2 text-bg-dark mb-5 border-bottom">
             <div class="container-fluid">
                 <div class="d-flex flex-wrap align-items-center justify-content-around justify-content-md-start">
@@ -18,7 +18,7 @@
                         <h1 class="fs-3">AbleCase</h1>
                     </a>
                     <!--Base menu-->
-                    <ul class="nav col-12 col-sm-auto my-2 justify-content-center my-md-0 text-small {% if not user.is_authenticated %} d-none {% endif %}">
+                    <ul class="nav col-12 col-sm-auto my-2 justify-content-center my-md-0 text-small">
                         <li>
                         <a href="#" class="nav-link text-white fw-semibold">
                             <i class="iconify d-block mx-auto my-1 fs-3" data-icon="mdi-view-dashboard"></i>
