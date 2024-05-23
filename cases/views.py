@@ -11,6 +11,18 @@ class CaseListView(LoginRequiredMixin, generic.ListView):
     queryset = Cases.objects.all()
     context_object_name = "cases"
 
+    def get_queryset(self):
+        queryset = Cases.objects.all()
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            queryset = queryset.filter(case_number__icontains=search_query)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('search', '')
+        return context
+
 
 class CaseCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "cases/cases_create.html"

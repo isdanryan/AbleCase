@@ -10,6 +10,18 @@ class ClientListView(LoginRequiredMixin, generic.ListView):
     queryset = Clients.objects.all()
     context_object_name = "clients"
 
+    def get_queryset(self):
+        queryset = Clients.objects.all()
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            queryset = queryset.filter(display_name__icontains=search_query)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('search', '')
+        return context
+
 
 class ClientCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "clients/client_create.html"

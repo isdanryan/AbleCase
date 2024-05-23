@@ -1,4 +1,14 @@
-.search-box {
+.invoice-search-box {
     min-width: 250px;
     max-width: 250px;
+}
+
+.search-box {
+    min-width: 250px;
+    max-width: 320px;
+}
+
+.btn-add-new, .btn-add-new:visited, .btn-add-new:link {
+    text-decoration: none;
+    color: inherit;
 }
