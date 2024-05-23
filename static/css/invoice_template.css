@@ -1,0 +1,23 @@
+  html {
+    color: #14213d;
+    font-size: 11pt;
+    line-height: 1.6;
+  }
+  body {
+    margin: 0;
+  }
+  
+  h1 {
+    color: #b13b3b;
+    font-size: 24pt;
+    margin: 0;
+  }
+
+  .border{
+    border: #14213d solid 1px;
+    padding: 2pt;
+  }
+  
+  .align-right {
+    text-align: right;
+  }

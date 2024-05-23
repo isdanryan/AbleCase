@@ -1,12 +1,19 @@
 from typing import Any
 from django.db.models.query import QuerySet
-from django.shortcuts import reverse, render, redirect
+from django.shortcuts import reverse, render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from .forms import InvoiceForm
 from .models import Invoices
 from cases.models import Cases
+import os
+from django.conf import settings
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
+from django.shortcuts import get_object_or_404
 
 
 class InvoiceCreateView(LoginRequiredMixin, generic.CreateView):
@@ -84,3 +91,46 @@ class InvoiceCaseView(LoginRequiredMixin, generic.ListView):
         context = super().get_context_data(**kwargs)
         context['search_query'] = self.request.GET.get('search', '')
         return context
+
+def link_callback(uri, rel):
+    """
+    Convert HTML URIs to absolute system paths so xhtml2pdf can access those resources
+    """
+    if uri.startswith("http://") or uri.startswith("https://"):
+        # Handle external URLs separately
+        return uri
+
+    sUrl = settings.STATIC_URL        # Typically /static/
+    sRoot = settings.STATICFILES_DIRS[0]  # First entry in STATICFILES_DIRS
+
+    if uri.startswith(sUrl):
+        path = os.path.join(sRoot, uri.replace(sUrl, ""))
+    else:
+        raise RuntimeError('media URI must start with %s' % sUrl)
+
+    # make sure that file exists
+    if not os.path.isfile(path):
+        raise RuntimeError('File not found: %s' % path)
+    return path
+
+def pdf_view(request, pk):
+    invoice = get_object_or_404(Invoices, id=pk)
+    template_path = 'invoices/invoice_template.html'
+    context = {'invoice': invoice}
+    
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="invoice_{invoice.invoice_number}.pdf"'
+    
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+    
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response, link_callback=link_callback)
+    
+    # if error then show some funny view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
