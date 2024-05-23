@@ -18,9 +18,19 @@
             </nav>
             <!--Main content-->
             <div class="container-fluid bg-white px-3 py-3 mt-2 rounded shadow-sm">
-                <div class="d-flex mb-3">
-                    <div class="col col-10"><h2 class="fs-4 pt-1">Select case to create invoice</h2></div>
+                <div class="row mb-3 justify-content-between">
+                    <div class="col-sm-auto"><h2 class="fs-4 pt-1">Select case to create invoice</h2></div>
+                    <div class="col-sm-auto search-box text-end">
+                        <form method="GET" action=".">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Case number" aria-label="Case number" name="search" aria-describedby="button-search" value="{{ request.GET.search }}">
+                                <button class="btn btn-outline-primary" type="submit" id="button-search"><i class="iconify d-block mx-auto my-1 fs-3" data-icon="mdi-search"></i></button>
+                            </div>
+                    </form>
+                        </div>
                 </div>
+                <div class="container">
+                    
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>

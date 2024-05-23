@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import reverse, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -59,14 +61,14 @@ class InvoiceCaseView(LoginRequiredMixin, generic.ListView):
     queryset = Cases.objects.all()
     context_object_name = "cases"
 
+    def get_queryset(self):
+        queryset = Cases.objects.all()
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            queryset = queryset.filter(case_number__icontains=search_query)
+        return queryset
 
-def SelectCase(request):
-    case_form = SelectCaseForm()
-    invoice_form = InvoiceForm()
-    if request.method == "POST":
-        print('Reciving a post')
-    context = {
-        "case_form": case_form,
-        "invoice_form": invoice_form
-    }
-    return render(request, "invoices/invoice_create.html", context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('search', '')
+        return context
