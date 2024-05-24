@@ -10,7 +10,7 @@ class CustomUserManager(BaseUserManager):
         if not password:
             raise ValueError('A password is required')
         email = self.normalize_email(email)
-        user_name = email.split('@')[0]
+        user_name = email
         user = self.model(email=email, user_name=user_name, first_name=first_name, last_name=last_name, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
@@ -33,6 +33,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
     ROLE_TYPES = {
         "Staff": "Staff",
         "Client": "Client",
+        "Admin": "Admin",
     }
     email = models.EmailField(unique=True)
     user_name = models.CharField(max_length=150, unique=True)
@@ -53,7 +54,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = "Users"
 
     def __str__(self):
-        return f"{self.invoice_number} {self.client}" 
+        return self.email
 
-    def __str__(self):
-        return self.user_name
+
+

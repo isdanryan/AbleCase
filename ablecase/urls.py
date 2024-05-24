@@ -25,4 +25,5 @@ urlpatterns = [
     path('cases/', include('cases.urls')),
     path('invoices/', include('invoices.urls')),
     path('login/', include('authentication.urls')),
+    path('users/', include('users.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,0 +1,59 @@
+{% extends "base/base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <!--Set breadcrumb trail-->
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-white mb-4 rounded shadow-sm">
+                <ol class="breadcrumb py-2 px-3">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Users</li>
+                </ol>
+            </nav>
+            <!--Main content-->
+            <div class="container-fluid bg-white px-3 py-3 mt-2 rounded shadow-sm">
+                <div class="row mb-3 justify-content-between">
+                    <div class="col-sm-auto"><h2 class="fs-4 pt-1">Users</h2></div>
+                    <div class="col-sm-auto search-box text-end">
+                        <form method="GET" action=".">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="First Name" aria-label="First name" name="search" aria-describedby="button-search" value="{{ request.GET.search }}">
+                                <button class="btn btn-outline-primary" type="submit" id="button-search"><i class="iconify d-block mx-auto my-1 fs-3" data-icon="mdi-search"></i></button>
+                                <button type="button" class="btn btn-outline-success"><a class="btn-add-new" href="{% url 'users:user-create' %}"><i class="iconify d-block mx-auto my-1 fs-3" data-icon="mdi-plus"></i></a></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th class="text-center"><i class="iconify fs-5" data-icon="mdi-file-document-edit-outline"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <!--Populate table from database results-->
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.first_name }}</td>
+                                <td>{{ user.last_name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.role }}</td>
+                                <td>{% if user.is_active %} Active {% else %} Inactive {% endif %}</td>
+                                <td class="text-center"><a href="#">View</a></td>
+                            </tr>
+                        {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+{% endblock content %}
