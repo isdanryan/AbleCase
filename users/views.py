@@ -50,5 +50,15 @@ class UserListView(LoginRequiredMixin, generic.ListView):
         queryset = Users.objects.filter(is_staff=True, is_superuser=False)
         search_query = self.request.GET.get('search', '')
         if search_query:
-            queryset = queryset.filter(first_name__icontains=search_query, is_staff=True, is_superuser=False)
+            queryset = queryset.filter(first_name__icontains=search_query, role='Staff' | 'Admin', is_superuser=False)
         return queryset
+    
+
+class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
+    template_name = "users/user_update.html"
+    queryset = Users.objects.all()
+    form_class = UserCreateForm
+    context_object_name = "user"
+
+    def get_success_url(self):
+        return reverse("users:user-list")
