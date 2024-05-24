@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, reverse, render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from .models import Users
 from .forms import UserCreateForm
 from django.views import generic
@@ -47,10 +48,10 @@ class UserListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "users"
 
     def get_queryset(self):
-        queryset = Users.objects.filter(is_staff=True, is_superuser=False)
+        queryset = Users.objects.filter(Q(role='Staff') | Q(role='Admin'))
         search_query = self.request.GET.get('search', '')
         if search_query:
-            queryset = queryset.filter(first_name__icontains=search_query, role='Staff' | 'Admin', is_superuser=False)
+            queryset = queryset.filter(first_name__icontains=search_query)
         return queryset
     
 
