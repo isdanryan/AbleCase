@@ -55,5 +55,9 @@ class Invoices(models.Model):
         verbose_name = "Invoices"
         verbose_name_plural = "Invoices"
 
+        permissions = [
+            ("manage_invoices", "Manage Invoices"),
+        ]
+
     def __str__(self):
-        return f"{self.invoice_number} {self.client}" 
+        return f"{self.invoice_number} {self.client}"

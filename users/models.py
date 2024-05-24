@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager, Permission
 
 
 class CustomUserManager(BaseUserManager):
@@ -53,8 +53,9 @@ class Users(AbstractBaseUser, PermissionsMixin):
         verbose_name = "Users"
         verbose_name_plural = "Users"
 
+        permissions = [
+            ("manage_users", "Manage Users",)
+        ]
+
     def __str__(self):
         return self.email
-
-
-

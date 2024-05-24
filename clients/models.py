@@ -36,5 +36,10 @@ class Clients(models.Model):
         verbose_name = "Clients"
         verbose_name_plural = "Clients"
 
+        permissions = [
+            ("can_view_clients", "View Clients"),
+            ("can_edit_clients", "Edit Clients"),
+        ]
+
     def __str__(self):
         return self.display_name
