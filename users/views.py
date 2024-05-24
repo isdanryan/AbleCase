@@ -2,7 +2,7 @@ from django.shortcuts import redirect, reverse, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from .models import Users
-from .forms import UserCreateForm
+from .forms import UserCreateForm, UserUpdateForm
 from django.views import generic
 from django.contrib import messages
 
@@ -58,7 +58,7 @@ class UserListView(LoginRequiredMixin, generic.ListView):
 class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "users/user_update.html"
     queryset = Users.objects.all()
-    form_class = UserCreateForm
+    form_class = UserUpdateForm
     context_object_name = "user"
 
     def get_success_url(self):
