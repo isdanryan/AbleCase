@@ -29,7 +29,7 @@ class Cases(models.Model):
     class Meta:
         verbose_name = "Cases"
         verbose_name_plural = "Cases"
-        
+
         permissions = [
             ("can_view_cases", "View Case"),
             ("can_edit_cases", "Edit Case"),
