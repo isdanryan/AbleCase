@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, reverse, render
+from django.shortcuts import redirect, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from .models import Users
@@ -51,9 +51,11 @@ class UserListView(LoginRequiredMixin, generic.ListView):
         queryset = Users.objects.filter(Q(role='Staff') | Q(role='Admin'))
         search_query = self.request.GET.get('search', '')
         if search_query:
-            queryset = queryset.filter(first_name__icontains=search_query)
+            queryset = queryset.filter(Q(first_name__icontains=search_query) |
+                                       Q(last_name__icontains=search_query) |
+                                       Q(email__icontains=search_query))
         return queryset
-    
+
 
 class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "users/user_update.html"

@@ -1,22 +1,27 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager, Permission
+from django.contrib.auth.models import (AbstractBaseUser, PermissionsMixin,
+                                        BaseUserManager)
 
 
 class CustomUserManager(BaseUserManager):
 
-    def create_user(self, email, first_name, last_name, password, **extra_fields):
+    def create_user(self, email, first_name, last_name,
+                    password, **extra_fields):
         if not email:
             raise ValueError('A valid email address is required')
         if not password:
             raise ValueError('A password is required')
         email = self.normalize_email(email)
         user_name = email
-        user = self.model(email=email, user_name=user_name, first_name=first_name, last_name=last_name, **extra_fields)
+        user = self.model(email=email, user_name=user_name,
+                          first_name=first_name, last_name=last_name,
+                          **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, first_name, last_name, password, **extra_fields):
+    def create_superuser(self, email, first_name, last_name,
+                         password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
@@ -26,7 +31,8 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self.create_user(email, first_name, last_name, password, **extra_fields)
+        return self.create_user(email, first_name, last_name,
+                                password, **extra_fields)
 
 
 class Users(AbstractBaseUser, PermissionsMixin):
