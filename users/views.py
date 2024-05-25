@@ -1,5 +1,5 @@
 from typing import Any
-from django.shortcuts import redirect, reverse
+from django.shortcuts import redirect, reverse, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission
 from django.db.models import Q
@@ -98,6 +98,15 @@ class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
             if email:
                 form.data['user_name'] = email
         return form
+
+    def get_object(self):
+        # Retrieve the user instance to be updated
+        return get_object_or_404(Users, pk=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_data'] = self.get_object()
+        return context
 
     def form_valid(self, form):
         user = form.save(commit=False)
