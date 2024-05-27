@@ -37,16 +37,19 @@
         <tr>
           <th>Type</th>
           <th>Case</th>
-          <th>Notes</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>{{ invoice.case_type }}</td>
           <td>{{ invoice.case_name }} - {{ invoice.case_address }}</td>
-          <td>{{ invoice.notes }}</td>
         </tr>
-        
+        <tr>
+            <th colspan="2">Notes</th>
+        </tr>
+        <tr>
+          <td colspan="2">{{ invoice.notes }}</td>
+        </tr>
       </tbody>
     </table>
 
