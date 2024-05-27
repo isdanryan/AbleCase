@@ -1,0 +1,53 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<!--Main content-->
+<div class="row gx-5 mb-4">
+    <div class="col">
+        <h3 class="p-3 bg-info text-white rounded shadow-sm">Total Open Cases: {{ total_open_cases }}</h3>
+    </div>
+    <div class="col">
+        <h3 class="p-3 bg-danger text-white rounded shadow-sm">Case Due For Review: {{ total_review }}</h3>
+    </div>
+    <div class="col">
+        <h3 class="p-3 bg-warning text-white rounded shadow-sm">Total Cases: {{ total_cases }}</h3>
+    </div>
+</div>
+<div class="container-fluid bg-white px-3 py-3 mt-2 rounded shadow-sm">
+    <div class="row">
+        <div class="col col-10"><h2 class="fs-4 pt-1">Cases due for review</h2></div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Case No.</th>
+                        <th>Case</th>
+                        <th>Type</th>
+                        <th>Assigned</th>
+                        <th>Review Date</th>
+                        <th class="text-center"><i class="iconify fs-5" data-icon="mdi-file-document-edit-outline"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <!--Populate table from database results-->
+                {% for case in review_cases %}
+                    <tr>
+                        <td>{{ case.case_number }}</td>
+                        <td>{{ case.case_name }}</td>
+                        <td>{{ case.type }}</td>
+                        <td>{{ case.assigned }}</td>
+                        <td>{{ case.review_date }}</td>
+                        <td class="text-center"><a href="{% url 'cases:case-details' case.pk %}">View</a></td>
+                    </tr>
+                {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+    </div>
+</div>
+{% endblock %}

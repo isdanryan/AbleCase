@@ -26,4 +26,5 @@ urlpatterns = [
     path('invoices/', include('invoices.urls')),
     path('login/', include('authentication.urls')),
     path('users/', include('users.urls')),
+    path('', include('dashboard.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
