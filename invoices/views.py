@@ -57,6 +57,16 @@ def CreateInvoice(request, pk):
                   {'form': form, 'case_number': case_number})
 
 
+class InvoiceUpdateView(LoginRequiredMixin, generic.UpdateView):
+    template_name = "invoices/invoice_update.html"
+    form_class = InvoiceForm
+    queryset = Invoices.objects.all()
+    context_object_name = "invoice"
+
+    def get_success_url(self):
+        return reverse("invoices:invoice-list")
+
+
 class InvoiceListView(LoginRequiredMixin, generic.ListView):
     template_name = "invoices/invoice_list.html"
     queryset = Invoices.objects.all()
@@ -92,9 +102,11 @@ class InvoiceCaseView(LoginRequiredMixin, generic.ListView):
         context['search_query'] = self.request.GET.get('search', '')
         return context
 
+
 def link_callback(uri, rel):
     """
-    Convert HTML URIs to absolute system paths so xhtml2pdf can access those resources
+    Convert HTML URIs to absolute system paths
+    so xhtml2pdf can access those resources
     """
     if uri.startswith("http://") or uri.startswith("https://"):
         # Handle external URLs separately
@@ -112,6 +124,7 @@ def link_callback(uri, rel):
     if not os.path.isfile(path):
         raise RuntimeError('File not found: %s' % path)
     return path
+
 
 def pdf_view(request, pk):
     invoice = get_object_or_404(Invoices, id=pk)

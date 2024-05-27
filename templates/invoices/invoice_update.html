@@ -1,0 +1,62 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="row mb-4">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <!--Set breadcrumb trail-->
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-white mb-4 rounded shadow-sm">
+                <ol class="breadcrumb py-2 px-3">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'invoices:invoice-list' %}">Invoices</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Update Invoice {{ invoice.invoice_number }}</li>
+                </ol>
+            </nav>
+            <!--Main content-->
+            <div class="container-fluid bg-white px-3 py-3 mt-2 rounded shadow-sm">
+                <div class="d-flex mb-3">
+                    <div class="col col-10"><h2 class="fs-4 pt-1">Invoice {{ invoice.invoice_number }} - Edit</h2></div>
+                </div>
+                <!--Create form layout from clients/forms.py using crispy_forms-->
+                <form method="POST" action=".">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-12 d-none">{{ form.case|as_crispy_field }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">{{ form.invoice_number|as_crispy_field }}</div>
+                        <div class="col-sm-6">{{ form.client|as_crispy_field }}</div>
+                        <div class="col-sm-3">{{ form.status|as_crispy_field }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">{{ form.date|as_crispy_field }}</div>
+                        <div class="col-sm-4">{{ form.term|as_crispy_field }}</div>
+                        <div class="col-sm-4">{{ form.date_due|as_crispy_field }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">{{ form.case_name|as_crispy_field }}</div>
+                        <div class="col-sm-6">{{ form.case_address|as_crispy_field }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">{{ form.case_type|as_crispy_field }}</div>
+                        <div class="col-sm-6">{{ form.invoice_code|as_crispy_field }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">{{ form.notes|as_crispy_field }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">{{ form.amount|as_crispy_field }}</div>
+                        <div class="col-sm-4">{{ form.vat|as_crispy_field }}</div>
+                        <div class="col-sm-4">{{ form.total_due|as_crispy_field }}</div>
+                    </div>
+                    <div class="d-flex justify-content-md-end"><button type="submit" class="btn btn-primary px-3">Save</button></div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+{% endblock content %}
