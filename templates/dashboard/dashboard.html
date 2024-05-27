@@ -4,15 +4,38 @@
 
 {% block content %}
 <!--Main content-->
-<div class="row gx-5 mb-4">
-    <div class="col">
-        <h3 class="p-3 bg-info text-white rounded shadow-sm">Total Open Cases: {{ total_open_cases }}</h3>
-    </div>
-    <div class="col">
-        <h3 class="p-3 bg-danger text-white rounded shadow-sm">Case Due For Review: {{ total_review }}</h3>
-    </div>
-    <div class="col">
-        <h3 class="p-3 bg-warning text-white rounded shadow-sm">Total Cases: {{ total_cases }}</h3>
+<div class="container-fluid overflow-hidden mx-0">
+    <div class="row gx-5 mb-4">
+        <div class="col-md mt-2">
+            <div class="row justiy-content-between p-3 bg-info text-white rounded shadow-sm">
+                <div class="col">
+                    <h3 id="open_cases">Open Cases: </h3>
+                </div>
+                <div class="col text-end">
+                    <div class="dashboard_case_stat" aria-labelledby="open_cases">{{ total_open_cases }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md mt-2">
+            <div class="row justiy-content-between p-3 bg-danger text-white rounded shadow-sm">
+                <div class="col">
+                    <h3 id="open_cases">Due for Review: </h3>
+                </div>
+                <div class="col text-end">
+                    <div class="dashboard_case_stat" aria-labelledby="open_cases">{{ total_review }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md mt-2">
+            <div class="row justiy-content-between p-3 bg-warning text-white rounded shadow-sm">
+                <div class="col">
+                    <h3 id="open_cases">Total Cases: </h3>
+                </div>
+                <div class="col text-end">
+                    <div class="dashboard_case_stat" aria-labelledby="open_cases">{{ total_cases }}</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div class="container-fluid bg-white px-3 py-3 mt-2 rounded shadow-sm">

@@ -59,3 +59,7 @@ body {
     right: 25px;
     display: none;
 }
+
+.dashboard_case_stat {
+    font-size: 4.0rem;
+}
