@@ -49,7 +49,7 @@ class Invoices(models.Model):
     client = models.ForeignKey("clients.Clients", on_delete=models.PROTECT)
     status = models.CharField(max_length=64, choices=INVOICE_STATUS,
                               blank=False, null=False, default="Not Sent")
-    notes = models.TextField()
+    notes = models.TextField(blank=True, null=True)
 
     class Meta:
         verbose_name = "Invoices"

@@ -16,25 +16,29 @@ from django.contrib.staticfiles import finders
 from django.shortcuts import get_object_or_404
 
 
-class InvoiceCreateView(LoginRequiredMixin, generic.CreateView):
-    template_name = "invoices/invoice_create.html"
-    form_class = InvoiceForm
+# class InvoiceCreateView(LoginRequiredMixin, generic.CreateView):
+#     template_name = "invoices/invoice_create.html"
+#     form_class = InvoiceForm
 
-    def get_success_url(self):
-        return reverse("cases:case-list")
+#     def get_success_url(self):
+#         return reverse("cases:case-list")
 
 
 @login_required
 def CreateInvoice(request, pk):
+    case = get_object_or_404(Cases, id=pk)
+    print("running create view")
     if request.method == "POST":
+        print("its a post!")
         form = InvoiceForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('invoices/invoice_list.html')
+            print("saved!")
+            return redirect('invoices:invoice-list')
     else:
+        print("not a post!")
         # Set the instance to the selected case,
-        case = Cases.objects.get(id=pk)
-        case_number = case.case_number
+        
         # Get the last invoice number and increase by 1
         last_invoice_number = Invoices.objects.values_list('invoice_number',
                                                            flat=True).last()
@@ -54,7 +58,7 @@ def CreateInvoice(request, pk):
         }
         form = InvoiceForm(initial=set_data)  # Pass case data to the form
     return render(request, 'invoices/invoice_create.html',
-                  {'form': form, 'case_number': case_number})
+                  {'form': form, 'case': case})
 
 
 class InvoiceUpdateView(LoginRequiredMixin, generic.UpdateView):
