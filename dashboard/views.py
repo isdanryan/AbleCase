@@ -1,9 +1,10 @@
 from typing import Any
 from django.forms import BaseModelForm
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, redirect
 from django.views import generic
 from datetime import date
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from cases.models import Cases
 from users.models import Tasks
 from users.forms import UserTaskForm
@@ -30,3 +31,10 @@ class DashboardView(LoginRequiredMixin, generic.CreateView):
         current_user = self.request.user
         context['tasks'] = Tasks.objects.filter(user=current_user)
         return context
+
+
+@login_required
+def TaskDelete(request, pk):
+    task = Tasks.objects.get(id=pk)
+    task.delete()
+    return redirect("/")

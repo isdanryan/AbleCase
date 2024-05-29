@@ -62,7 +62,7 @@
                                     <tr {% if task.due_date < now %} class="table-warning" {% endif %}>
                                         <td>{{ task.task }}</td>
                                         <td class="text-center">{{ task.due_date }}</td>
-                                        <td class="text-center"><a href="#">View</a></td>
+                                        <td class="text-center"><button type="button" class="btn btn-success py-1" onclick="deleteTask({{ task.id }})">Done</button></td>
                                     </tr>
                                 {% endfor %}    
                                 </tbody>
