@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Users
+from .models import Users, Tasks
 
 
 class UserCreateForm (UserCreationForm):
@@ -58,3 +58,15 @@ class UserUpdateForm (UserCreationForm):
         widget=forms.PasswordInput,
         help_text="Repeat the same password for verification."
     )
+
+
+class UserTaskForm (forms.ModelForm):
+    class Meta:
+        model = Tasks
+        fields = {
+            'task',
+            'due_date',
+        }
+        widgets = {
+            'task': forms.Textarea(attrs={'rows': 3}),
+        }

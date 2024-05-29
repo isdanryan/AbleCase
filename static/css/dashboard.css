@@ -34,6 +34,10 @@ body {
     height: 70px !important;
 }
 
+.h-200 {
+    height: 252px !important;
+}
+
 .icon::before {
     display: inline-block;
     text-rendering: auto;

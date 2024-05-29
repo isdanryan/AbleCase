@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import (AbstractBaseUser, PermissionsMixin,
                                         BaseUserManager)
+from django.utils import timezone
 
 
 class CustomUserManager(BaseUserManager):
@@ -65,3 +66,9 @@ class Users(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    
+
+class Tasks(models.Model):
+    task = models.TextField(blank=False, null=False)
+    due_date = models.DateField(default=timezone.now)
+    user = models.ForeignKey("Users", on_delete=models.CASCADE)

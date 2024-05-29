@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Users
+from .models import Users, Tasks
 
 
 # Set custom user admin area
@@ -28,3 +28,4 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(Users, CustomUserAdmin)
+admin.site.register(Tasks)
