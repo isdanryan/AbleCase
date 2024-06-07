@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import (AbstractBaseUser, PermissionsMixin,
+                                        BaseUserManager)
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -6,7 +8,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class Clients(models.Model):
     CLIENT_TYPES = {
         "Buisness": "Buisness",
-        "Personal": "Personal",
+        "Individual": "Individual",
     }
     CLIENT_STATUS = {
         "Active": "Active",
@@ -31,6 +33,9 @@ class Clients(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=30, choices=CLIENT_STATUS,
                               blank=False, null=False, default="Active")
+    has_portal_access = models.BooleanField(default=False)
+    portal_account = models.OneToOneField("users.Users", null=True,
+                                          on_delete=models.PROTECT)
 
     class Meta:
         verbose_name = "Clients"

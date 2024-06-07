@@ -40,7 +40,6 @@ class Users(AbstractBaseUser, PermissionsMixin):
     ROLE_TYPES = {
         "Staff": "Staff",
         "Client": "Client",
-        "Admin": "Admin",
     }
     email = models.EmailField(unique=True)
     user_name = models.CharField(max_length=150, unique=True)
@@ -66,7 +65,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-    
+
 
 class Tasks(models.Model):
     task = models.TextField(blank=False, null=False)
