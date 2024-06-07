@@ -36,6 +36,8 @@ class Clients(models.Model):
     has_portal_access = models.BooleanField(default=False)
     portal_account = models.OneToOneField("users.Users", null=True,
                                           on_delete=models.PROTECT)
+    client_reference = models.CharField(max_length=16, unique=True,
+                                        blank=False, null=False)
 
     class Meta:
         verbose_name = "Clients"

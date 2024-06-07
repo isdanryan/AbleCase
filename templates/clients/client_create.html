@@ -6,8 +6,8 @@
 
 {% block content %}
     <div class="row mb-4">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
             <!--Set breadcrumb trail-->
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-white mb-4 rounded shadow-sm">
                 <ol class="breadcrumb py-2 px-3">
@@ -32,9 +32,9 @@
                 <form method="POST" action=".">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="col-sm-4">{{ form.display_name|as_crispy_field }}</div>
-                        <div class="col-sm-4">{{ form.type|as_crispy_field }}</div>
-                        <div class="col-sm-4">{{ form.status|as_crispy_field }}</div>
+                        <div class="col-sm-6">{{ form.display_name|as_crispy_field }}</div>
+                        <div class="col-sm-3">{{ form.type|as_crispy_field }}</div>
+                        <div class="col-sm-3">{{ form.status|as_crispy_field }}</div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">{{ form.first_name|as_crispy_field }}</div>
@@ -58,6 +58,9 @@
                         <div class="col-sm-8">{{ form.city|as_crispy_field }}</div>
                         <div class="col-sm-4">{{ form.post_code|as_crispy_field }}</div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-4">{{ form.client_reference|as_crispy_field }}</div>
+                    </div>
                     <div class="row mb-2">
                         <div class="col">{{ form.notes|as_crispy_field }}</div>
                     </div>
@@ -65,6 +68,6 @@
                 </form>
             </div>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-lg-2"></div>
     </div>
 {% endblock content %}

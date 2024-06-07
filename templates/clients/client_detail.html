@@ -6,8 +6,8 @@
 
 {% block content %}
     <div class="row mb-4">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
             <!--Set breadcrumb trail-->
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-white mb-4 rounded shadow-sm">
                 <ol class="breadcrumb py-2 px-3">
@@ -130,6 +130,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div id="div_id_client_reference" class="mb-3">
+                            <label for="id_client_reference" class="form-label requiredField">Client Reference<span class="asteriskField">*</span></label>
+                            <input type="text" name="client_reference" value="{{ client.client_reference }}" maxlength="64" class="textinput form-control" required id="id_client_reference" disabled>
+                        </div>
+                    </div>
+                </div>
                 <div class="row mb-2">
                     <div class="col">
                         <div id="div_id_notes" class="mb-3">
@@ -141,6 +149,6 @@
                 <div class="d-flex justify-content-md-end"><a href="{% url 'clients:client-update' client.pk %}"><button class="btn btn-primary px-3">Update</button></a></div>
             </div>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-lg-2"></div>
     </div>
 {% endblock content %}
