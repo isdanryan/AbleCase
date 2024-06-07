@@ -1,0 +1,104 @@
+{% extends "base/portal_base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="row mb-4">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <!--Set breadcrumb trail-->
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-white mb-4 rounded shadow-sm">
+                <ol class="breadcrumb py-2 px-3">
+                    <li class="breadcrumb-item"><a href="#">My account</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">Profile</a></li>
+                </ol>
+            </nav>
+            <!--Main content-->
+            <div class="container-fluid bg-white px-3 py-3 mt-2 rounded shadow-sm">
+                <div class="d-flex mb-3">
+                    <div class="col col-10"><h2 class="fs-4 pt-1">My Account</h2></div>
+                </div>
+                <!--Re-create form layout and populate with client info-->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div id="div_id_display_name" class="mb-3">
+                            <label for="id_display_name" class="form-label requiredField">Display Name<span class="asteriskField">*</span></label>
+                            <input type="text" name="display_name" value="{{ account_details.display_name }}" maxlength="64" class="textinput form-control" required id="id_display_name" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="div_id_client_reference" class="mb-3">
+                            <label for="id_client_reference" class="form-label requiredField">Client Reference<span class="asteriskField">*</span></label>
+                            <input type="text" name="client_reference" value="{{ account_details.client_reference }}" maxlength="64" class="textinput form-control" required id="id_client_reference" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div id="div_id_phone" class="mb-3">
+                            <label for="id_phone" class="form-label requiredField">Phone<span class="asteriskField">*</span></label>
+                            <input type="tel" name="phone" value="{{ account_details.phone }}" maxlength="128" class="regionalphonenumberwidget form-control" required id="id_phone" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="div_id_mobile" class="mb-3">
+                            <label for="id_mobile" class="form-label">Mobile</label>
+                            <input type="tel" name="mobile" value="{{ account_detailsmobile }}" maxlength="128" class="regionalphonenumberwidget form-control" id="id_mobile" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="div_id_email" class="mb-3">
+                            <label for="id_email" class="form-label">Email</label>
+                            <input type="email" name="email" value="{{ account_details.email }}" maxlength="124" class="emailinput form-control" id="id_email" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div id="div_id_building_number" class="mb-3">
+                            <label for="id_building_number" class="form-label">Building number</label>
+                            <input type="text" name="building_number" value="{{ account_details.building_number }}" maxlength="20" class="textinput form-control" id="id_building_number" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div id="div_id_street" class="mb-3">
+                            <label for="id_street" class="form-label">Street</label>
+                            <input type="text" name="street" value="{{ account_details.street }}" maxlength="64" class="textinput form-control" id="id_street" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div id="div_id_address_2" class="mb-3">
+                            <label for="id_address_2" class="form-label">Address 2</label>
+                            <input type="text" name="address_2" value="{{ account_details.address_2 }}" maxlength="64" class="textinput form-control" id="id_address_2" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="div_id_address_3" class="mb-3">
+                            <label for="id_address_3" class="form-label">Address 3</label>
+                            <input type="text" name="address_3" value="{{ account_details.address_3 }}" maxlength="64" class="textinput form-control" id="id_address_3" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div id="div_id_city" class="mb-3">
+                            <label for="id_city" class="form-label">City</label>
+                                <input type="text" name="city" value="{{ account_details.city }}" maxlength="64" class="textinput form-control" id="id_city" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="div_id_post_code" class="mb-3">
+                            <label for="id_post_code" class="form-label">Post code</label>
+                            <input type="text" name="post_code" value="{{ account_details.post_code }}" maxlength="64" class="textinput form-control" id="id_post_code" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+{% endblock content %}

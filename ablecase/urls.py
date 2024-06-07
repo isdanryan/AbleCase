@@ -27,4 +27,5 @@ urlpatterns = [
     path('login/', include('authentication.urls')),
     path('users/', include('users.urls')),
     path('', include('dashboard.urls')),
+    path('portal/', include('client_portal.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

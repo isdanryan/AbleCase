@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import UserLoginForm
 
+
 def UserLogin(request):
     if not request.user.is_authenticated:
         form = UserLoginForm(request.POST or None)
