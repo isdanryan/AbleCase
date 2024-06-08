@@ -35,7 +35,8 @@ class Clients(models.Model):
                               blank=False, null=False, default="Active")
     has_portal_access = models.BooleanField(default=False)
     portal_account = models.OneToOneField("users.Users", null=True,
-                                          on_delete=models.PROTECT)
+                                          on_delete=models.PROTECT,
+                                          related_name='client')
     client_reference = models.CharField(max_length=16, unique=True,
                                         blank=False, null=False)
 

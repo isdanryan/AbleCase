@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ClientLoginView, ClientAccountView, PortalSignup
+from .views import ClientLoginView, ClientAccountView, PortalSignup, ClientSignOut
 
 app_name = "client_portal"
 
@@ -9,4 +9,5 @@ urlpatterns = [
    path('login/', ClientLoginView, name="client-login"),
    path('register/', PortalSignup, name="client-signup"),
    path('<int:pk>/myaccount/', ClientAccountView.as_view(), name="client-account"),
+   path('signout', ClientSignOut, name="signout")
 ]

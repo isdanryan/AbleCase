@@ -28,6 +28,13 @@
         </label> {% endcomment %}
         {% comment %} </div> {% endcomment %}
         <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        {% if messages %}
+        <div class="alert alert-info mt-2">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
     </form>
     </main>
     <div class="col-md-4"></div>

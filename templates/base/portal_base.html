@@ -26,14 +26,14 @@
                             <div class="dropdown text-end nav-dropdown">
                                 <a href="#" class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,10">
                                     <i class="iconify d-block mx-auto my-1 fs-3 text-white" data-icon="mdi-account"></i>
-                                    <span class="fw-semibold text-white">Client Name</span>
+                                    <span class="fw-semibold text-white">{{ user.client.display_name }}</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end text-small dropdown-menu-width-overide">
                                     <li><a class="dropdown-item text-end" href="#">My Account</a></li>
                                     <li><a class="dropdown-item text-end" href="#">My Payments</a></li>
                                     <li><a class="dropdown-item text-end" href="#">Charges & Fees</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-end" href="#">Sign out</a></li>
+                                    <li><a class="dropdown-item text-end" href="{% url 'client_portal:signout' %}">Sign out</a></li>
                                 </ul>
                             </div>
                         </li>

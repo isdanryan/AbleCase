@@ -2,6 +2,7 @@ from django.shortcuts import redirect, reverse, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from clients.models import Clients
 from users.models import Users
 from .forms import ClientForm, ClientLoginForm, PortalSignupForm
@@ -22,14 +23,21 @@ def ClientLoginView(request):
             if form.is_valid():
                 username = form.cleaned_data.get('username')
                 password = form.cleaned_data.get('password')
-                user = authenticate(request, username=username,
-                                    password=password)
+                user = authenticate(request, username=username, password=password)
+                
                 if user is not None:
-                    login(request, user)
-                    print("Login successful")
-                    return redirect(reverse('client-account', kwargs={'pk': user.clients.pk}))
+                    if user.role == "Client":
+                        try:
+                            client_id = user.client.pk
+                            login(request, user)
+                            print(request, "Login successful")
+                            return redirect(f'/portal/{client_id}/myaccount')
+                        except Clients.DoesNotExist:
+                            messages.error(request, "Associated client profile not found")
+                    else:
+                        messages.error(request, "You are not a client")
                 else:
-                    print("Incorrect Username or password")
+                    messages.error(request, "Incorrect Username or password")
 
         return render(request, 'client_portal/portal_login.html', {'form': form})
     else:
@@ -57,7 +65,8 @@ def PortalSignup(request):
             if not client.email:
                 client.email = email
 
-            client.user = user
+            client.portal_account = user
+            client.has_portal_access = True
             client.save()
 
             login(request, user)
@@ -67,3 +76,8 @@ def PortalSignup(request):
     else:
         form = PortalSignupForm()
     return render(request, 'client_portal/portal_register.html', {'form': form})
+
+
+def ClientSignOut(request):
+    logout(request)
+    return redirect('/portal/login')
