@@ -4,12 +4,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Cases, Communications
 from .forms import CaseForm, CommunicationForm
 from django.views import generic
+from ablecase.decorators import role_required
+from ablecase.mixins import RoleRequiredMixin
 
 
-class CaseListView(LoginRequiredMixin, generic.ListView):
+# Create list of cases
+class CaseListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
     template_name = "cases/cases_list.html"
     queryset = Cases.objects.all()
     context_object_name = "cases"
+    required_role = "Staff"
 
     def get_queryset(self):
         queryset = Cases.objects.all()
@@ -24,15 +28,19 @@ class CaseListView(LoginRequiredMixin, generic.ListView):
         return context
 
 
-class CaseCreateView(LoginRequiredMixin, generic.CreateView):
+# Create a new case
+class CaseCreateView(LoginRequiredMixin, RoleRequiredMixin, generic.CreateView):
     template_name = "cases/cases_create.html"
     form_class = CaseForm
+    required_role = "Staff"
 
     def get_success_url(self):
         return reverse("cases:case-list")
 
 
+# Displays details for selected case
 @login_required
+@role_required("Staff")
 def CaseDetail(request, pk):
     case = Cases.objects.get(id=pk)
     communications = Communications.objects.filter(case=case).order_by('-date')
@@ -43,6 +51,7 @@ def CaseDetail(request, pk):
             "communications": communications,
             "form": form,
         }
+    # Add addtional communication records to the current case    
     if request.method == "POST":
         form = CommunicationForm(request.POST)
         if form.is_valid():
@@ -63,17 +72,22 @@ def CaseDetail(request, pk):
     return render(request, "cases/cases_detail.html", context)
 
 
-class CaseUpdateView(LoginRequiredMixin, generic.UpdateView):
+# Update the current case
+class CaseUpdateView(LoginRequiredMixin, RoleRequiredMixin,
+                     generic.UpdateView):
     template_name = "cases/cases_update.html"
     queryset = Cases.objects.all()
     form_class = CaseForm
     context_object_name = "case"
+    required_role = "Staff"
 
     def get_success_url(self):
         return reverse("cases:case-list")
 
 
+# Delete the selected case
 @login_required
+@role_required("Staff")
 def CaseDelete(request, pk):
     case = Cases.objects.get(id=pk)
     case.delete()

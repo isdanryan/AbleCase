@@ -1,30 +1,38 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .forms import UserLoginForm
 
 
+# User login fucntion
 def UserLogin(request):
+    # If there is no active session load login page
+    # Otherwise redirect user to the dashboard
     if not request.user.is_authenticated:
         form = UserLoginForm(request.POST or None)
         if request.method == "POST":
+            # Check and clean the entered data
             if form.is_valid():
                 username = form.cleaned_data.get('username')
                 password = form.cleaned_data.get('password')
                 user = authenticate(request, username=username,
                                     password=password)
-                if user is not None:
+                # Check user exists and is staff
+                if user is not None or user.role == "Staff":
                     login(request, user)
-                    print("Login successful, taking you to cases")
                     return redirect("/cases")
                 else:
-                    print("Incorrect Username or password")
+                    messages.error(request, "Incorrect username or password")
 
         return render(request, 'authentication/user_login.html', {'form': form})
     else:
+        # Redirect user to dashboard if already logged in
         return redirect("/")
 
 
+@login_required
+# Signout function
 def UserSignOut(request):
     logout(request)
     return redirect('/login')

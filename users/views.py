@@ -7,13 +7,17 @@ from .models import Users
 from .forms import UserCreateForm, UserUpdateForm
 from django.views import generic
 from django.contrib import messages
+from ablecase.mixins import RoleRequiredMixin
 
 
-class UserCreateView(LoginRequiredMixin, generic.CreateView):
+# View to create a new user
+class UserCreateView(LoginRequiredMixin, RoleRequiredMixin, generic.CreateView):
     template_name = "users/user_create.html"
     form_class = UserCreateForm
     model = Users
+    required_role = "Staff"
 
+    # Get form data and set the username to be the email address
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.data = form.data.copy()
@@ -23,6 +27,7 @@ class UserCreateView(LoginRequiredMixin, generic.CreateView):
                 form.data['user_name'] = email
         return form
 
+    # Validate the form and save the user
     def form_valid(self, form):
         user = form.save(commit=False)
         user.user_name = form.cleaned_data["email"]
@@ -54,13 +59,14 @@ class UserCreateView(LoginRequiredMixin, generic.CreateView):
             permission = Permission.objects.get(codename='manage_users')
             user.user_permissions.add(permission)
 
+        # Check if the new user has been allowed access to platform
         if self.request.POST.get('allow_signin'):
             user.is_active = True
 
         return redirect(self.get_success_url())
 
+    # Handle errors
     def form_invalid(self, form):
-        print("Form is invalid. Errors:")
         for field, errors in form.errors.items():
             for error in errors:
                 print(f"{field}: {error}")
@@ -71,10 +77,13 @@ class UserCreateView(LoginRequiredMixin, generic.CreateView):
         return reverse("users:user-list")
 
 
-class UserListView(LoginRequiredMixin, generic.ListView):
+# Create list of users to display
+class UserListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
     template_name = "users/user_list.html"
     context_object_name = "users"
+    required_role = "Staff"
 
+    # Create search function to search name or email address
     def get_queryset(self):
         queryset = Users.objects.filter(Q(role='Staff') | Q(role='Admin')).order_by('first_name')
         search_query = self.request.GET.get('search', '')
@@ -85,11 +94,13 @@ class UserListView(LoginRequiredMixin, generic.ListView):
         return queryset
 
 
-class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
+# View to update the selected user's details
+class UserUpdateView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateView):
     template_name = "users/user_update.html"
     form_class = UserUpdateForm
     model = Users
 
+#    Get form data and set the username to be the email address
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.data = form.data.copy()
@@ -128,7 +139,7 @@ class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
         perm_manage_invoice = Permission.objects.get(codename='manage_invoices')
         perm_manage_users = Permission.objects.get(codename='manage_users')
 
-        # Check for permissions and if true, assign the permission
+        # Check for any changed permissions and update
         if self.request.POST.get('view_cases'):
             print("Has View Cases")
             user.user_permissions.add(perm_view_case)
@@ -159,9 +170,9 @@ class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
             user.user_permissions.add(perm_manage_users)
         else:
             user.user_permissions.remove(perm_manage_users)
-
         return redirect(self.get_success_url())
-    
+
+    # Handle errors
     def form_invalid(self, form):
         print("Form is invalid. Errors:")
         for field, errors in form.errors.items():
