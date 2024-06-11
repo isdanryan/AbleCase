@@ -1,0 +1,58 @@
+{% extends "base/portal_base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <!--Set breadcrumb trail-->
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-white mb-4 rounded shadow-sm">
+                <ol class="breadcrumb py-2 px-3">
+                    <li class="breadcrumb-item"><a href="#">My Account</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">My Invoices</li>
+                </ol>
+            </nav>
+            <!--Main content-->
+            <div class="container-fluid bg-white px-3 py-3 mt-2 rounded shadow-sm">
+                <div class="row mb-3 justify-content-between">
+                    <div class="col-sm-auto"><h2 class="fs-4 pt-1">My Invoices</h2></div>
+                    <div class="col-sm-auto search-box text-end">
+                        <form method="GET" action=".">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Invoice number" aria-label="Invoice number" name="search" aria-describedby="button-search" value="{{ request.GET.search }}">
+                                <button class="btn btn-outline-primary" type="submit" id="button-search"><i class="iconify d-block mx-auto my-1 fs-3" data-icon="mdi-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Invoice</th>
+                                <th>Date Due</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th class="text-center">Pay</th>
+                                <th class="text-center">Print</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <!--Populate table from database results-->
+                        {% for invoice in invoices %}
+                            <tr>
+                                <td>{{ invoice.invoice_number }}</td>
+                                <td>{{ invoice.date_due }}</td>
+                                <td>{{ invoice.total_due }}</td>
+                                <td>{{ invoice.status }}</td>
+                                <td class="text-center"><a href="#"><i class="iconify fs-5" data-icon="mdi-check-bold"></i></a></td>
+                                <td class="text-center"><a href="{% url 'invoices:print-pdf' invoice.pk %}"><i class="iconify fs-5" data-icon="mdi-arrow-down-bold"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+{% endblock content %}

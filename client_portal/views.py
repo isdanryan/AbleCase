@@ -161,3 +161,22 @@ def ClientSignOut(request):
     return redirect('/portal/login')
 
 
+# Build list of client invoices
+class ClientInvoiceList(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
+    template_name = "client_portal/client_invoices.html"
+    context_object_name = "invoices"
+    required_role = "Client"
+
+    # Create search function to search name or email address
+    def get_queryset(self):
+        current_user = self.request.user
+        queryset = Invoices.objects.filter(client=current_user.client)
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            queryset = queryset.filter(invoice_number__icontains=search_query)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('search', '')
+        return context
