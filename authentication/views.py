@@ -12,14 +12,16 @@ def UserLogin(request):
     if not request.user.is_authenticated:
         form = UserLoginForm(request.POST or None)
         if request.method == "POST":
+
             # Check and clean the entered data
             if form.is_valid():
                 username = form.cleaned_data.get('username')
                 password = form.cleaned_data.get('password')
                 user = authenticate(request, username=username,
                                     password=password)
+
                 # Check user exists and is staff
-                if user is not None or user.role == "Staff":
+                if user is not None and user.role == "Staff":
                     login(request, user)
                     return redirect("/cases")
                 else:
