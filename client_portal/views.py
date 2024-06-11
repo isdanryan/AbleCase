@@ -1,22 +1,73 @@
-from django.shortcuts import redirect, reverse, render
+from django.shortcuts import redirect, reverse, render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from clients.models import Clients
 from users.models import Users
-from .forms import ClientForm, ClientLoginForm, PortalSignupForm
+from invoices.models import Invoices
+from .forms import ClientForm, ClientLoginForm, PortalSignupForm, PasswordResetForm
 from django.views import generic
 from ablecase.mixins import RoleRequiredMixin
+from django.views.generic.edit import FormMixin
 
 
-# Create view to show current logged in clients details
-class ClientAccountView(LoginRequiredMixin, RoleRequiredMixin, generic.DetailView):
+class ClientAccountView(LoginRequiredMixin, RoleRequiredMixin, FormMixin, generic.DetailView):
     template_name = "client_portal/account_details.html"
-    queryset = Clients.objects.all()
-    context_object_name = "account_details"
-    # Only allow access if user has client role
+    form_class = PasswordResetForm
+    # Require user has client role
     required_role = "Client"
+
+    # Overide get method to handle both displaying details and getting new password
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        return self.render_to_response(self.get_context_data(form=form))
+
+    # Overide post method to handle password update
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            # Stop form from saving automatically
+            form.save(commit=False)
+            # Get current user and set new password from form data
+            user = self.request.user
+            user.set_password(form.cleaned_data["new_password1"])
+            user.save()
+            messages.success(
+                request, "Your password has been updated. Please log back in using the new password.")
+            # Redirect to signout to force user to login with new password
+            return redirect('/portal/signout')
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+    def get_object(self):
+        # Retrieve the user instance to be updated
+        return get_object_or_404(Users, pk=self.kwargs['pk'])
+
+    # Pass additional arguements to the form
+    def get_form_kwargs(self):
+        # Get Django's default keywords for the FormMixin
+        kwargs = super().get_form_kwargs()
+        # Get the user instance
+        kwargs['user'] = self.get_object()
+        return kwargs
+
+    # Handle the required context to display
+    def get_context_data(self, **kwargs):
+        # Set to the current logged in user
+        current_user = self.request.user
+        # Prep the context container
+        context = super().get_context_data(**kwargs)
+        # Pass in the info to display the form
+        context['form'] = kwargs.get('form', self.get_form())
+        # Get the details based off current user
+        # and pass into the context container
+        context['account_details'] = Clients.objects.get(
+            portal_account=current_user
+            )
+        context['users'] = Users.objects.get(email=current_user)
+        return context
 
 
 # Login view for client portal
@@ -31,20 +82,23 @@ def ClientLoginView(request):
                 user = authenticate(request, username=username,
                                     password=password)
 
+                # Check user exists and has the correct role
                 if user is not None:
                     if user.role == "Client":
+                        # Attempt login with the supplied details
                         try:
                             client_id = user.client.pk
                             login(request, user)
                             print(request, "Login successful")
                             return redirect(f'/portal/{client_id}/myaccount')
+                        # Handle error states
                         except Clients.DoesNotExist:
                             messages.error(request, "Associated client profile not found")
                     else:
                         messages.error(request, "You are not a client")
                 else:
                     messages.error(request, "Incorrect Username or password")
-
+        # Send user to login page by default
         return render(request, 'client_portal/portal_login.html', {'form': form})
     else:
         # If already logged in redirect to clients account page
@@ -105,3 +159,5 @@ def PortalSignup(request):
 def ClientSignOut(request):
     logout(request)
     return redirect('/portal/login')
+
+

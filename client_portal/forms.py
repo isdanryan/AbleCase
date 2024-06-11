@@ -1,7 +1,7 @@
 from django import forms
 from clients.models import Clients
 from users.models import Users
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
 
 
 class ClientForm(forms.ModelForm):
@@ -42,3 +42,10 @@ class PortalSignupForm(UserCreationForm):
         else:
             print("Found client profile")
         return client_reference
+
+
+class PasswordResetForm(SetPasswordForm):
+
+    class Meta:
+        model = Users
+        fields = ['new_password1', 'new_password2']

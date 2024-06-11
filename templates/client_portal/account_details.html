@@ -97,6 +97,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <p>If you believe the details we hold are incorrect or require them to be updated, please contact us at <a href="mailto:#">support@ableinvestigations.co.uk</a></p>
+                </div>
+            </div>
+            <div class="container-fluid bg-white px-3 py-3 mt-4 rounded shadow-sm">
+                <div class="d-flex mb-3">
+                    <div class="col col-10"><h2 class="fs-4 pt-1">Change password</h2></div>
+                </div>
+                <!--Update password form-->
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-4">{{ form.new_password1|as_crispy_field }}</div>
+                        <div class="col-sm-4">{{ form.new_password2|as_crispy_field }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex justify-content-md-end"><button type="submit" class="btn btn-primary px-3">Update</button></div>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="col-lg-2"></div>
