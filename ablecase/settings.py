@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'authentication',
     'dashboard',
     'client_portal',
+    'payments',
 ]
 
 MIDDLEWARE = [
