@@ -12,36 +12,8 @@
     <title>Client Portal</title>
 </head>
 <body>
-    <header class="bg-red text-white shadow-sm {% if not user.is_authenticated %} d-none {% endif %}">
-        <div class="px-3 py-2 text-bg-dark mb-5 border-bottom">
-            <div class="container-fluid">
-                <div class="d-flex flex-wrap align-items-center justify-content-around justify-content-md-start">
-                    <a href="#" class="d-flex align-items-center my-2 my-md-0 me-md-auto text-white text-decoration-none">
-                        <h1 class="fs-3">Client Portal</h1>
-                    </a>
-                    <!--Base menu-->
-                    <ul class="nav col-12 col-sm-auto my-2 justify-content-center my-md-0 text-small">
-                        <li>
-                        <!--Dropdown menu for client account settings-->
-                            <div class="dropdown text-end nav-dropdown">
-                                <a href="#" class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,10">
-                                    <i class="iconify d-block mx-auto my-1 fs-3 text-white" data-icon="mdi-account"></i>
-                                    <span class="fw-semibold text-white">{{ user.client.display_name }}</span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end text-small dropdown-menu-width-overide">
-                                    <li><a class="dropdown-item text-end" href="#">My Account</a></li>
-                                    <li><a class="dropdown-item text-end" href="#">My Payments</a></li>
-                                    <li><a class="dropdown-item text-end" href="{% url 'client_portal:client-invoices' %}">My Invoices & Charges</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-end" href="{% url 'client_portal:signout' %}">Sign out</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- Show menu header if user is logged in -->
+    {% if user.is_authenticated  %}{% include "headers/portal_header.html" %}{% endif %}
     <div class="container-fluid">
         <!--Load main content-->
         {% block content %}

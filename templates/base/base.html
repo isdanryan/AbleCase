@@ -13,68 +13,8 @@
     <title>AbleCase</title>
 </head>
 <body>
-    <header class="bg-red text-white shadow-sm {% if not user.is_authenticated %} d-none {% endif %}">
-        <div class="px-3 py-2 text-bg-dark mb-5 border-bottom">
-            <div class="container-fluid">
-                <div class="d-flex flex-wrap align-items-center justify-content-around justify-content-md-start">
-                    <a href="/" class="d-flex align-items-center my-2 my-md-0 me-md-auto text-white text-decoration-none">
-                        <h1 class="fs-3"><img class="me-4" src="{% static 'img/logo-white-transparent.png' %}" alt="Company Logo" width="150" >AbleCase</h1>
-                    </a>
-                    <!--Base menu-->
-                    <ul class="nav col-12 col-sm-auto my-2 justify-content-center my-md-0 text-small">
-                        <li>
-                        <a href="{% url 'dashboard:dashboard' %}" class="nav-link text-white fw-semibold">
-                            <i class="iconify d-block mx-auto my-1 fs-3" data-icon="mdi-view-dashboard"></i>
-                            Dashboard
-                        </a>
-                        </li>
-                        <li>
-                        <a href="{% url 'clients:client-list' %}" class="nav-link text-white fw-semibold">
-                            <i class="iconify d-block mx-auto my-1 fs-3" data-icon="mdi-account-multiple"></i>
-                            Clients
-                        </a>
-                        </li>
-                        <li>
-                        <a href="{% url 'cases:case-list' %}" class="nav-link text-white fw-semibold">
-                            <i class="iconify d-block mx-auto my-1 fs-3" data-icon="mdi-text-box-edit"></i>
-                            Cases
-                        </a>
-                        </li>
-                        <li>
-                            <div class="dropdown text-end nav-dropdown">
-                                <a href="#" class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,10">
-                                    <i class="iconify d-block mx-auto my-1 fs-3 text-white" data-icon="mdi-settings"></i>
-                                    <span class="fw-semibold text-white">Admin</span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end text-small dropdown-menu-width-overide">
-                                    <li><a class="dropdown-item text-end" href="{% url 'invoices:invoice-list' %}">Invoices</a></li>
-                                    <li><a class="dropdown-item text-end" href="#">Reports</a></li>
-                                    <li><a class="dropdown-item text-end" href="{% url 'users:user-list' %}">Users</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="vr text-white" style="height: 100%"></div>
-                        </li>
-                        <li>
-                        <!--Dropdown menu for user account settings-->
-                            <div class="dropdown text-end nav-dropdown">
-                                <a href="#" class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,10">
-                                    <i class="iconify d-block mx-auto my-1 fs-3 text-white" data-icon="mdi-account"></i>
-                                    <span class="fw-semibold text-white">{{ user.first_name }}</span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end text-small dropdown-menu-width-overide">
-                                    <li><a class="dropdown-item text-end" href="#">Profile</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-end" href="{% url 'authentication:signout' %}">Sign out</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- Show menu header if user is logged in -->
+    {% if user.is_authenticated  %}{% include "headers/staff_header.html" %}{% endif %}
     <div class="container-fluid">
         <!--Load main content-->
         {% block content %}

@@ -43,7 +43,7 @@
                                 <td>{{ invoice.date_due }}</td>
                                 <td>{{ invoice.total_due }}</td>
                                 <td>{{ invoice.status }}</td>
-                                <td class="text-center"><a href="{% url 'payments:checkout' invoice.pk %}"><i class="iconify fs-5" data-icon="mdi-check-bold"></i></a></td>
+                                <td class="text-center">{% if invoice.status != "Paid" %}<a href="{% url 'payments:checkout' invoice.pk %}">Pay Now</a>{% else %}Paid{% endif %}</td>
                                 <td class="text-center"><a href="{% url 'invoices:print-pdf' invoice.pk %}"><i class="iconify fs-5" data-icon="mdi-arrow-down-bold"></i></a></td>
                             </tr>
                         {% endfor %}

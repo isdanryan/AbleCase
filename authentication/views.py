@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserLoginForm
+from ablecase.decorators import role_required
 
 
 # User login fucntion
@@ -33,8 +34,8 @@ def UserLogin(request):
         return redirect("/")
 
 
-@login_required
 # Signout function
+@role_required("Staff")
 def UserSignOut(request):
     logout(request)
     return redirect('/login')

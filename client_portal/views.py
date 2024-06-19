@@ -10,6 +10,7 @@ from .forms import ClientForm, ClientLoginForm, PortalSignupForm, PasswordResetF
 from django.views import generic
 from ablecase.mixins import RoleRequiredMixin
 from django.views.generic.edit import FormMixin
+from ablecase.decorators import role_required
 
 
 class ClientAccountView(LoginRequiredMixin, RoleRequiredMixin, FormMixin, generic.DetailView):
@@ -156,6 +157,7 @@ def PortalSignup(request):
 
 
 # Sign client out
+@role_required("Client")
 def ClientSignOut(request):
     logout(request)
     return redirect('/portal/login')
