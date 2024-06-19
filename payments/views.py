@@ -85,6 +85,7 @@ def stripe_webhook(request):
 class SuccessView(LoginRequiredMixin, RoleRequiredMixin, TemplateView):
     template_name = "payments/success.html"
 
+
 # Checkout cancelled view
 class CancelledView(LoginRequiredMixin, RoleRequiredMixin, TemplateView):
     template_name = "payments/cancel.html"

@@ -9,6 +9,7 @@
     <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" />
     <link href="{% static 'css/invoices.css' %}" rel="stylesheet" />
     <link href="{% static 'css/users.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/login.css' %}" rel="stylesheet" />
     <title>AbleCase</title>
 </head>
 <body>
@@ -16,8 +17,8 @@
         <div class="px-3 py-2 text-bg-dark mb-5 border-bottom">
             <div class="container-fluid">
                 <div class="d-flex flex-wrap align-items-center justify-content-around justify-content-md-start">
-                    <a href="#" class="d-flex align-items-center my-2 my-md-0 me-md-auto text-white text-decoration-none">
-                        <h1 class="fs-3">AbleCase</h1>
+                    <a href="/" class="d-flex align-items-center my-2 my-md-0 me-md-auto text-white text-decoration-none">
+                        <h1 class="fs-3"><img class="me-4" src="{% static 'img/logo-white-transparent.png' %}" alt="Company Logo" width="150" >AbleCase</h1>
                     </a>
                     <!--Base menu-->
                     <ul class="nav col-12 col-sm-auto my-2 justify-content-center my-md-0 text-small">
@@ -64,7 +65,6 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end text-small dropdown-menu-width-overide">
                                     <li><a class="dropdown-item text-end" href="#">Profile</a></li>
-                                    <li><a class="dropdown-item text-end" href="#">Admin</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item text-end" href="{% url 'authentication:signout' %}">Sign out</a></li>
                                 </ul>

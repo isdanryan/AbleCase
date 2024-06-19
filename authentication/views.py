@@ -23,7 +23,7 @@ def UserLogin(request):
                 # Check user exists and is staff
                 if user is not None and user.role == "Staff":
                     login(request, user)
-                    return redirect("/cases")
+                    return redirect("/")
                 else:
                     messages.error(request, "Incorrect username or password")
 

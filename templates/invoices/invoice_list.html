@@ -33,7 +33,6 @@
                                 <th>Date Due</th>
                                 <th>Total</th>
                                 <th>Status</th>
-                                <th class="text-center">Paid</th>
                                 <th class="text-center">Edit</i></th>
                                 <th class="text-center">Print</th>
                             </tr>
@@ -47,7 +46,6 @@
                                 <td>{{ invoice.date_due }}</td>
                                 <td>{{ invoice.total_due }}</td>
                                 <td>{{ invoice.status }}</td>
-                                <td class="text-center"><a href="#"><i class="iconify fs-5" data-icon="mdi-check-bold"></i></a></td>
                                 <td class="text-center"><a href="{% url 'invoices:invoice-update' invoice.pk %}"><i class="iconify fs-5" data-icon="mdi-file-document-edit-outline"></i></a></td>
                                 <td class="text-center"><a href="{% url 'invoices:print-pdf' invoice.pk %}"><i class="iconify fs-5" data-icon="mdi-arrow-down-bold"></i></a></td>
                             </tr>
