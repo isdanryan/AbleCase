@@ -18,13 +18,24 @@ class CaseListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
     def get_queryset(self):
         queryset = Cases.objects.all()
         search_query = self.request.GET.get('search', '')
+        filter = self.request.GET.get('filter')
+
+        # Check for filter
+        if filter == 'open':
+            queryset = queryset.filter(status='Open')
+        elif filter == 'closed':
+            queryset = queryset.filter(status='Closed')
+
+        # Check for a search param
         if search_query:
             queryset = queryset.filter(case_number__icontains=search_query)
+
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_query'] = self.request.GET.get('search', '')
+        context['filter'] = self.request.GET.get('filter')
         return context
 
 

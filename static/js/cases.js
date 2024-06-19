@@ -12,6 +12,25 @@ window.onload = function() {
     }
 };
 
+window.addEventListener('DOMContentLoaded', function() {
+    var caseFilter = document.getElementById('case-filter-select');
+
+    caseFilter.addEventListener('change', updateCaseFilter);
+
+    function updateCaseFilter() {
+        if (caseFilter.value == 'open') {
+            window.location.href = "/cases?filter=open";
+        } else if (caseFilter.value == 'closed') {
+            window.location.href = "/cases?filter=closed";
+        } else {
+            window.location.href = "/cases";
+        }
+    };
+});
+
+
+
+
 function deleteCase(caseId, caseNo) {
     Swal.fire({
         title: "Delete case " + caseNo + "?",

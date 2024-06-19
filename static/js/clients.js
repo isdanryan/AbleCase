@@ -15,21 +15,41 @@ window.addEventListener('DOMContentLoaded', function () {
     var firstName = document.getElementById('id_first_name');
     var lastName = document.getElementById('id_last_name');
     var displayName = document.getElementById('id_display_name');
-    var clientReference = document.getElementById('id_client_reference'); 
+    var clientReference = document.getElementById('id_client_reference');
 
-    // Event listener for input changes in 'First Name' field
-    firstName.addEventListener('input', updateCombinedField);
+    var clientFilter = document.getElementById('client-filter-select');
 
-    // Event listener for input changes in 'Last Name' field
-    lastName.addEventListener('input', updateCombinedField);
+    // User firstName to check if we are on the client_details.html page
+    if (firstName) {
+        // Event listener for input changes in 'First Name' field
+        firstName.addEventListener('input', updateCombinedField);
 
-    // Function to update combinedField
-    function updateCombinedField() {
-        displayName.value = firstName.value + ' ' + lastName.value;
-        clientReference.value = displayName.value.charAt(0).toUpperCase() + dateTimeInteger;
-    }
+        // Event listener for input changes in 'Last Name' field
+        lastName.addEventListener('input', updateCombinedField);
+
+        // Function to update combinedField
+        function updateCombinedField() {
+            displayName.value = firstName.value + ' ' + lastName.value;
+            clientReference.value = displayName.value.charAt(0).toUpperCase() + dateTimeInteger;
+        };
+    };
+
+    // USer clientFilter to check if we are on the client_list.html page
+    if (clientFilter) {
+
+        // Event listener for client filter
+        clientFilter.addEventListener('change', updateClientFilter);
+
+
+        function updateClientFilter() {
+            if (clientFilter.value == 'active') {
+                window.location.href = "/clients?filter=active";
+            } else if (clientFilter.value == 'inactive') {
+                window.location.href = "/clients?filter=inactive";
+            } else {
+                window.location.href = "/clients";
+            }
+        };
+    };
 
 });
-
-
-

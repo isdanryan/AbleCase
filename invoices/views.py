@@ -77,13 +77,25 @@ class InvoiceListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
     def get_queryset(self):
         queryset = Invoices.objects.all()
         search_query = self.request.GET.get('search', '')
+        filter = self.request.GET.get('filter')
+
+        # Check for filter
+        if filter == 'notsent':
+            queryset = queryset.filter(status='Not Sent')
+        elif filter == 'sent':
+            queryset = queryset.filter(status='Sent')
+        elif filter == 'paid':
+            queryset = queryset.filter(status='Paid')
+
         if search_query:
             queryset = queryset.filter(invoice_number__icontains=search_query)
+
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_query'] = self.request.GET.get('search', '')
+        context['filter'] = self.request.GET.get('filter')
         return context
 
 

@@ -1,4 +1,7 @@
 {% extends "base/base.html" %}
+
+{% load static %}
+
 {% block content %}
     <div class="row">
         <div class="col-md-2"></div>
@@ -13,7 +16,20 @@
             <!--Main content-->
             <div class="container-fluid bg-white px-3 py-3 mt-2 rounded shadow-sm">
                 <div class="row mb-3 justify-content-between">
-                    <div class="col-sm-auto"><h2 class="fs-4 pt-1">Cases</h2></div>
+                    <div class="col-sm-auto">
+                        <div class="row">
+                            <div class="col-sm-auto">
+                                <h2 class="fs-4 pt-1">Cases</h2>
+                            </div>
+                            <div class="col-sm-auto">
+                                <select class="form-select" aria-label="Default select example" id="case-filter-select">
+                                    <option value="all" {% if not filter %}selected{% endif %}>All</option>
+                                    <option value="open" {% if filter == 'open' %}selected{% endif %}>Open</option>
+                                    <option value="closed" {% if filter == 'closed' %}selected{% endif %}>Closed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-sm-auto search-box text-end">
                         <form method="GET" action=".">
                             <div class="input-group mb-3">

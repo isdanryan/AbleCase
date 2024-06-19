@@ -13,7 +13,20 @@
             <!--Main content-->
             <div class="container-fluid bg-white px-3 py-3 mt-2 rounded shadow-sm">
                 <div class="row mb-3 justify-content-between">
-                    <div class="col-sm-auto"><h2 class="fs-4 pt-1">Users</h2></div>
+                    <div class="col-sm-auto">
+                            <div class="row">
+                                <div class="col-sm-auto">
+                                    <h2 class="fs-4 pt-1">Users</h2>
+                                </div>
+                                <div class="col-sm-auto">
+                                    <select class="form-select" aria-label="Default select example" id="user-filter-select">
+                                        <option value="all" {% if not filter %}selected{% endif %}>All</option>
+                                        <option value="active" {% if filter == 'active' %}selected{% endif %}>Active</option>
+                                        <option value="inactive" {% if filter == 'inactive' %}selected{% endif %}>Inactive</option>
+                                    </select>
+                                </div>
+                            </div>       
+                    </div>
                     <div class="col-sm-auto search-box text-end">
                         <form method="GET" action=".">
                             <div class="input-group mb-3">

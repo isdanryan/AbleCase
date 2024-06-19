@@ -87,11 +87,25 @@ class UserListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
     def get_queryset(self):
         queryset = Users.objects.filter(Q(role='Staff') | Q(role='Admin')).order_by('first_name')
         search_query = self.request.GET.get('search', '')
+        filter = self.request.GET.get('filter')
+
+        # Check for filter
+        if filter == 'active':
+            queryset = queryset.filter(is_active=True)
+        elif filter == 'inactive':
+            queryset = queryset.filter(is_active=False)
+
         if search_query:
             queryset = queryset.filter(Q(first_name__icontains=search_query) |
                                        Q(last_name__icontains=search_query) |
                                        Q(email__icontains=search_query))
         return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('search', '')
+        context['filter'] = self.request.GET.get('filter')
+        return context
 
 
 # View to update the selected user's details
