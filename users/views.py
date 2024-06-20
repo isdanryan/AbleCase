@@ -1,13 +1,15 @@
 from typing import Any
 from django.shortcuts import redirect, reverse, get_object_or_404
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission
 from django.db.models import Q
 from .models import Users
-from .forms import UserCreateForm, UserUpdateForm
+from .forms import UserCreateForm, UserUpdateForm, UserProfileForm
 from django.views import generic
 from django.contrib import messages
 from ablecase.mixins import RoleRequiredMixin
+from django.contrib.auth import logout
 
 
 # View to create a new user
@@ -197,3 +199,41 @@ class UserUpdateView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateView):
 
     def get_success_url(self):
         return reverse("users:user-list")
+
+# View to update the current users details and password
+class UserProfileView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateView):
+    template_name = "users/user_profile.html"
+    form_class = UserProfileForm
+    model = Users
+    success_url = reverse_lazy('users:user-profile')
+
+    def get_object(self):
+        # Return the current logged-in user's data
+        return self.request.user
+
+    # Handle the form valid event
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        logout_required = False
+
+        # Check if either the password or email has been changed
+        # and if so, set the logout_required flag
+        if 'password1' in form.cleaned_data and form.cleaned_data['password1']:
+            user.set_password(form.cleaned_data['password1'])
+            logout_required = True
+
+        if 'email' in form.cleaned_data and form.cleaned_data['email']:
+            user.email = form.cleaned_data['email']
+            logout_required = True
+
+        user.save()
+
+        # Logs user out if the logout flag has been set
+        # only when passwword or email is changed
+        if logout_required:
+            logout(self.request)
+            messages.success(self.request, "Profile updated successfully. Please log back in.")
+        else:
+            messages.success(self.request, "Profile updated successfully.")
+
+        return super().form_valid(form)

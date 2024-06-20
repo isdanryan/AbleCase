@@ -9,7 +9,7 @@ class RoleRequiredMixin:
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return self.handle_no_permission()
-        if request.user.role != self.required_role:
+        if self.required_role and request.user.role != self.required_role:
             return self.role_redirect(request.user.role)
         return super().dispatch(request, *args, **kwargs)
 

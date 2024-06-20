@@ -21,6 +21,13 @@
         <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
         <label for="floatingPassword">Password</label>
         </div>
+        {% if messages %}
+        <div class="alert alert-info mt-2">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
         <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
     </form>
     </main>
