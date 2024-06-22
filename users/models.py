@@ -35,6 +35,29 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, first_name, last_name,
                                 password, **extra_fields)
 
+    # Custom get_user_permissions method
+    # required as using custom UserManager
+    def get_user_permissions(self, user_object, obj=None):
+        permissions = set()
+
+        # Checks if the user has any of the permissions
+        # then adds them to the permissions set
+        # so they can be checked on the UserUpdate view
+        if user_object.has_perm('clients.can_view_clients'):
+            permissions.add('can_view_clients')
+        if user_object.has_perm('clients.can_edit_clients'):
+            permissions.add('can_view_clients')
+        if user_object.has_perm('cases.can_view_cases'):
+            permissions.add('can_view_cases')
+        if user_object.has_perm('cases.can_edit_cases'):
+            permissions.add('can_edit_cases')
+        if user_object.has_perm('invoices.manage_invoices'):
+            permissions.add('manage_invoices')
+        if user_object.has_perm('users.manage_users'):
+            permissions.add('manage_users')
+
+        return permissions
+
 
 class Users(AbstractBaseUser, PermissionsMixin):
     ROLE_TYPES = {
@@ -54,6 +77,10 @@ class Users(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
     objects = CustomUserManager()
+
+    # Required by the user manager method
+    def get_user_permissions(self):
+        return self.user_permissions.all()
 
     class Meta:
         verbose_name = "Users"

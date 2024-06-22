@@ -34,36 +34,44 @@ class UserCreateView(LoginRequiredMixin, RoleRequiredMixin, generic.CreateView):
         user = form.save(commit=False)
         user.user_name = form.cleaned_data["email"]
         user.set_password(form.cleaned_data["password1"])
-        user.save()
-
-        # Check for permissions and if true, assign the permission
-        if self.request.POST.get('view_cases'):
-            permission = Permission.objects.get(codename='can_view_cases')
-            user.user_permissions.add(permission)
-
-        if self.request.POST.get('edit_cases'):
-            permission = Permission.objects.get(codename='can_edit_cases')
-            user.user_permissions.add(permission)
-
-        if self.request.POST.get('view_clients'):
-            permission = Permission.objects.get(codename='can_view_clients')
-            user.user_permissions.add(permission)
-
-        if self.request.POST.get('edit_clients'):
-            permission = Permission.objects.get(codename='can_edit_clients')
-            user.user_permissions.add(permission)
-
-        if self.request.POST.get('manage_invoices'):
-            permission = Permission.objects.get(codename='manage_invoices')
-            user.user_permissions.add(permission)
-
-        if self.request.POST.get('manage_users'):
-            permission = Permission.objects.get(codename='manage_users')
-            user.user_permissions.add(permission)
-
+        user.role = "Staff"
         # Check if the new user has been allowed access to platform
         if self.request.POST.get('allow_signin'):
             user.is_active = True
+        user.save()
+
+        # Get permission codenames
+        perm_view_case = Permission.objects.get(codename='can_view_cases')
+        perm_edit_case = Permission.objects.get(codename='can_edit_cases')
+        perm_view_client = Permission.objects.get(codename='can_view_clients')
+        perm_edit_client = Permission.objects.get(codename='can_edit_clients')
+        perm_manage_invoice = Permission.objects.get(codename='manage_invoices')
+        perm_manage_users = Permission.objects.get(codename='manage_users')
+
+        # Check for permissions and if true, assign the permission
+        if self.request.POST.get('view_cases'):
+            print('view cases')
+            user.user_permissions.add(perm_view_case)
+
+        if self.request.POST.get('edit_cases'):
+            print('view cases')
+            user.user_permissions.add(perm_edit_case)
+
+        if self.request.POST.get('view_clients'):
+            print('view cases')
+            user.user_permissions.add(perm_view_client)
+
+        if self.request.POST.get('edit_clients'):
+            print('view cases')
+            user.user_permissions.add(perm_edit_client)
+
+        if self.request.POST.get('manage_invoices'):
+            print('view cases')
+            user.user_permissions.add(perm_manage_invoice)
+
+        if self.request.POST.get('manage_users'):
+            print('view cases')
+            user.user_permissions.add(perm_manage_users)
 
         return redirect(self.get_success_url())
 
@@ -102,7 +110,7 @@ class UserListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
                                        Q(last_name__icontains=search_query) |
                                        Q(email__icontains=search_query))
         return queryset
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_query'] = self.request.GET.get('search', '')
@@ -116,7 +124,15 @@ class UserUpdateView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateView):
     form_class = UserUpdateForm
     model = Users
 
-#    Get form data and set the username to be the email address
+    # Get permission codenames
+    perm_view_case = Permission.objects.get(codename='can_view_cases')
+    perm_edit_case = Permission.objects.get(codename='can_edit_cases')
+    perm_view_client = Permission.objects.get(codename='can_view_clients')
+    perm_edit_client = Permission.objects.get(codename='can_edit_clients')
+    perm_manage_invoice = Permission.objects.get(codename='manage_invoices')
+    perm_manage_users = Permission.objects.get(codename='manage_users')
+
+    # Get form data and set the username to be the email address
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.data = form.data.copy()
@@ -132,7 +148,17 @@ class UserUpdateView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user_data'] = self.get_object()
+        # Get the user object
+        user = self.get_object()
+        # Get the permissions for selected user
+        permissions = user.get_user_permissions()
+        # Translate permissions into the codenames
+        permission_codenames = {perm.codename for perm in permissions}
+        
+        # Pass both user object and user permissions into context
+        context['user_data'] = user
+        context['user_permissions'] = permission_codenames
+
         return context
 
     def form_valid(self, form):
@@ -147,45 +173,37 @@ class UserUpdateView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateView):
             user.is_active = False
         user.save()
 
-        # Get permission codenames
-        perm_view_case = Permission.objects.get(codename='can_view_cases')
-        perm_edit_case = Permission.objects.get(codename='can_edit_cases')
-        perm_view_client = Permission.objects.get(codename='can_view_clients')
-        perm_edit_client = Permission.objects.get(codename='can_edit_clients')
-        perm_manage_invoice = Permission.objects.get(codename='manage_invoices')
-        perm_manage_users = Permission.objects.get(codename='manage_users')
-
         # Check for any changed permissions and update
         if self.request.POST.get('view_cases'):
-            print("Has View Cases")
-            user.user_permissions.add(perm_view_case)
+            user.user_permissions.add(self.perm_view_case)
         else:
-            user.user_permissions.remove(perm_view_case)
+            user.user_permissions.remove(self.perm_view_case)
 
         if self.request.POST.get('edit_cases'):
-            user.user_permissions.add(perm_edit_case)
+            user.user_permissions.add(self.perm_edit_case)
         else:
-            user.user_permissions.remove(perm_edit_case)
+            user.user_permissions.remove(self.perm_edit_case)
 
         if self.request.POST.get('view_clients'):
-            user.user_permissions.add(perm_view_client)
+            user.user_permissions.add(self.perm_view_client)
         else:
-            user.user_permissions.remove(perm_view_client)
+            user.user_permissions.remove(self.perm_view_client)
 
         if self.request.POST.get('edit_clients'):
-            user.user_permissions.add(perm_edit_client)
+            user.user_permissions.add(self.perm_edit_client)
         else:
-            user.user_permissions.remove(perm_edit_client)
+            user.user_permissions.remove(self.perm_edit_client)
 
         if self.request.POST.get('manage_invoices'):
-            user.user_permissions.add(perm_manage_invoice)
+            user.user_permissions.add(self.perm_manage_invoice)
         else:
-            user.user_permissions.remove(perm_manage_invoice)
+            user.user_permissions.remove(self.perm_manage_invoice)
 
         if self.request.POST.get('manage_users'):
-            user.user_permissions.add(perm_manage_users)
+            user.user_permissions.add(self.perm_manage_users)
         else:
-            user.user_permissions.remove(perm_manage_users)
+            user.user_permissions.remove(self.perm_manage_users)
+
         return redirect(self.get_success_url())
 
     # Handle errors

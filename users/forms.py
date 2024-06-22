@@ -10,7 +10,7 @@ class UserCreateForm (UserCreationForm):
             'email',
             'first_name',
             'last_name',
-            'role',
+            # 'role',
             'password1',
             'password2',
         }
@@ -38,7 +38,7 @@ class UserUpdateForm (UserCreationForm):
             'email',
             'first_name',
             'last_name',
-            'role',
+            # 'role',
         }
     password1 = forms.CharField(
         label="Password",

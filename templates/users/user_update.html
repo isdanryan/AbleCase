@@ -40,7 +40,6 @@
                     <div class="row">
                         <div class="col-sm-4">{{ form.password1|as_crispy_field }}</div>
                         <div class="col-sm-4">{{ form.password2|as_crispy_field }}</div>
-                        <div class="col-sm-4">{{ form.role|as_crispy_field }}</div>
                     </div>
                     <div class="row">
                         <div class="col-sm-8">
@@ -48,34 +47,34 @@
                             <div class="row mt-4">
                                 <div class="col-sm-6">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="view_clients" {% if perms.clients.can_view_clients %} checked {% endif %}>
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="view_clients" {% if 'can_view_clients' in user_permissions %} checked {% endif %}>
                                         <label class="form-check-label" for="flexSwitchCheckDefault">View Clients</label>
                                         <p class="secondary permission-tool-tip">Allows client details to be view, but NOT edited or created.</p>
                                     </div>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="edit_clients" {% if perms.clients.can_edit_clients %} checked {% endif %} >
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="edit_clients" {% if 'can_edit_clients' in user_permissions %} checked {% endif %} >
                                         <label class="form-check-label" for="flexSwitchCheckDefault">Manage Clients</label>
                                         <p class="secondary permission-tool-tip">Allows client details created and edited.</p>
                                     </div>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="view_cases" {% if perms.cases.can_view_cases %} checked {% endif %}>
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="view_cases" {% if 'can_view_cases' in user_permissions %} checked {% endif %}>
                                         <label class="form-check-label" for="flexSwitchCheckDefault">View Cases</label>
                                         <p class="secondary permission-tool-tip">Allows cases details to be view, but NOT edited or created.</p>
                                     </div>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="edit_cases" {% if perms.cases.can_edit_cases %} checked {% endif %}>
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="edit_cases" {% if 'can_edit_cases' in user_permissions %} checked {% endif %}>
                                         <label class="form-check-label" for="flexSwitchCheckDefault">Manage Cases</label>
                                         <p class="secondary permission-tool-tip">Allows case details created and edited.</p>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="manage_invoices" {% if perms.invoices.manage_invoices %} checked {% endif %}>
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="manage_invoices" {% if 'manage_invoices' in user_permissions %} checked {% endif %}>
                                         <label class="form-check-label" for="flexSwitchCheckDefault">Manage Invoices</label>
                                         <p class="secondary permission-tool-tip">Allows full access to view, edit and create invoices.</p>
                                     </div>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="manmage_users" {% if perms.users.manage_users %} checked {% endif %}>
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="manage_users" {% if 'manage_users' in user_permissions %} checked {% endif %}>
                                         <label class="form-check-label" for="flexSwitchCheckDefault">Manage Users</label>
                                         <p class="secondary permission-tool-tip">Allows full access to view, edit and create users.</p>
                                     </div>
