@@ -6,6 +6,7 @@ from .forms import CaseForm, CommunicationForm
 from django.views import generic
 from ablecase.decorators import role_required
 from ablecase.mixins import RoleRequiredMixin
+from django.db.models import Q
 
 
 # Create list of cases
@@ -28,7 +29,9 @@ class CaseListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
 
         # Check for a search param
         if search_query:
-            queryset = queryset.filter(case_number__icontains=search_query)
+            queryset = queryset.filter(Q(case_number__icontains=search_query) |
+                                       Q(client__display_name__icontains=search_query) |
+                                       Q(case_name__icontains=search_query))
 
         return queryset
 

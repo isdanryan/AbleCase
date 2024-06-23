@@ -31,7 +31,7 @@
                     <div class="col-sm-auto search-box text-end">
                         <form method="GET" action=".">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Invoice number" aria-label="Invoice number" name="search" aria-describedby="button-search" value="{{ request.GET.search }}">
+                                <input type="text" class="form-control" placeholder="Search" aria-label="Search Invoices" name="search" aria-describedby="button-search" value="{{ request.GET.search }}">
                                 <button class="btn btn-outline-primary" type="submit" id="button-search"><i class="iconify d-block mx-auto my-1 fs-3" data-icon="mdi-search"></i></button>
                                 <button type="button" class="btn btn-outline-success"><a class="btn-add-new" href="{% url 'invoices:invoice-case-select' %}"><i class="iconify d-block mx-auto my-1 fs-3" data-icon="mdi-plus"></i></a></button>
                             </div>

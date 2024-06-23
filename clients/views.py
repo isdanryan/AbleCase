@@ -4,6 +4,7 @@ from .models import Clients
 from .forms import ClientForm
 from django.views import generic
 from ablecase.mixins import RoleRequiredMixin
+from django.db.models import Q
 
 
 # Create list of clients
@@ -28,7 +29,9 @@ class ClientListView(LoginRequiredMixin, RoleRequiredMixin,
             queryset = queryset.filter(status='Inactive')
 
         if search_query:
-            queryset = queryset.filter(display_name__icontains=search_query)
+            queryset = queryset.filter(Q(display_name__icontains=search_query) |
+                                       Q(email__icontains=search_query) |
+                                       Q(phone__icontains=search_query))
 
         return queryset
 
@@ -37,7 +40,6 @@ class ClientListView(LoginRequiredMixin, RoleRequiredMixin,
         context['search_query'] = self.request.GET.get('search', '')
         context['filter'] = self.request.GET.get('filter')
         return context
-
 
 # Create a new client
 class ClientCreateView(LoginRequiredMixin, RoleRequiredMixin,

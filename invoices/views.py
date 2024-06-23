@@ -16,6 +16,7 @@ from xhtml2pdf import pisa
 from django.shortcuts import get_object_or_404
 from ablecase.mixins import RoleRequiredMixin
 from ablecase.decorators import role_required
+from django.db.models import Q
 
 
 # Create a new invoice from the selected case
@@ -75,7 +76,7 @@ class InvoiceListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
 
     # Set out the search function to search invoices by invoice number
     def get_queryset(self):
-        queryset = Invoices.objects.all()
+        queryset = Invoices.objects.all().order_by('-invoice_number')
         search_query = self.request.GET.get('search', '')
         filter = self.request.GET.get('filter')
 
@@ -88,7 +89,9 @@ class InvoiceListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
             queryset = queryset.filter(status='Paid')
 
         if search_query:
-            queryset = queryset.filter(invoice_number__icontains=search_query)
+            queryset = queryset.filter(Q(invoice_number__icontains=search_query) |
+                                       Q(total_due__icontains=search_query) |
+                                       Q(client__display_name__icontains=search_query))
 
         return queryset
 
