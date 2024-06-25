@@ -103,9 +103,9 @@ class InvoiceListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
         context = super().get_context_data(**kwargs)
         context['search_query'] = self.request.GET.get('search', '')
         context['filter'] = self.request.GET.get('filter')
-        obj = self.queryset
 
         # Paginate the queryset
+        obj = self.get_queryset()
         paginator = Paginator(obj, self.paginate_by)
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
