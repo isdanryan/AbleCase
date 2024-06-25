@@ -73,7 +73,7 @@ class InvoiceListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
     queryset = Invoices.objects.all()
     model = Invoices
     context_object_name = "invoices"
-    paginate_by = 1
+    paginate_by = 20
     # Only allow access if the user has the staff role
     required_role = "Staff"
 
@@ -110,6 +110,8 @@ class InvoiceListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context['page_obj'] = page_obj
+        # Create range to use in layout of pagination
+        context['page_range'] = range(1, (page_obj.paginator.num_pages + 1))
 
         return context
 
