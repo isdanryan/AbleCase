@@ -17,6 +17,7 @@ from django.shortcuts import get_object_or_404
 from ablecase.mixins import RoleRequiredMixin
 from ablecase.decorators import role_required
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 
 # Create a new invoice from the selected case
@@ -70,15 +71,18 @@ class InvoiceUpdateView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateVie
 class InvoiceListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
     template_name = "invoices/invoice_list.html"
     queryset = Invoices.objects.all()
+    model = Invoices
     context_object_name = "invoices"
+    paginate_by = 1
     # Only allow access if the user has the staff role
     required_role = "Staff"
 
     # Set out the search function to search invoices by invoice number
     def get_queryset(self):
-        queryset = Invoices.objects.all().order_by('-invoice_number')
         search_query = self.request.GET.get('search', '')
         filter = self.request.GET.get('filter')
+
+        queryset = Invoices.objects.all().order_by('-invoice_number')
 
         # Check for filter
         if filter == 'notsent':
@@ -99,6 +103,14 @@ class InvoiceListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
         context = super().get_context_data(**kwargs)
         context['search_query'] = self.request.GET.get('search', '')
         context['filter'] = self.request.GET.get('filter')
+        obj = self.queryset
+
+        # Paginate the queryset
+        paginator = Paginator(obj, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+
         return context
 
 
