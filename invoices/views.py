@@ -123,6 +123,7 @@ class InvoiceCaseView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
     context_object_name = "cases"
     # Only allow access if the user has the staff role
     required_role = "Staff"
+    paginate_by = 20
 
     # Set out the search function to search invoices by case number
     def get_queryset(self):
@@ -135,6 +136,16 @@ class InvoiceCaseView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_query'] = self.request.GET.get('search', '')
+
+        # Paginate the queryset
+        obj = self.get_queryset()
+        paginator = Paginator(obj, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+        # Create range to use in layout of pagination
+        context['page_range'] = range(1, (page_obj.paginator.num_pages + 1))
+
         return context
 
 

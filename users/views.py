@@ -10,6 +10,7 @@ from django.views import generic
 from django.contrib import messages
 from ablecase.mixins import RoleRequiredMixin
 from django.contrib.auth import logout
+from django.core.paginator import Paginator
 
 
 # View to create a new user
@@ -92,6 +93,7 @@ class UserListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
     template_name = "users/user_list.html"
     context_object_name = "users"
     required_role = "Staff"
+    paginate_by = 20
 
     # Create search function to search name or email address
     def get_queryset(self):
@@ -109,12 +111,23 @@ class UserListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
             queryset = queryset.filter(Q(first_name__icontains=search_query) |
                                        Q(last_name__icontains=search_query) |
                                        Q(email__icontains=search_query))
+
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_query'] = self.request.GET.get('search', '')
         context['filter'] = self.request.GET.get('filter')
+
+        # Paginate the queryset
+        obj = self.get_queryset()
+        paginator = Paginator(obj, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+        # Create range to use in layout of pagination
+        context['page_range'] = range(1, (page_obj.paginator.num_pages + 1))
+
         return context
 
 

@@ -5,6 +5,7 @@ from .forms import ClientForm
 from django.views import generic
 from ablecase.mixins import RoleRequiredMixin
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 
 # Create list of clients
@@ -13,6 +14,7 @@ class ClientListView(LoginRequiredMixin, RoleRequiredMixin,
     template_name = "clients/client_list.html"
     queryset = Clients.objects.all()
     context_object_name = "clients"
+    paginate_by = 20
     # Only allow access if users role is staff
     required_role = "Staff"
 
@@ -39,7 +41,18 @@ class ClientListView(LoginRequiredMixin, RoleRequiredMixin,
         context = super().get_context_data(**kwargs)
         context['search_query'] = self.request.GET.get('search', '')
         context['filter'] = self.request.GET.get('filter')
+
+        # Paginate the queryset
+        obj = self.get_queryset()
+        paginator = Paginator(obj, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+        # Create range to use in layout of pagination
+        context['page_range'] = range(1, (page_obj.paginator.num_pages + 1))
+
         return context
+
 
 # Create a new client
 class ClientCreateView(LoginRequiredMixin, RoleRequiredMixin,

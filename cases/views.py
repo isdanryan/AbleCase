@@ -7,6 +7,7 @@ from django.views import generic
 from ablecase.decorators import role_required
 from ablecase.mixins import RoleRequiredMixin
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 
 # Create list of cases
@@ -15,6 +16,7 @@ class CaseListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
     queryset = Cases.objects.all()
     context_object_name = "cases"
     required_role = "Staff"
+    paginate_by = 20
 
     def get_queryset(self):
         queryset = Cases.objects.all()
@@ -26,7 +28,6 @@ class CaseListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
             queryset = queryset.filter(status='Open')
         elif filter == 'closed':
             queryset = queryset.filter(status='Closed')
-
         # Check for a search param
         if search_query:
             queryset = queryset.filter(Q(case_number__icontains=search_query) |
@@ -39,6 +40,16 @@ class CaseListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
         context = super().get_context_data(**kwargs)
         context['search_query'] = self.request.GET.get('search', '')
         context['filter'] = self.request.GET.get('filter')
+
+        # Paginate the queryset
+        obj = self.get_queryset()
+        paginator = Paginator(obj, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+        # Create range to use in layout of pagination
+        context['page_range'] = range(1, (page_obj.paginator.num_pages + 1))
+
         return context
 
 
