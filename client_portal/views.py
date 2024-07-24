@@ -94,7 +94,7 @@ def ClientLoginView(request):
                     if user.role == "Client":
                         # Attempt login with the supplied details
                         try:
-                            client_id = user.client.pk
+                            client_id = user.id
                             login(request, user)
                             print(request, "Login successful")
                             return redirect(f'/portal/{client_id}/myaccount')
@@ -113,7 +113,7 @@ def ClientLoginView(request):
                       {'form': form})
     else:
         # If already logged in redirect to clients account page
-        client_id = request.user.client.pk
+        client_id = request.user.id
         return redirect(f'/portal/{client_id}/myaccount')
 
 
