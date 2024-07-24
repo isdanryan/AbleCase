@@ -6,7 +6,8 @@ from django.contrib import messages
 from clients.models import Clients
 from users.models import Users
 from invoices.models import Invoices
-from .forms import ClientForm, ClientLoginForm, PortalSignupForm, PasswordResetForm
+from .forms import (ClientForm, ClientLoginForm,
+                    PortalSignupForm, PasswordResetForm)
 from django.views import generic
 from ablecase.mixins import RoleRequiredMixin
 from django.views.generic.edit import FormMixin
@@ -14,13 +15,15 @@ from ablecase.decorators import role_required
 from django.core.paginator import Paginator
 
 
-class ClientAccountView(LoginRequiredMixin, RoleRequiredMixin, FormMixin, generic.DetailView):
+class ClientAccountView(LoginRequiredMixin, RoleRequiredMixin,
+                        FormMixin, generic.DetailView):
     template_name = "client_portal/account_details.html"
     form_class = PasswordResetForm
     # Require user has client role
     required_role = "Client"
 
-    # Overide get method to handle both displaying details and getting new password
+    # Overide get method to handle both displaying details
+    # and getting new password
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
@@ -37,7 +40,9 @@ class ClientAccountView(LoginRequiredMixin, RoleRequiredMixin, FormMixin, generi
             user.set_password(form.cleaned_data["new_password1"])
             user.save()
             messages.success(
-                request, "Your password has been updated. Please log back in using the new password.")
+                request,
+                "Your password has been updated. Please log back in using the new password."
+                )
             # Redirect to signout to force user to login with new password
             return redirect('/portal/signout')
         else:
@@ -95,13 +100,17 @@ def ClientLoginView(request):
                             return redirect(f'/portal/{client_id}/myaccount')
                         # Handle error states
                         except Clients.DoesNotExist:
-                            messages.error(request, "Associated client profile not found")
+                            messages.error(
+                                request,
+                                "Associated client profile not found"
+                                )
                     else:
                         messages.error(request, "You are not a client")
                 else:
                     messages.error(request, "Incorrect Username or password")
         # Send user to login page by default
-        return render(request, 'client_portal/portal_login.html', {'form': form})
+        return render(request, 'client_portal/portal_login.html',
+                      {'form': form})
     else:
         # If already logged in redirect to clients account page
         client_id = request.user.client.pk
@@ -122,9 +131,11 @@ def PortalSignup(request):
                 password = form.cleaned_data['password1']
                 # Create user from the entered info, set role to client
                 # and overide default active state
-                user = Users.objects.create_user(email=email, password=password,
-                                                 first_name='', last_name='',
-                                                 role='Client', is_active=True)
+                user = Users.objects.create_user(
+                    email=email, password=password,
+                    first_name='', last_name='',
+                    role='Client', is_active=True
+                    )
 
                 # Get the client profile that matches the client reference
                 client = Clients.objects.get(client_reference=client_reference)
@@ -165,7 +176,8 @@ def ClientSignOut(request):
 
 
 # Build list of client invoices
-class ClientInvoiceList(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
+class ClientInvoiceList(LoginRequiredMixin, RoleRequiredMixin,
+                        generic.ListView):
     template_name = "client_portal/client_invoices.html"
     context_object_name = "invoices"
     paginate_by = 20

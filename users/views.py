@@ -97,7 +97,7 @@ class UserListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
 
     # Create search function to search name or email address
     def get_queryset(self):
-        queryset = Users.objects.filter(Q(role='Staff') | Q(role='Admin')).order_by('first_name')
+        queryset = Users.objects.filter(role='Staff').order_by('first_name')
         search_query = self.request.GET.get('search', '')
         filter = self.request.GET.get('filter')
 
@@ -136,6 +136,7 @@ class UserUpdateView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateView):
     template_name = "users/user_update.html"
     form_class = UserUpdateForm
     model = Users
+    required_role = "Staff"
 
     # Get permission codenames
     perm_view_case = Permission.objects.get(codename='can_view_cases')
@@ -167,7 +168,7 @@ class UserUpdateView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateView):
         permissions = user.get_user_permissions()
         # Translate permissions into the codenames
         permission_codenames = {perm.codename for perm in permissions}
-        
+
         # Pass both user object and user permissions into context
         context['user_data'] = user
         context['user_permissions'] = permission_codenames
@@ -231,12 +232,15 @@ class UserUpdateView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateView):
     def get_success_url(self):
         return reverse("users:user-list")
 
+
 # View to update the current users details and password
-class UserProfileView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateView):
+class UserProfileView(LoginRequiredMixin, RoleRequiredMixin,
+                      generic.UpdateView):
     template_name = "users/user_profile.html"
     form_class = UserProfileForm
     model = Users
     success_url = reverse_lazy('users:user-profile')
+    required_role = "Staff"
 
     def get_object(self):
         # Return the current logged-in user's data
@@ -263,7 +267,10 @@ class UserProfileView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateView)
         # only when passwword or email is changed
         if logout_required:
             logout(self.request)
-            messages.success(self.request, "Profile updated successfully. Please log back in.")
+            messages.success(
+                self.request,
+                "Profile updated successfully. Please log back in."
+                )
         else:
             messages.success(self.request, "Profile updated successfully.")
 

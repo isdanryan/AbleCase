@@ -63,6 +63,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
     ROLE_TYPES = {
         "Staff": "Staff",
         "Client": "Client",
+        "Admin": "Admin",
     }
     email = models.EmailField(unique=True)
     user_name = models.CharField(max_length=150, unique=True)
