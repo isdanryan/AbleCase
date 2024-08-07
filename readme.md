@@ -3,26 +3,64 @@
 ## Overview
 The Able Investigation and Enforcements Ltd web application aims to streamline case management, invoicing, and payment processes for the company. This document provides an overview of the project, its key features, and implementation details.
 
-## Key Features
-1. **Case File Management**
-   - Create new case files for clients.
-   - Capture and store client details and case-specific information.
-   - Organize case files for easy retrieval and management.
+## Scope
+In as this will be submitted for an assignmet there will be trade offs against the design and development process. Any additonal features classified as low importance can be revisitted at a later date. Using the AGILE method for development, I will carry out weekly reviews both personally and with the client to add or modify features as applicable to the project at the end of each sprint phase.
 
-2. **Invoice Generation and Management**
+## Key Features
+After the initial disscussion with the client, I have listed out each key feature for the project and assigned each an importance and viability score to help avoid scope creep and secure a MVP by the deadline.
+
+1. **Case File Management**
+   - Create new case files for clients, capturing and storing case-specific information.
+   - Search case files based of specific criteria like client or case number.
+   - Organize case files for easy retrieval and management.
+   - Update case files with any on going communication history specific to the case.
+
+2. **Client Management**
+   - Create new clients.
+   - Edit and Update client details.
+   - Delete Clients from the system.
+
+3. **User Management**
+   - Create new users.
+   - Set user permissions with application specific permission levels.
+     (e.g. View/Edit case files, View/Edit client detials).
+   - Edit user details.
+   - Block and allow access to the platform.
+   - Change own password.
+   
+4. **Invoice Generation and Management**
    - Generate invoices from case files.
    - Include detailed breakdowns of services provided and costs.
-   - Manage invoice lifecycle, including tracking payment statuses.
+   - Manage invoice lifecycle, including tracking payment status.
 
-3. **Online Payment Portal for Clients**
+5. **Online Payment Portal for Clients and Customers**
    - Allow clients to view and pay invoices securely online.
    - Support multiple payment methods such as credit/debit cards and bank transfers.
    - Ensure compliance with industry standards for payment processing.
 
-4. **Online Payment Portal for End Customers**
-   - Enable end customers to pay fines or fees associated with cases.
-   - Provide a user-friendly interface for submitting payments.
-   - Integrate with case files to update payment statuses automatically.
+## Importance / Viability score
+**1** - Low, **5** - High   
+
+| Feature | Importance | Viability |
+|---------|------------|-----------|
+| Create new case files for clients, capturing and storing case-specific information. | 5 | 5 |
+| Search case files based of specific criteria like client or case number. | 5 | 5 |
+| Organize case files for easy retrieval and management. | 4 | 4 |
+| Update case files with any on going communication history specific to the case. | 5 | 4 |
+| Create new clients. | 5 | 5 |
+| Edit and Update client details. | 5 | 5 |
+| Delete Clients from the system. | 3 | 5 |
+| Create new users. | 5 | 5 |
+| Set user permissions with application specific permission levels. | 3 | 3 |
+| Edit user details. | 5 | 5 |
+| Block and allow access to the platform. | 5 | 4 |
+| Change own password. | 3 | 4 |
+| Generate invoices from case files. | 4 | 4 |
+| Include detailed breakdowns of services provided and costs. | 3 | 3 |
+| Manage invoice lifecycle, including tracking payment status. | 4 | 3 |
+| Allow clients to view and pay invoices securely online. | 5 | 5 |
+| Support multiple payment methods such as credit/debit cards and bank transfers. | 3 | 3 |
+| Ensure compliance with industry standards for payment processing. | 5 | 5 |
 
 ## Implementation Details
 ### Technologies Used
@@ -89,7 +127,9 @@ The Able Investigation and Enforcements Ltd web application aims to streamline c
 ## Conclusion
 The Able Investigation and Enforcements Ltd web application will provide a comprehensive solution for managing cases, generating invoices, and processing payments efficiently. By leveraging Django and other technologies, the application will streamline operations and enhance customer satisfaction.
 
-## Apps, Pages & Page Features
+## Structure
+### Overview
+
 ### Dashboard (app)
    - Dashboard (page): Overview of current open cases and stats
 
@@ -97,7 +137,6 @@ The Able Investigation and Enforcements Ltd web application will provide a compr
    - Cases (page): List of cases showing current status (Open/Closed)
    - Case details (page): Create a or edit details of a case. Can add and view case communications.
    - Case Communications (page): Record of all communications relating to the case. Can search and filter.
-   - Case history (page): An overview of the history of the case, showing any updates to the case.
 
 ### Client Management (app)
    - Client details (page): Create or edit the main details of each client along with login details for customer portal.
@@ -112,8 +151,8 @@ The Able Investigation and Enforcements Ltd web application will provide a compr
 
 ### Customer Portal (app)
    - Profile (page): Edit details and change password.
-   - Cases (page): Current open and closed cases for customer.
-   - Payment (page): Make a payment.
+   - Invoices (page): All invoices specific to the customer.
+   - Payments (page): Make a payment.
 
 ## Models
 **PK** – Primary Key, **F** – Foreign Key, **Auto** – Autofield, **FC** – Field Choices, **R** - Required, **C** - Charfield, **I** - Integerfield , **E** - Emailfield, **D** - Decimalfield, **DT** - DateTimefield
@@ -159,3 +198,6 @@ The Able Investigation and Enforcements Ltd web application will provide a compr
 | Reference (R, C) | Reference (R, C)          | 
 | Client ID (R, F) | Total Amount (R, D)       |
 | Fine ID (R, C)   | Amount Outstanding (R, D) |
+
+
+
