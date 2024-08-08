@@ -178,7 +178,7 @@ The following database models and schema were drawn in [DrawSQL](https://drawsql
 
 ### Tables
 #### Clients
-![Database Schema](docs/database/ablecase-schema-overview.png)
+![Database Schema](docs/database/ablecase-clients.png)
 
 #### Cases
 ![Database Schema](docs/database/ablecase-cases.png)
