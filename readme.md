@@ -171,7 +171,7 @@ The Able Investigation and Enforcements Ltd web application will provide a compr
    - Payments (page): Make a payment.
 
 ## Models & Schema
-The following database models and schema were drawn in [DrawSQL](https://drawsql.app), and an embedded link to the full database schema can be found here.
+The following database models and schema were drawn in [DrawSQL](https://drawsql.app), and an embedded link to the full database schema with comments can be found [here](https://drawsql.app/teams/dan-54/diagrams/ablecase/embed).
 
 ### Database Overview
 ![Database Schema](docs/database/ablecase-schema-overview.png)
