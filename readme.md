@@ -7,7 +7,7 @@ The Able Investigation and Enforcements Ltd web application aims to streamline c
 In as this will be submitted for an assignmet there will be trade offs against the design and development process. Any additonal features classified as low importance can be revisitted at a later date. Using the AGILE method for development, I will carry out weekly reviews both personally and with the client to add or modify features as applicable to the project at the end of each sprint phase.
 
 ## Key Features
-After the initial disscussion with the client, I have listed out each key feature for the project and assigned each an importance and viability score to help avoid scope creep and secure a MVP by the deadline.
+After the initial disscussion with the client, I have listed out each key feature for the project and assigned each an importance and feasibility score to help avoid scope creep and secure a MVP by the deadline.
 
 1. **Case File Management**
    - Create new case files for clients, capturing and storing case-specific information.
@@ -27,6 +27,7 @@ After the initial disscussion with the client, I have listed out each key featur
    - Edit user details.
    - Block and allow access to the platform.
    - Change own password.
+   - Add and track tasks.
    
 4. **Invoice Generation and Management**
    - Generate invoices from case files.
@@ -38,10 +39,15 @@ After the initial disscussion with the client, I have listed out each key featur
    - Support multiple payment methods such as credit/debit cards and bank transfers.
    - Ensure compliance with industry standards for payment processing.
 
-## Importance / Viability score
+6. **Report Management**
+   - Create audit reports for tracking updates to clients.
+   - Create audit reports for tracking updates to cases.
+   - Create audit reports for tracking updates to invoices.
+
+## Importance / Feasibility score
 **1** - Low, **5** - High   
 
-| Feature | Importance | Viability |
+| Feature | Importance | Feasibility |
 |---------|------------|-----------|
 | Create new case files for clients, capturing and storing case-specific information. | 5 | 5 |
 | Search case files based of specific criteria like client or case number. | 5 | 5 |
@@ -55,12 +61,17 @@ After the initial disscussion with the client, I have listed out each key featur
 | Edit user details. | 5 | 5 |
 | Block and allow access to the platform. | 5 | 4 |
 | Change own password. | 3 | 4 |
+| Add and track tasks. | 2 | 4 |
 | Generate invoices from case files. | 4 | 4 |
 | Include detailed breakdowns of services provided and costs. | 3 | 3 |
 | Manage invoice lifecycle, including tracking payment status. | 4 | 3 |
 | Allow clients to view and pay invoices securely online. | 5 | 5 |
 | Support multiple payment methods such as credit/debit cards and bank transfers. | 3 | 3 |
 | Ensure compliance with industry standards for payment processing. | 5 | 5 |
+| Create audit reports for tracking updates to clients. | 2 | 3 |
+| Create audit reports for tracking updates to casess. | 2 | 3 |
+| Create audit reports for tracking updates to invoices. | 2 | 3 |
+
 
 ## Implementation Details
 ### Technologies Used
@@ -94,6 +105,11 @@ After the initial disscussion with the client, I have listed out each key featur
    - Implement user authentication and authorization mechanisms.
    - Define user roles and permissions for accessing different features.
    - Secure sensitive data and endpoints to prevent unauthorized access.
+
+6. **Report Management**
+   - Create view to pull update and created records for client, cases and invoices.
+   - Implement search and filter requests.
+   - Create templates to show each of the required reports.
 
 6. **Testing and Quality Assurance**
    - Conduct unit tests and integration tests for each feature.
@@ -131,7 +147,7 @@ The Able Investigation and Enforcements Ltd web application will provide a compr
 ### Overview
 
 ### Dashboard (app)
-   - Dashboard (page): Overview of current open cases and stats
+   - Dashboard (page): Overview of current open cases and stats, current tasks for user.
 
 ### Case management (app)
    - Cases (page): List of cases showing current status (Open/Closed)
@@ -154,50 +170,36 @@ The Able Investigation and Enforcements Ltd web application will provide a compr
    - Invoices (page): All invoices specific to the customer.
    - Payments (page): Make a payment.
 
-## Models
-**PK** – Primary Key, **F** – Foreign Key, **Auto** – Autofield, **FC** – Field Choices, **R** - Required, **C** - Charfield, **I** - Integerfield , **E** - Emailfield, **D** - Decimalfield, **DT** - DateTimefield
+## Models & Schema
+The following database models and schema were drawn in [DrawSQL](https://drawsql.app), and an embedded link to the full database schema can be found here.
 
-| Clients             | Cases              | Communications   | Invoices
-| -------------       | -------------      | -------------    | -------------
-| ID (PK, Auto, R)    | ID (PK, Auto, R)   | ID (PK, Auto, R) | ID (PK, Auto, R)
-| Display name (R, C) | Case Number (R, I) | Details (R, C)   | Case ID (F)
-| First name (C)      | Case (R, C)        | Date (R, DT)     | Client ID (F) 
-| Middle name (C)     | Type (R, FC)       | Case ID (F)      | Details (R, C)
-| Last name (C)       | Address (R, C)     |                  | Amount (R, D)
-| Mobile (I)          | Phone (I)          |                  | 
-| Phone (I)           | Client ID (F)      |                  | 
-| Email (E)           | Review Date (DT)   |                  | 
-| Type (R, FC)        | Status (LK)        |                  |
-| Building Number (C) | Assigned (C)       |                  |
-| Street (C)          |                    |                  |
-| Address 2 (C)       |                    |                  | 
-| Address 3 (C)       |                    |                  |
-| City (C)            |                    |                  |
-| Postcode (C)        |                    |                  |
+### Database Overview
+![Database Schema](docs/database/ablecase-schema-overview.png)
 
-| Users             | Case Types       | Audit            | Client Login
-| -------------     | ---------------- | -------------    | -------------
-| ID (PK, Auto, R)  | ID (PK, Auto, R) | ID (PK, Auto, R) | ID (PK, Auto, R)
-| First name (R, C) | Type (R, C)      | Detail (R, C)    | First Name (R, C)
-| Last name (R, C)  |                  | Type (R, C)      | Last Name (R, C) 
-| Email (R, E)      |                  | Date (R, DT)     | Email (R, E)
-| Username (R, C)   |                  |                  | Phone (R, I)
-| Password (R, C)   |                  |                  | Password (R, C)
-|                   |                  |                  | Building (C)
-|                   |                  |                  | Street (C)
-|                   |                  |                  | Address 2 (C)
-|                   |                  |                  | Address 3 (C)
-|                   |                  |                  | City (C)
-|                   |                  |                  | Postcode (C)
-|                   |  		  		      |                  | Client ID (F)
+### Tables
+#### Clients
+![Database Schema](docs/database/ablecase-schema-overview.png)
 
-| Payments         | Fines                     | 
-| -------------    | ----------------          | 
-| ID (PK, Auto, R) | ID (PK, Auto, R)          |
-| Amount (R, D)    | Customer ID (R, F)        |
-| Reference (R, C) | Reference (R, C)          | 
-| Client ID (R, F) | Total Amount (R, D)       |
-| Fine ID (R, C)   | Amount Outstanding (R, D) |
+#### Cases
+![Database Schema](docs/database/ablecase-cases.png)
 
+#### Communications
+![Database Schema](docs/database/ablecase-communications.png)
 
+#### Case Types
+![Database Schema](docs/database/ablecase-casetypes.png)
 
+#### Users
+![Database Schema](docs/database/ablecase-users.png)
+
+#### Tasks
+![Database Schema](docs/database/ablecase-tasks.png)
+
+#### Invoices
+![Database Schema](docs/database/ablecase-invoices.png)
+
+#### Invoice Codes
+![Database Schema](docs/database/ablecase-invoicecode.png)
+
+#### Payments
+![Database Schema](docs/database/ablecase-payments.png)
