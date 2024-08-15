@@ -72,55 +72,6 @@ After the initial disscussion with the client, I have listed out each key featur
 | Create audit reports for tracking updates to casess. | 2 | 3 |
 | Create audit reports for tracking updates to invoices. | 2 | 3 |
 
-
-## Implementation Details
-### Technologies Used
-- Django framework for backend development
-- HTML/CSS/JavaScript for frontend development
-- PostgreSQL database for data storage
-- Stripe API for payment processing
-
-### Development Process
-1. **Setup and Configuration**
-   - Create Django project and application structure.
-   - Configure project settings, including database settings and security measures.
-   - Set up virtual environment for dependency management.
-
-2. **Case File Management**
-   - Define Django models for case files and client details.
-   - Develop views and templates for CRUD operations on case files.
-   - Implement forms for capturing and validating user input.
-
-3. **Invoice Generation and Management**
-   - Design models for invoices and invoice line items.
-   - Create views and templates for generating and managing invoices.
-   - Integrate with PDF generation library for generating PDF invoices.
-
-4. **Payment Integration**
-   - Integrate with Stripe API for processing online payments.
-   - Develop views and forms for handling payment transactions.
-   - Ensure secure communication and data handling during payment processing.
-
-5. **User Authentication and Authorization**
-   - Implement user authentication and authorization mechanisms.
-   - Define user roles and permissions for accessing different features.
-   - Secure sensitive data and endpoints to prevent unauthorized access.
-
-6. **Report Management**
-   - Create view to pull update and created records for client, cases and invoices.
-   - Implement search and filter requests.
-   - Create templates to show each of the required reports.
-
-6. **Testing and Quality Assurance**
-   - Conduct unit tests and integration tests for each feature.
-   - Perform manual testing to validate user workflows and edge cases.
-   - Address any bugs or issues identified during testing.
-
-7. **Deployment and Maintenance**
-   - Deploy the application to a reliable hosting environment.
-   - Configure monitoring and logging to track application performance.
-   - Establish procedures for ongoing maintenance and support.
-
 ## User Stories
 ### As a user
    > I want a clear view of all the case files and wether they are open or closed. I want to be able to access each case in as few clicks as possible, and easily create and update case files as needed.
@@ -145,6 +96,10 @@ The Able Investigation and Enforcements Ltd web application will provide a compr
 
 ## Structure
 ### Overview
+During the second design meeting with the client, the general user interaction was fleshed out for how the staff and clients will interact with the web app.
+After this meeting, the following user flow chart and app layout was put together for the client to sign off. The flowcharts were drawn in [SmartDraw](https://app.smartdraw.com/)
+
+![Flow chart](docs/flowchart/flow-chart.png)
 
 ### Dashboard (app)
    - Dashboard (page): Overview of current open cases and stats, current tasks for user.
@@ -203,3 +158,68 @@ The following database models and schema were drawn in [DrawSQL](https://drawsql
 
 #### Payments
 ![Database Schema](docs/database/ablecase-payments.png)
+
+## Layouts & Design
+
+### Content and Colour Scheme
+The clients request was to keep everything sleek with a modern feel. They wanted to include their new logo, with hints of the red they currently use as their brand company colour.
+In order to stick to the given brief, i've chosen to go with a slightly off black mixed with white for the backgrounds, and use a light grey/ off white to make the user input areas stand out more.
+For the various buttons, I intend to use the commonly used Red, Blue and Green for specific actions, such as Red for a delete action.
+
+Content is generated soley off data held in the database, and as such I do not need to worry about any content text, apart from names and labels.
+
+### Typogrophy
+After discussing it through during the initial design phase, the client does not have any specific fonts in mind, so I have chosen to leverage Bootstraps default fonts as the provide the clean and modern feel requried.
+
+### Wireframes
+
+
+
+## Implementation
+
+### Technologies Used
+- Django framework for backend development
+- HTML/CSS/JavaScript for frontend development
+- PostgreSQL database for data storage
+- Stripe API for payment processing
+
+### Development Process
+1. **Setup and Configuration**
+   - Create Django project and application structure.
+   - Configure project settings, including database settings and security measures.
+   - Set up virtual environment for dependency management.
+
+2. **Case File Management**
+   - Define Django models for case files and client details.
+   - Develop views and templates for CRUD operations on case files.
+   - Implement forms for capturing and validating user input.
+
+3. **Invoice Generation and Management**
+   - Define models for invoices and invoice line items.
+   - Create views and templates for generating and managing invoices.
+   - Integrate with PDF generation library for generating PDF invoices.
+
+4. **Payment Integration**
+   - Integrate with Stripe API for processing online payments.
+   - Develop views and forms for handling payment transactions.
+   - Ensure secure communication and data handling during payment processing.
+
+5. **User Authentication and Authorization**
+   - Implement user authentication and authorization mechanisms.
+   - Define user roles and permissions for accessing different features.
+   - Secure sensitive data and endpoints to prevent unauthorized access.
+
+6. **Report Management**
+   - Create view to pull update and created records for client, cases and invoices.
+   - Implement search and filter requests.
+   - Create templates to show each of the required reports.
+
+6. **Testing and Quality Assurance**
+   - Conduct unit tests and integration tests for each feature.
+   - Perform manual testing to validate user workflows and edge cases.
+   - Address any bugs or issues identified during testing.
+
+7. **Deployment and Maintenance**
+   - Deploy the application to a reliable hosting environment.
+   - Configure monitoring and logging to track application performance.
+   - Establish procedures for ongoing maintenance and support.
