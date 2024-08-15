@@ -97,7 +97,6 @@ The Able Investigation and Enforcements Ltd web application will provide a compr
 ## Structure
 ### Overview
 During the second design meeting with the client, the general user interaction was fleshed out for how the staff and clients will interact with the web app.
-After this meeting, the following user flow chart and app layout was put together for the client to sign off. The flowcharts were drawn in [SmartDraw](https://app.smartdraw.com/)
 
 ![Flow chart](docs/flowchart/flow-chart.png)
 
@@ -124,6 +123,9 @@ After this meeting, the following user flow chart and app layout was put togethe
    - Profile (page): Edit details and change password.
    - Invoices (page): All invoices specific to the customer.
    - Payments (page): Make a payment.
+
+## User workflow
+After this meeting, the following user flow chart and app layout was put together for the client to sign off. The flowcharts were drawn in [SmartDraw](https://app.smartdraw.com/)
 
 ## Models & Schema
 The following database models and schema were drawn in [DrawSQL](https://drawsql.app), and an embedded link to the full database schema with comments can be found [here](https://drawsql.app/teams/dan-54/diagrams/ablecase/embed).
@@ -172,8 +174,58 @@ Content is generated soley off data held in the database, and as such I do not n
 After discussing it through during the initial design phase, the client does not have any specific fonts in mind, so I have chosen to leverage Bootstraps default fonts as the provide the clean and modern feel requried.
 
 ### Wireframes
+Below are a set of initial drafts for the overall design and layout for the application. By sticking with the clean and simple design requested by the client and utilising Bootstrap 5, it was possible to keep alot of the key views following the same layout.
+
+### Login screen
+It has been decided that the same design will be used for both the User login and the Client Portal login.
+
+**Desktop**
+
+![Login wireframe](docs/wireframes/login-desktop.png)
+
+**Mobile**
+
+![Mobile login wireframe](docs/wireframes/login-mobile.png)
+
+### Dashboard screen
+The dashboard screen will be the first landing page the user reaches after logging in. The idea will be to have several large sectional areas with live tracking of the KPI's, such as Open case and cases that have passed their review date.
+
+Along with a larger display list of the current cases that are due to be reviewed.
+
+Also featured, will be a simple task list for the user.
+
+**Desktop**
+
+![Dashboard wireframe](docs/wireframes/dashboard-desktop.png)
+
+**Mobile**
+
+![Mobile dashboard wireframe](docs/wireframes/dashboard-mobile.png)
 
 
+### List views
+Each of the pages that utilise displaying a list will all follow the same layout to ease usability. 
+As simple breadcrumb for navigation, the main list for that page (Clients, Cases, Users, etc.)
+And a search and add new function.
+
+**Desktop**
+![List view wireframe](docs/wireframes/list-view-desktop.png)
+
+**Mobile**
+
+![Mobile list view wireframe](docs/wireframes/list-view-mobile.png)
+
+
+### Form views (add & edit views)
+All pages that utilise a form layout will follow the same layout and structure as well. The style will follow the rest of the site keeping with the simple, clean and modern asspect.
+
+**Desktop**
+
+![Form view wireframe](docs/wireframes/form-views-desktop.png)
+
+**Mobile**
+
+![Mobile form view wireframe](docs/wireframes/form-views-mobile.png)
 
 ## Implementation
 
