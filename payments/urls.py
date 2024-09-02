@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import create_checkout_session, SuccessView, CancelledView, stripe_webhook
+from .views import create_checkout_session, SuccessView, CancelledView, \
+   stripe_webhook
 
 app_name = "payments"
 

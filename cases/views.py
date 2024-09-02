@@ -54,7 +54,9 @@ class CaseListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
 
 
 # Create a new case
-class CaseCreateView(LoginRequiredMixin, RoleRequiredMixin, generic.CreateView):
+class CaseCreateView(LoginRequiredMixin,
+                     RoleRequiredMixin,
+                     generic.CreateView):
     template_name = "cases/cases_create.html"
     form_class = CaseForm
     required_role = "Staff"
@@ -76,13 +78,15 @@ def CaseDetail(request, pk):
             "communications": communications,
             "form": form,
         }
-    # Add addtional communication records to the current case    
+
+    # Add addtional communication records to the current case
     if request.method == "POST":
         form = CommunicationForm(request.POST)
         if form.is_valid():
             communication = form.save(commit=False)
             communication.case = case  # Associate entry with the case
             communication.save()
+
             # Redirect and set marker to to trigger javascript function
             # and take user back to the communications tab
             return redirect(request.path + "?comms=true")

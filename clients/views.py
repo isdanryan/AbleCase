@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, reverse
+from django.shortcuts import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Clients
 from .forms import ClientForm
@@ -31,9 +31,10 @@ class ClientListView(LoginRequiredMixin, RoleRequiredMixin,
             queryset = queryset.filter(status='Inactive')
 
         if search_query:
-            queryset = queryset.filter(Q(display_name__icontains=search_query) |
-                                       Q(email__icontains=search_query) |
-                                       Q(phone__icontains=search_query))
+            queryset = queryset.filter(
+                Q(display_name__icontains=search_query) |
+                Q(email__icontains=search_query) |
+                Q(phone__icontains=search_query))
 
         return queryset
 

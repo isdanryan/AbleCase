@@ -1,11 +1,10 @@
 import stripe
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import TemplateView
-from clients.models import Clients
 from invoices.models import Invoices
 from .models import Payment
 from decouple import config
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
 from ablecase.mixins import RoleRequiredMixin

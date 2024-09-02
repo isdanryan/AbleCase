@@ -37,7 +37,9 @@ class PortalSignupForm(UserCreationForm):
     def clean_reference_number(self):
         client_reference = self.cleaned_data['client_reference']
         # Check if the reference number exists in the Client model
-        if not Clients.objects.filter(client_reference=client_reference).exists():
+        if not Clients.objects.filter(
+            client_reference=client_reference
+                ).exists():
             raise forms.ValidationError("Invalid reference number.")
         else:
             print("Found client profile")

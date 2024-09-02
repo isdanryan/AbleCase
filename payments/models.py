@@ -1,6 +1,4 @@
 from django.db import models
-from users.models import Users
-from invoices.models import Invoices
 
 
 class Payment(models.Model):
@@ -11,4 +9,5 @@ class Payment(models.Model):
     payment_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Payment {self.stripe_charge_id} for {self.invoice.invoice_number}'
+        return f'Payment {self.stripe_charge_id} \
+            for {self.invoice.invoice_number}'

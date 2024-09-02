@@ -28,11 +28,13 @@ class DashboardView(LoginRequiredMixin, RoleRequiredMixin, generic.CreateView):
     def get_context_data(self, **kwargs: Any):
         # Get stats to show on the dashboard
         context = super().get_context_data(**kwargs)
-        context['review_cases'] = Cases.objects.filter(review_date__lt=date.today())
+        context['review_cases'] = Cases.objects.filter(
+            review_date__lt=date.today())
         context['total_review'] = context['review_cases'].count()
-        context['total_open_cases'] = Cases.objects.filter(status='Open').count()
+        context['total_open_cases'] = Cases.objects.filter(
+            status='Open').count()
         context['total_cases'] = Cases.objects.count()
-        
+
         # Get users task's
         current_user = self.request.user
         context['tasks'] = Tasks.objects.filter(user=current_user)

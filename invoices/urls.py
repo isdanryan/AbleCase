@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import InvoiceListView, InvoiceCaseView, CreateInvoice, pdf_view, InvoiceUpdateView
+from .views import InvoiceListView, InvoiceCaseView, CreateInvoice, \
+   pdf_view, InvoiceUpdateView
 
 app_name = "invoices"
 

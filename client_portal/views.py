@@ -1,13 +1,12 @@
-from django.shortcuts import redirect, reverse, render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from clients.models import Clients
 from users.models import Users
 from invoices.models import Invoices
 from payments.models import Payment
-from .forms import (ClientForm, ClientLoginForm,
+from .forms import (ClientLoginForm,
                     PortalSignupForm, PasswordResetForm)
 from django.views import generic
 from ablecase.mixins import RoleRequiredMixin
@@ -42,7 +41,8 @@ class ClientAccountView(LoginRequiredMixin, RoleRequiredMixin,
             user.save()
             messages.success(
                 request,
-                "Your password has been updated. Please log back in using the new password."
+                "Your password has been updated. \
+                Please log back in using the new password."
                 )
             # Redirect to signout to force user to login with new password
             return redirect('/portal/signout')

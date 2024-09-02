@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserLoginForm
-from ablecase.decorators import role_required
 
 
 # User login fucntion
@@ -28,14 +26,14 @@ def UserLogin(request):
                 else:
                     messages.error(request, "Incorrect username or password")
 
-        return render(request, 'authentication/user_login.html', {'form': form})
+        return render(request, 'authentication/user_login.html',
+                      {'form': form})
     else:
         # Redirect user to dashboard if already logged in
         return redirect("/")
 
 
 # Signout function
-@role_required("Staff")
 def UserSignOut(request):
     logout(request)
     return redirect('/login')

@@ -1,5 +1,4 @@
 from typing import Any
-#from django.db.models.query import QuerySet
 from django.shortcuts import reverse, render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,7 +11,6 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-#from django.contrib.staticfiles import finders
 from django.shortcuts import get_object_or_404
 from ablecase.mixins import RoleRequiredMixin
 from ablecase.decorators import role_required
@@ -50,13 +48,14 @@ def CreateInvoice(request, pk):
             'case': case,
         }
         # Pass the data to the form for rendering
-        form = InvoiceForm(initial=set_data)  
+        form = InvoiceForm(initial=set_data)
     return render(request, 'invoices/invoice_create.html',
                   {'form': form, 'case': case})
 
 
 # View to update the selected invoice details
-class InvoiceUpdateView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateView):
+class InvoiceUpdateView(LoginRequiredMixin, RoleRequiredMixin,
+                        generic.UpdateView):
     template_name = "invoices/invoice_update.html"
     form_class = InvoiceForm
     queryset = Invoices.objects.all()
@@ -93,9 +92,10 @@ class InvoiceListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
             queryset = queryset.filter(status='Paid')
 
         if search_query:
-            queryset = queryset.filter(Q(invoice_number__icontains=search_query) |
-                                       Q(total_due__icontains=search_query) |
-                                       Q(client__display_name__icontains=search_query))
+            queryset = queryset.filter(
+                Q(invoice_number__icontains=search_query) |
+                Q(total_due__icontains=search_query) |
+                Q(client__display_name__icontains=search_query))
 
         return queryset
 
@@ -160,8 +160,8 @@ def link_callback(uri, rel):
         return uri
 
     # Set path for static
-    sUrl = settings.STATIC_URL        
-    sRoot = settings.STATICFILES_DIRS[0] 
+    sUrl = settings.STATIC_URL
+    sRoot = settings.STATICFILES_DIRS[0]
 
     if uri.startswith(sUrl):
         path = os.path.join(sRoot, uri.replace(sUrl, ""))
@@ -183,7 +183,8 @@ def pdf_view(request, pk):
 
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="invoice_{invoice.invoice_number}.pdf"'
+    response['Content-Disposition'] = f'attachment; \
+        filename="invoice_{invoice.invoice_number}.pdf"'
 
     # Find the template and render it.
     template = get_template(template_path)
