@@ -4,7 +4,7 @@
 The Able Investigation and Enforcements Ltd web application aims to streamline case management, invoicing, and payment processes for the company. This document provides an overview of the project, its key features, and implementation details.
 
 ## Scope
-In as this will be submitted for an assignmet there will be trade offs against the design and development process. Any additonal features classified as low importance can be revisitted at a later date. Using the AGILE method for development, I will carry out weekly reviews both personally and with the client to add or modify features as applicable to the project at the end of each sprint phase.
+As this will be submitted for an assignmet there will be trade-offs against the design and development process. Any additonal features classified as low importance can be revisitted at a later date. Using the AGILE method for development, I will carry out weekly reviews both personally and with the client to add or modify features as applicable to the project at the end of each sprint phase.
 
 ## Key Features
 After the initial disscussion with the client, I have listed out each key feature for the project and assigned each an importance and feasibility score to help avoid scope creep and secure a MVP by the deadline.
@@ -275,3 +275,7 @@ All pages that utilise a form layout will follow the same layout and structure a
    - Deploy the application to a reliable hosting environment.
    - Configure monitoring and logging to track application performance.
    - Establish procedures for ongoing maintenance and support.
+
+## Testing
+
+
