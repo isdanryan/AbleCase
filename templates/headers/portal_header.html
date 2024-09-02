@@ -16,7 +16,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end text-small dropdown-menu-width-overide">
                                 <li><a class="dropdown-item text-end" href="{% url 'client_portal:client-account' user.id %}">My Account</a></li>
-                                <li><a class="dropdown-item text-end" href="#">My Payments</a></li>
+                                <li><a class="dropdown-item text-end" href="{% url 'client_portal:client-payments' %}">My Payments</a></li>
                                 <li><a class="dropdown-item text-end" href="{% url 'client_portal:client-invoices' %}">My Invoices & Charges</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item text-end" href="{% url 'client_portal:signout' %}">Sign out</a></li>

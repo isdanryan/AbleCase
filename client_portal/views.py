@@ -6,6 +6,7 @@ from django.contrib import messages
 from clients.models import Clients
 from users.models import Users
 from invoices.models import Invoices
+from payments.models import Payment
 from .forms import (ClientForm, ClientLoginForm,
                     PortalSignupForm, PasswordResetForm)
 from django.views import generic
@@ -190,6 +191,36 @@ class ClientInvoiceList(LoginRequiredMixin, RoleRequiredMixin,
         search_query = self.request.GET.get('search', '')
         if search_query:
             queryset = queryset.filter(invoice_number__icontains=search_query)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('search', '')
+
+        # Paginate the queryset
+        obj = self.get_queryset()
+        paginator = Paginator(obj, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+
+        return context
+    
+
+# Build list of client invoices
+class ClientPaymentsList(LoginRequiredMixin, RoleRequiredMixin,
+                         generic.ListView):
+    template_name = "client_portal/client_payments.html"
+    context_object_name = "payments"
+    paginate_by = 20
+    required_role = "Client"
+
+    # Create search function to search name or email address
+    def get_queryset(self):
+        queryset = Payment.objects.filter(user=self.request.user)
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            queryset = queryset.filter(invoice__number__icontains=search_query)
         return queryset
 
     def get_context_data(self, **kwargs):
