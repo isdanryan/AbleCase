@@ -7,12 +7,16 @@
 {% block content %}
     <div class="row mb-4">
         <div class="col-md-2"></div>
-        <div class="col-md-8">>
-            </nav>
+        <div class="col-md-8">
+            <img class="m-5 client-logo mx-auto d-block" src="{% static 'img/logo-no-background.png' %}" alt="Company Logo" >
+            <h1 class="fs-2 pt-1 text-center mb-4">Client Portal Registration</h1>
             <!--Main content-->
             <div class="container-fluid bg-white px-3 py-3 mt-2 rounded shadow-sm">
                 <div class="d-flex mb-3">
-                    <div class="col col-10"><h2 class="fs-4 pt-1">New User</h2></div>
+                    <div class="col col-10">
+                        <p> Please be advised, you will need your client reference number that has been sent to you in order to create your account. </p>
+                        <p> If you do not have, or have misplaced your client reference number, please let us know and we will re-issue you one. </p>
+                    </div>
                 </div>
                 {% if messages %}
                     <div class="alert alert-info">

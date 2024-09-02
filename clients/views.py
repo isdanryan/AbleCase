@@ -20,7 +20,7 @@ class ClientListView(LoginRequiredMixin, RoleRequiredMixin,
 
     # Create search function to search clients display name
     def get_queryset(self):
-        queryset = Clients.objects.all()
+        queryset = Clients.objects.all().order_by('display_name')
         search_query = self.request.GET.get('search', '')
         filter = self.request.GET.get('filter')
 

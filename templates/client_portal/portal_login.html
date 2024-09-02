@@ -6,31 +6,32 @@
 
 {% block content %}
     <div class="row pt-5 mt-5">
-    <div class="col-md-4"></div>
-    <main class="form-signin col-md-4 mt-5">
-    <form method="POST" action=".">
-        {% csrf_token %}
-        <img class="mb-5 client-logo mx-auto d-block" src="{% static 'img/logo-no-background.png' %}" alt="Company Logo" >
-        <h1 class="h3 mb-3 fw-normal">Client Portal Login:</h1>
+        <div class="col-md-4"></div>
+            <main class="form-signin col-md-4 mt-5">
+                <form method="POST" action=".">
+                    {% csrf_token %}
+                    <img class="mb-5 client-logo mx-auto d-block" src="{% static 'img/logo-no-background.png' %}" alt="Company Logo" >
+                    <h1 class="h3 mb-3 fw-normal">Client Portal Login:</h1>
 
-        <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="username">
-        <label for="floatingInput">Email address</label>
-        </div>
-        <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-        <label for="floatingPassword">Password</label>
-        </div>
-        {% if messages %}
-        <div class="alert alert-info mt-2">
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        </div>
-        {% endif %}
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    </form>
-    </main>
-    <div class="col-md-4"></div>
+                    <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="username">
+                    <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+                    <label for="floatingPassword">Password</label>
+                    </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div {% if message.tags == "error" %} class="alert alert-danger" {% else %} class="alert alert-info" {% endif %} mt-2">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                </form>
+                <p class="text-center pt-2"><a href="/portal/register">Trying to register?</a></p>
+            </main>
+        <div class="col-md-4"></div>
     </div>
 {% endblock %}

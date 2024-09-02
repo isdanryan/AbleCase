@@ -19,7 +19,7 @@ class CaseListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        queryset = Cases.objects.all()
+        queryset = Cases.objects.all().order_by('case_number')
         search_query = self.request.GET.get('search', '')
         filter = self.request.GET.get('filter')
 
