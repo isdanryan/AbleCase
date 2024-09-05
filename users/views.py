@@ -132,7 +132,8 @@ class UserListView(LoginRequiredMixin, RoleRequiredMixin, generic.ListView):
 
 
 # View to update the selected user's details
-class UserUpdateView(LoginRequiredMixin, RoleRequiredMixin, generic.UpdateView):
+class UserUpdateView(LoginRequiredMixin, RoleRequiredMixin,
+                     generic.UpdateView):
     template_name = "users/user_update.html"
     form_class = UserUpdateForm
     model = Users

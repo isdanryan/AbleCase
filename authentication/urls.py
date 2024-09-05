@@ -5,5 +5,5 @@ app_name = 'authentication'
 
 urlpatterns = [
    path('', UserLogin, name="login"),
-   path('signout', UserSignOut, name='signout'),
+   path('signout/', UserSignOut, name='signout'),
 ]
