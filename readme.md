@@ -733,6 +733,31 @@ I originally want to use a uuid to generate a customer reference, but limit it t
 
 ## Final screenshots
 
+**Dashboard**
+
+![Dashboard](docs/screenshots/dashboard.png)
+
+**Client List**
+
+![Client List](docs/screenshots/clients-list.png)
+
+**New Case**
+
+![New Case](docs/screenshots/new-case.png)
+
+**Invoice List**
+
+![Invoice List](docs/screenshots/invoice-list.png)
+
+**Create Invoice**
+
+![Create Invoice](docs/screenshots/create-invoice.png)
+
+**Edit User**
+
+![Edit User](docs/screenshots/edit-user.png)
+
+
 ## Future Enhancements
 
 Speaking with the client, they are very happy with the final delivery. We have had disscussions about adding in additional features.
