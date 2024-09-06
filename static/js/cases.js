@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', function() {
         } else {
             window.location.href = "/cases";
         }
-    };
+    }
 });
 
 
@@ -48,8 +48,8 @@ function deleteCase(caseId, caseNo) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location.href = "/cases/" + caseId + "/delete";
-                };
+                }
             });
-        };
+        }
       });
 }

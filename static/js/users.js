@@ -11,5 +11,5 @@ window.addEventListener('DOMContentLoaded', function() {
         } else {
             window.location.href = "/users";
         }
-    };
+    }
 });

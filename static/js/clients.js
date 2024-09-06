@@ -19,6 +19,22 @@ window.addEventListener('DOMContentLoaded', function () {
 
     var clientFilter = document.getElementById('client-filter-select');
 
+    // Function to update combinedField
+    function updateCombinedField() {
+        displayName.value = firstName.value + ' ' + lastName.value;
+        clientReference.value = displayName.value.charAt(0).toUpperCase() + dateTimeInteger;
+    }
+
+    function updateClientFilter() {
+        if (clientFilter.value == 'active') {
+            window.location.href = "/clients?filter=active";
+        } else if (clientFilter.value == 'inactive') {
+            window.location.href = "/clients?filter=inactive";
+        } else {
+            window.location.href = "/clients";
+        }
+    }
+
     // User firstName to check if we are on the client_details.html page
     if (firstName) {
         // Event listener for input changes in 'First Name' field
@@ -27,12 +43,7 @@ window.addEventListener('DOMContentLoaded', function () {
         // Event listener for input changes in 'Last Name' field
         lastName.addEventListener('input', updateCombinedField);
 
-        // Function to update combinedField
-        function updateCombinedField() {
-            displayName.value = firstName.value + ' ' + lastName.value;
-            clientReference.value = displayName.value.charAt(0).toUpperCase() + dateTimeInteger;
-        };
-    };
+    }
 
     // USer clientFilter to check if we are on the client_list.html page
     if (clientFilter) {
@@ -40,16 +51,6 @@ window.addEventListener('DOMContentLoaded', function () {
         // Event listener for client filter
         clientFilter.addEventListener('change', updateClientFilter);
 
-
-        function updateClientFilter() {
-            if (clientFilter.value == 'active') {
-                window.location.href = "/clients?filter=active";
-            } else if (clientFilter.value == 'inactive') {
-                window.location.href = "/clients?filter=inactive";
-            } else {
-                window.location.href = "/clients";
-            }
-        };
-    };
+    }
 
 });
