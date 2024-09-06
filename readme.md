@@ -755,7 +755,7 @@ I originally want to use a uuid to generate a customer reference, but limit it t
 
 **Edit User**
 
-![Edit User](docs/screenshots/edit-user.png)
+<img src="/docs/screenshots/edit-user.png">
 
 
 ## Future Enhancements
