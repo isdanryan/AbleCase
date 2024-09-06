@@ -198,7 +198,9 @@ class ClientInvoiceList(LoginRequiredMixin, RoleRequiredMixin,
     # Create search function to search name or email address
     def get_queryset(self):
         current_user = self.request.user
-        queryset = Invoices.objects.filter(client=current_user.client)
+        queryset = Invoices.objects.filter(
+            client=current_user.client
+            ).exclude(status='Not Sent')
         search_query = self.request.GET.get('search', '')
         if search_query:
             queryset = queryset.filter(invoice_number__icontains=search_query)
