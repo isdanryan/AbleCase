@@ -267,6 +267,17 @@ All pages that utilise a form layout will follow the same layout and structure a
 
 ![Mobile form view wireframe](docs/wireframes/form-views-mobile.png)
 
+### Invoice Creation
+Alot of the invoice fields will be pre-populated from the held case data, this includes things like the client and the case name and address.
+
+Also within the structure, several of the fields will be coded using JS to auto calculate off selected data.
+
+**Date due:** This will auto fill based of the date and whatever term is selected. e.g If 14 days is selected the due date will auto-update with a value of 14 days after the date.
+
+**Total amount:** This will auto fill based of the amount and whatever VAT rate is selected. e.g If 20% is selected, the total amount will auto-update with a value of the amount plus 20%.
+
+![Invoice wireframe](docs/wireframes/invoice.png)
+
 ## Implementation
 
 ### Technologies Used
@@ -274,6 +285,8 @@ All pages that utilise a form layout will follow the same layout and structure a
 - HTML/CSS/JavaScript for frontend development
 - PostgreSQL database for data storage
 - Stripe API for payment processing
+
+In order to convert the html invoices to a downloadable PDF, I have opted to use an open-source package called **xhtml2pdf**. A full explination and further details of **xhtml2pdf** can be found [here](https://pypi.org/project/xhtml2pdf/).
 
 A full list of packages used can be found in the [requirements.txt](/requirements.txt) file.
 
