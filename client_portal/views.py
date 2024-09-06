@@ -120,7 +120,7 @@ def ClientLoginView(request):
 
 # View to allow client to register on the portal
 def PortalSignup(request):
-    # Check if the client is already logged in 
+    # Check if the client is already logged in
     if not request.user.is_authenticated:
         if request.method == 'POST':
             form = PortalSignupForm(request.POST)
@@ -130,33 +130,44 @@ def PortalSignup(request):
                 email = form.cleaned_data['email']
                 client_reference = form.cleaned_data['client_reference']
                 password = form.cleaned_data['password1']
-                # Create user from the entered info, set role to client
-                # and overide default active state
-                user = Users.objects.create_user(
-                    email=email, password=password,
-                    first_name='', last_name='',
-                    role='Client', is_active=True
-                    )
 
-                # Get the client profile that matches the client reference
-                client = Clients.objects.get(client_reference=client_reference)
+                try:
+                    # Get the client profile that matches the client reference
+                    client = Clients.objects.get(
+                        client_reference=client_reference
+                        )
 
-                # If the client profile dosen't have an email address
-                # use the one entered at signup
-                if not client.email:
-                    client.email = email
+                    # Create user from the entered info, set role to client
+                    # and overide default active state
+                    user = Users.objects.create_user(
+                        email=email, password=password,
+                        first_name='', last_name='',
+                        role='Client', is_active=True
+                        )
 
-                # Attach the user account to the client profile
-                client.portal_account = user
+                    # If the client profile dosen't have an email address
+                    # use the one entered at signup
+                    if not client.email:
+                        client.email = email
 
-                # Set so they can use the portal
-                client.has_portal_access = True
+                    # Attach the user account to the client profile
+                    client.portal_account = user
 
-                client.save()
+                    # Set so they can use the portal
+                    client.has_portal_access = True
 
-                # Log the client in and send to their accounts page
-                login(request, user)
-                return redirect(f'/portal/{client.pk}/myaccount')
+                    client.save()
+
+                    # Log the client in and send to their accounts page
+                    login(request, user)
+                    return redirect(f'/portal/{client.pk}/myaccount')
+
+                except Clients.DoesNotExist:
+                    # Display a message indicating the client
+                    # reference number doesn't exist
+                    messages.error(
+                        request, "The client reference number doesn't exist."
+                        )
             else:
                 print(form.errors)
         else:
