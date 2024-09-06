@@ -735,27 +735,27 @@ I originally want to use a uuid to generate a customer reference, but limit it t
 
 **Dashboard**
 
-![Dashboard](docs/screenshots/dashboard.png)
+<img src="/docs/screenshots/dashboard.png" width="800">
 
 **Client List**
 
-![Client List](docs/screenshots/clients-list.png)
+<img src="/docs/screenshots/clients-list.png" width="800">
 
 **New Case**
 
-![New Case](docs/screenshots/new-case.png)
+<img src="/docs/screenshots/new-case.png" width="800">
 
 **Invoice List**
 
-![Invoice List](docs/screenshots/invoice-list.png)
+<img src="/docs/screenshots/invoice-list.png" width="800">
 
 **Create Invoice**
 
-![Create Invoice](docs/screenshots/create-invoice.png)
+<img src="/docs/screenshots/create-invoice.png" width="800">
 
 **Edit User**
 
-<img src="/docs/screenshots/edit-user.png">
+<img src="/docs/screenshots/edit-user.png" width="800">
 
 
 ## Future Enhancements
