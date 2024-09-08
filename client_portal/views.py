@@ -22,14 +22,14 @@ class ClientAccountView(LoginRequiredMixin, RoleRequiredMixin,
     # Require user has client role
     required_role = "Client"
 
-    # Overide get method to handle both displaying details
+    # Override get method to handle both displaying details
     # and getting new password
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
         return self.render_to_response(self.get_context_data(form=form))
 
-    # Overide post method to handle password update
+    # Override post method to handle password update
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
@@ -53,7 +53,7 @@ class ClientAccountView(LoginRequiredMixin, RoleRequiredMixin,
         # Retrieve the user instance to be updated
         return get_object_or_404(Users, pk=self.kwargs['pk'])
 
-    # Pass additional arguements to the form
+    # Pass additional arguments to the form
     def get_form_kwargs(self):
         # Get Django's default keywords for the FormMixin
         kwargs = super().get_form_kwargs()
@@ -138,14 +138,14 @@ def PortalSignup(request):
                         )
 
                     # Create user from the entered info, set role to client
-                    # and overide default active state
+                    # and override default active state
                     user = Users.objects.create_user(
                         email=email, password=password,
                         first_name='', last_name='',
                         role='Client', is_active=True
                         )
 
-                    # If the client profile dosen't have an email address
+                    # If the client profile doesn't have an email address
                     # use the one entered at signup
                     if not client.email:
                         client.email = email

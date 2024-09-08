@@ -22,12 +22,14 @@
    - [Tables](#tables)
 10. [Layout & Design](#layouts--design)
       - [Content and Colour Scheme](#content-and-colour-scheme)
-      - [Typogrpphy](#typogrophy)
+      - [Typography](#typography)
       - [Wireframes](#wireframes)
       - [Login Screen](#login-screen)
       - [Dashboard Screen](#dashboard-screen)
       - [List Views](#list-views)
       - [Form Views](#form-views-add--edit-views)
+      - [Invoice Creation](#invoice-creation)
+      - [Custom Error Pages](#custom-error-pages)
 11. [Implementation](#implementation)
       - [Technologies Used](#technologies-used)
       - [Development Process](#development-process)
@@ -47,10 +49,10 @@
 The Able Investigation and Enforcements Ltd web application aims to streamline case management, invoicing, and payment processes for the company. This document provides an overview of the project, its key features, and implementation details.
 
 ## Scope
-As this will be submitted for an assignmet there will be trade-offs against the design and development process. Any additonal features classified as low importance can be revisitted at a later date. Using the AGILE method for development, I will carry out weekly reviews both personally and with the client to add or modify features as applicable to the project at the end of each sprint phase.
+As this will be submitted for an assignment there will be trade-offs against the design and development process. Any additional features classified as low importance can be revisited at a later date. Using the AGILE method for development, I will carry out weekly reviews both personally and with the client to add or modify features as applicable to the project at the end of each sprint phase.
 
 ## Key Features
-After the initial disscussion with the client, I have listed out each key feature for the project and assigned each an importance and feasibility score to help avoid scope creep and secure a MVP by the deadline.
+After the initial discussion with the client, I have listed out each key feature for the project and assigned each an importance and feasibility score to help avoid scope creep and secure a MVP by the deadline.
 
 1. **Case File Management**
    - Create new case files for clients, capturing and storing case-specific information.
@@ -66,7 +68,7 @@ After the initial disscussion with the client, I have listed out each key featur
 3. **User Management**
    - Create new users.
    - Set user permissions with application specific permission levels.
-     (e.g. View/Edit case files, View/Edit client detials).
+     (e.g. View/Edit case files, View/Edit client details).
    - Edit user details.
    - Block and allow access to the platform.
    - Change own password.
@@ -112,7 +114,7 @@ After the initial disscussion with the client, I have listed out each key featur
 | Support multiple payment methods such as credit/debit cards and bank transfers. | 3 | 3 |
 | Ensure compliance with industry standards for payment processing. | 5 | 5 |
 | Create audit reports for tracking updates to clients. | 2 | 3 |
-| Create audit reports for tracking updates to casess. | 2 | 3 |
+| Create audit reports for tracking updates to cases. | 2 | 3 |
 | Create audit reports for tracking updates to invoices. | 2 | 3 |
 
 ## User Stories
@@ -208,13 +210,13 @@ The clients request was to keep everything sleek with a modern feel. They wanted
 In order to stick to the given brief, i've chosen to go with a slightly off black mixed with white for the backgrounds, and use a light grey/ off white to make the user input areas stand out more.
 For the various buttons, I intend to use the commonly used Red, Blue and Green for specific actions, such as Red for a delete action.
 
-Content is generated soley off data held in the database, and as such I do not need to worry about any content text, apart from names and labels.
+Content is generated solely off data held in the database, and as such I do not need to worry about any content text, apart from names and labels.
 
-### Typogrophy
-After discussing it through during the initial design phase, the client does not have any specific fonts in mind, so I have chosen to leverage Bootstraps default fonts as the provide the clean and modern feel requried.
+### Typography
+After discussing it through during the initial design phase, the client does not have any specific fonts in mind, so I have chosen to leverage Bootstraps default fonts as the provide the clean and modern feel required.
 
 ### Wireframes
-Below are a set of initial drafts for the overall design and layout for the application. By sticking with the clean and simple design requested by the client and utilising Bootstrap 5, it was possible to keep alot of the key views following the same layout.
+Below are a set of initial drafts for the overall design and layout for the application. By sticking with the clean and simple design requested by the client and utilizing Bootstrap 5, it was possible to keep a lot of the key views following the same layout.
 
 ### Login screen
 It has been decided that the same design will be used for both the User login and the Client Portal login.
@@ -244,7 +246,7 @@ Also featured, will be a simple task list for the user.
 
 
 ### List views
-Each of the pages that utilise displaying a list will all follow the same layout to ease usability. 
+Each of the pages that utilize displaying a list will all follow the same layout to ease usability. 
 As simple breadcrumb for navigation, the main list for that page (Clients, Cases, Users, etc.)
 And a search and add new function.
 
@@ -257,7 +259,7 @@ And a search and add new function.
 
 
 ### Form views (add & edit views)
-All pages that utilise a form layout will follow the same layout and structure as well. The style will follow the rest of the site keeping with the simple, clean and modern asspect.
+All pages that utilize a form layout will follow the same layout and structure as well. The style will follow the rest of the site keeping with the simple, clean and modern aspect.
 
 **Desktop**
 
@@ -268,7 +270,7 @@ All pages that utilise a form layout will follow the same layout and structure a
 ![Mobile form view wireframe](docs/wireframes/form-views-mobile.png)
 
 ### Invoice Creation
-Alot of the invoice fields will be pre-populated from the held case data, this includes things like the client and the case name and address.
+A lot of the invoice fields will be pre-populated from the held case data, this includes things like the client and the case name and address.
 
 Also within the structure, several of the fields will be coded using JS to auto calculate off selected data.
 
@@ -278,6 +280,12 @@ Also within the structure, several of the fields will be coded using JS to auto 
 
 ![Invoice wireframe](docs/wireframes/invoice.png)
 
+### Custom error pages
+I have added custom error pages to handle the following events;
+   - 403 - Forbidden / No Access
+   - 404 - Not found
+   - 500 - Server Error
+
 ## Implementation
 
 ### Technologies Used
@@ -286,7 +294,7 @@ Also within the structure, several of the fields will be coded using JS to auto 
 - PostgreSQL database for data storage
 - Stripe API for payment processing
 
-In order to convert the html invoices to a downloadable PDF, I have opted to use an open-source package called **xhtml2pdf**. A full explination and further details of **xhtml2pdf** can be found [here](https://pypi.org/project/xhtml2pdf/).
+In order to convert the html invoices to a downloadable PDF, I have opted to use an open-source package called **xhtml2pdf**. A full explanation and further details of **xhtml2pdf** can be found [here](https://pypi.org/project/xhtml2pdf/).
 
 A full list of packages used can be found in the [requirements.txt](/requirements.txt) file.
 
@@ -447,11 +455,11 @@ A full list of packages used can be found in the [requirements.txt](/requirement
 
    - Check the main pages of your application to ensure everything is working as expected.
 
-### Remote/Final production deployment
+### Remote deployment
 
-The following steps assume that there is a server already set up with a Linux operating system, and a web server (like Nginx or Apache) is installed and running. I have optted to use Gunicorn as the WSGI server to serve the Django application, and use UFW as the firewall.
+The following steps assume that there is a server already set up with a Linux operating system, and a web server (like Nginx or Apache) is installed and running. I have opted to use Gunicorn as the WSGI server to serve the Django application, and use UFW as the firewall.
 
-For the final deployment in order to keep things as secure as possible, I offloaded the database to anoter hosting platform. However the steps below also include installing a PostgreSQL database on the same server.
+For the final deployment in order to keep things as secure as possible, I offloaded the database to another hosting platform. However the steps below also include installing a PostgreSQL database on the same server.
 
 **1. Connect to the Server:**
 
@@ -652,14 +660,14 @@ For the final deployment in order to keep things as secure as possible, I offloa
 
 ## Testing
 
-Both manual and automated testing was used in order to fully test the functionality and useability of the new web application. Combinging both allowed me do achieve a well rounded test on both UXI and funcationality.
+Both manual and automated testing was used in order to fully test the functionality and useability of the new web application. Combining both allowed me do achieve a well rounded test on both UXI and functionality.
 
 Testing was done under local deployment and remote deployment to a hosted server to mimic final production deployment.
 
 ### Manual Testing
 
 Throughout the course of the build phase, I periodically checked the features in order to ensure they operated as the client required.
-As well as this, once each module was able to operate to a satifactory standard, I had several members of the staff who would be end users test out the module. This gave me quick feedback from the client, in terms of not only function, but also user experience. Allowing me to make any design changes as the build progressed.
+As well as this, once each module was able to operate to a satisfactory standard, I had several members of the staff who would be end users test out the module. This gave me quick feedback from the client, in terms of not only function, but also user experience. Allowing me to make any design changes as the build progressed.
 
 The following is how the initial user stories compare against the final testing.
 
@@ -720,9 +728,9 @@ Each modules tests are located in their respective tests.py file.
 ### Browser Testing
 
 Due to the specific user and use case of this project, I know that all users will be using the web application on Windows desktop, using either Chrome or Edge browsers.
-Still in order to keep the site as usable as possible, I have made sure that any frameworks used are all compatable with the current versions of all major browsers; i.e. Chrome, Edge, Firefox, Safari etc.
-I also made it a key point to ensure that the layout was responsive as per the inital design ideas. This allows a user to quickly log in and view/edit data if they are away from the desk or out of the office.
-In order to meet theses standard, I continualy tested browser support and responsiveness as the website was being built.
+Still in order to keep the site as usable as possible, I have made sure that any frameworks used are all compatible with the current versions of all major browsers; i.e. Chrome, Edge, Firefox, Safari etc.
+I also made it a key point to ensure that the layout was responsive as per the initial design ideas. This allows a user to quickly log in and view/edit data if they are away from the desk or out of the office.
+In order to meet theses standard, I continually tested browser support and responsiveness as the website was being built.
 
 ### Code validation
 
@@ -733,16 +741,16 @@ The following validators were used during final testing to ensure all code was u
 - CSS - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
 - HTML - [W3C HTML Validator](https://validator.w3.org/)
 
-**Note:** W3C's HTML Validator dosen't play well with Django's HTML template langauge, so after pasting in the code, I purposfully ignored some of the errors and only paid attention to the ones directly relating to the HTML launage and formatting.
+**Note:** W3C's HTML Validator doesn't play well with Django's HTML template language, so after pasting in the code, I purposefully ignored some of the errors and only paid attention to the ones directly relating to the HTML language and formatting.
 
-As this was built specificaly for an end client and their end user requirements, I didn't feel the need to pass this through Googles Lighthouse.
+As this was built specifically for an end client and their end user requirements, I didn't feel the need to pass this through Googles Lighthouse.
 
 ## Known issues & Bugs
 
 While there are currently no known issues, several bugs were found during the build. These were picked up by myself during coding the site and some were picked up by the users during testing.
-These mostly stemned from incorrect code syntax and the calls to functions before data was readily available. 
-These were fixed as they were found in order to avoid any larger issues devloping.
-I originally want to use a uuid to generate a customer reference, but limit it to specific number of characters, however I could not get shortUUID to work and opted to use the customers intitals along with a datetime stamp.
+These mostly stemmed from incorrect code syntax and the calls to functions before data was readily available. 
+These were fixed as they were found in order to avoid any larger issues developing.
+I originally want to use a uuid to generate a customer reference, but limit it to specific number of characters, however I could not get shortUUID to work and opted to use the customers initials along with a datetime stamp.
 
 ## Final screenshots
 
@@ -773,6 +781,6 @@ I originally want to use a uuid to generate a customer reference, but limit it t
 
 ## Future Enhancements
 
-Speaking with the client, they are very happy with the final delivery. We have had disscussions about adding in additional features.
+Speaking with the client, they are very happy with the final delivery. We have had discussions about adding in additional features.
 
 One of the key areas they would like to expand on, is having a reports module that would allow them to generate various reports based of the KPI's and data held within the system.

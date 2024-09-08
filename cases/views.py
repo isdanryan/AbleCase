@@ -79,7 +79,7 @@ def CaseDetail(request, pk):
             "form": form,
         }
 
-    # Add addtional communication records to the current case
+    # Add additional communication records to the current case
     if request.method == "POST":
         form = CommunicationForm(request.POST)
         if form.is_valid():

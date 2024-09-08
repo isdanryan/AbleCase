@@ -265,7 +265,7 @@ class UserProfileView(LoginRequiredMixin, RoleRequiredMixin,
         user.save()
 
         # Logs user out if the logout flag has been set
-        # only when passwword or email is changed
+        # only when password or email is changed
         if logout_required:
             logout(self.request)
             messages.success(

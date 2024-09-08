@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import UserLoginForm
 
 
-# User login fucntion
+# User login function
 def UserLogin(request):
     # If there is no active session load login page
     # Otherwise redirect user to the dashboard
