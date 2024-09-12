@@ -13,12 +13,12 @@ from django.contrib.auth.decorators import login_required
 stripe.api_key = config('STRIPE_API_KEY')
 
 
-# Create strip checktou session
+# Create strip checkout session
 @login_required
 def create_checkout_session(request, pk):
     invoice = get_object_or_404(Invoices, id=pk)
     checkout_session = stripe.checkout.Session.create(
-        # Buid invoice to send to stripe fro checkout
+        # Build invoice to send to stripe fro checkout
         line_items=[
             {
                 "price_data": {
@@ -55,11 +55,11 @@ def stripe_webhook(request):
 
     # Payload is invalid
     except ValueError as e:
-        return HttpResponse(status=400)
+        return HttpResponse(status=400, content=e)
 
     # Signature is invalid
     except stripe.error.SignatureVerificationError as e:
-        return HttpResponse(status=400)
+        return HttpResponse(status=400, content=e)
 
     # Handle the checkout completed event
     if event['type'] == 'checkout.session.completed':
