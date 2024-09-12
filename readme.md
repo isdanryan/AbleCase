@@ -154,6 +154,7 @@ During the second design meeting with the client, the general user interaction w
    - Client details (page): Create or edit the main details of each client along with login details for customer portal.
 
 ### User Management (app)
+   This application will use a custom admin panel to manage users and permissions.
    - Users (page): List of users
    - User details (page): Create or edit users and permissions.
 
@@ -323,6 +324,10 @@ A full list of packages used can be found in the [requirements.txt](/requirement
    - Implement user authentication and authorization mechanisms.
    - Define user roles and permissions for accessing different features.
    - Secure sensitive data and endpoints to prevent unauthorized access.
+
+   As stated before, this project will use a custom admin panel to manage users and their permissions. This will provide specified user(s) a cleaner and simpler interface, to allow them to easily add and remove users as staff join and leave.
+
+   In order to achieve this, I have used a Custom User Manager class to extend Django's in built Base User Manager.
 
 6. **Report Management**
    - Create view to pull update and created records for client, cases and invoices.
